@@ -14,6 +14,7 @@ import StepScreen from '../screens/Information/screens/Topic/stepScreen';
 import PostScreen from '../screens/Information/screens/Topic/postScreen';
 import ProfileScreen from '../screens/profileScreen';
 import SearchScreen from '../screens/searchScreen';
+import SuggestionScreen from '../screens/suggestionScreen';
 import ContactScreen from '../screens/contactScreen';
 import CourseTopMenu from './courseTopMenu';
 import Login from '../screens/Auth/login';
@@ -46,9 +47,10 @@ const AppNavigator = () => {
         }}
       >
         <BottomTab.Screen name="Inicio" component={homeScreen}/>
-        <BottomTab.Screen name="Perfil" component={Index}/>
-        <BottomTab.Screen name="Buscar" component={Intro}/>
-        <BottomTab.Screen name="Hablemos" component={Topic}/>
+        <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
+        <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
+        <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
+        <BottomTab.Screen name="Buscar" component={SearchScreen}/>
       </BottomTab.Navigator>
     </NavigationContainer>
   );

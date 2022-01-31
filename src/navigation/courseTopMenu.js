@@ -13,14 +13,14 @@ const courseTopMenu = ({route}) => {
     return(
       <CourseTopTab.Navigator
         screenOptions={{
-            tabBarLabelStyle: { fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#ff9b04', fontSize: 14, textAlign: 'left'},
-            tabBarStyle: { backgroundColor: 'transparent', marginHorizontal: 20, marginBottom: 15, },
+            tabBarLabelStyle: { fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#ff9b04', fontSize: 13},
+            tabBarStyle: { backgroundColor: 'transparent', marginBottom: 15, marginHorizontal: 20},
             tabBarIndicatorStyle: {backgroundColor: '#ff9b04', height: 7, borderRadius: 50},
-            tabBarIndicatorContainerStyle: {backgroundColor: '#ECF1FE', borderRadius: 50, height: 7, marginTop: 40,},
+            tabBarIndicatorContainerStyle: {backgroundColor: '#ECF1FE', borderRadius: 50, height: 7, marginTop: 40},
         }}
       >
-        <CourseTopTab.Screen name="Info" component={detailScreen} />
         <CourseTopTab.Screen name="Resumen" component={overviewScreen} />
+        <CourseTopTab.Screen name="Presentación" component={detailScreen} />
         <CourseTopTab.Screen name="Lecciones" component={LessonStackScreen} />
       </CourseTopTab.Navigator>
     )
