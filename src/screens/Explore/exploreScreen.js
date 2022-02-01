@@ -3,12 +3,14 @@ import { View, Text } from "react-native";
 import Swiper from "react-native-swiper";
 import { PrimaryText } from '@common';
 import CardExplorer from './components/cardExplorer';
+import CardCompanies from './components/cardCompany';
 import styles from './styles/explorerScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const ExploreScreen = () => {
     return (
-        <View style={styles.mainContainer}>
-          <View style={styles.subContainer}>
+        <ScrollView>
+          <View style={styles.swiperContainer}>
             <Swiper
               index={0}
               loop= {true}
@@ -20,22 +22,23 @@ const ExploreScreen = () => {
               dotStyle= {styles.dotStyle}
               activeDotStyle= {styles.activeDotStyle}
             >
-            <View style={styles.swiperContainer}>
-              <PrimaryText color={'#fff'} style={styles.titleSlide}>Avances Médicos</PrimaryText>
-            </View>
-            <View style={styles.swiperContainer}>
-                <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
-            </View>
-            <View style={styles.swiperContainer}>
-                <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
-            </View>
-            <View style={styles.swiperContainer}>
-                <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
-            </View>
+              <View style={styles.swiper}>
+                <PrimaryText color={'#fff'} style={styles.titleSlide}>Avances Médicos</PrimaryText>
+              </View>
+              <View style={styles.swiper}>
+                  <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
+              </View>
+              <View style={styles.swiper}>
+                  <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
+              </View>
+              <View style={styles.swiper}>
+                  <PrimaryText color={'#fff'} style={styles.titleSlide}>Lorem Ipsum</PrimaryText>
+              </View>
             </Swiper>
           </View>
-        <CardExplorer/>
-        </View>
+          <CardExplorer/>
+          <CardCompanies/>
+        </ScrollView>
     )
 }
 

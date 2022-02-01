@@ -6,12 +6,12 @@ export default StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flex: 1,
+    //flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
-    padding: 40,
+    padding: 30,
   },
   shadow: {
     borderBottomColor: '#fff',
@@ -30,18 +30,17 @@ export default StyleSheet.create({
     height: 35,
   },
   userData: {
-    flex: 1,
+    //flex: 1,
     paddingHorizontal: 30,
     paddingTop: 20,
     paddingBottom: 40,
   },
   row: {
-    flex: 1,
     flexDirection: 'row',
     marginVertical: 20,
   },
   userTags: {
-    flex: 1,
+    //flex: 1,
     paddingHorizontal: 30,
     paddingBottom: 20,
   },
@@ -58,7 +57,7 @@ export default StyleSheet.create({
     height: 15,
   },
   btnRow: {
-    flex: 1,
+    //flex: 1,
     flexDirection: 'row',
     marginVertical: 20,
     paddingHorizontal: 30,

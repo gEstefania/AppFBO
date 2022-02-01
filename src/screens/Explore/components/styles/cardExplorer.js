@@ -18,6 +18,11 @@ export default StyleSheet.create({
     borderRadius: 15,
     backgroundColor: Colors.PINK,
   },
+  titleContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 20,
+  },
   cardTitle:{
     fontSize: 12,
   },

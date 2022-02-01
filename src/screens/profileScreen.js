@@ -5,7 +5,7 @@ import styles from './styles/profileScreen';
 
 const ProfileScreen = () => {
     return (
-        <ScrollView style={styles.mainContainer}>
+        <View style={styles.mainContainer}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
                 <Image source={require('../assets/img/icons/home.jpg')} style={styles.headerIcon}/>
@@ -39,22 +39,21 @@ const ProfileScreen = () => {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.tagsContainer}>
-                    <FlatList
-                    />
+                    
                 </View>
             </View>
-                <View style={styles.bar}></View>
-                <View style={styles.btnRow}>
-                    <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
-                    <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
-                </View>
-                <View style={styles.bar}></View>
-                <View style={styles.btnRow}>
-                    <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
-                    <PrimaryText style={styles.title}>Cerrar sesión</PrimaryText>
-                </View>
-                <View style={styles.bar}></View>
-        </ScrollView>
+            <View style={styles.bar}></View>
+            <View style={styles.btnRow}>
+                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
+            </View>
+            <View style={styles.bar}></View>
+            <View style={styles.btnRow}>
+                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <PrimaryText style={styles.title}>Cerrar sesión</PrimaryText>
+            </View>
+            <View style={styles.bar}></View>
+        </View>
     )
 }
 

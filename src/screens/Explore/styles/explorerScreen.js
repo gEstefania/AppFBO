@@ -4,12 +4,12 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  subContainer: {
-    flex: 1,
+  swiperContainer: {
+    height: 320,
     margin: 20,
   },
-  swiperContainer: {
-    flex: 1,
+  swiper: {
+    height: '100%',
     alignItems:"flex-start",
     justifyContent:"flex-end",
     backgroundColor:"#ff9b04",

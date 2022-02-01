@@ -41,7 +41,14 @@ const CardExplorer = () => {
   };
   return(
     <View style={styles.mainContainer}>
-      <SecondaryText>Recomendado</SecondaryText>
+      <View style={styles.titleContainer}>
+        <SecondaryText color={'gray'}>Recomendado</SecondaryText>
+        <TouchableOpacity
+          //onPress={() => navigation.navigate("Topic")}
+        >
+          <PrimaryText color={'gray'} style={styles.cardText}>Ver todo</PrimaryText>
+        </TouchableOpacity>
+      </View>
       <FlatList
         horizontal
         data={dataList}
