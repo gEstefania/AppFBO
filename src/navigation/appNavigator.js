@@ -5,7 +5,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LinearGradient from 'react-native-linear-gradient';
-import ExploreScreen from '../screens/Explore/exploreScreen';
+import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
 import TrainingScreen from '../screens/Training/index';
 import TopicScreen from '../screens/Information/screens/Topic/topicScreen';
@@ -16,15 +16,17 @@ import ProfileScreen from '../screens/profileScreen';
 import SearchScreen from '../screens/searchScreen';
 import SuggestionScreen from '../screens/suggestionScreen';
 import ContactScreen from '../screens/contactScreen';
+import CompanyScreen from '../screens/Explore/companyScreen'
 import CourseTopMenu from './courseTopMenu';
 import Login from '../screens/Auth/login';
 import SignUp from '../screens/Auth/signUp';
-import Topic from '../screens/tags';
+import Tags from '../screens/tags';
 import Intro from '../screens/intro';
 import Index from '../screens/index';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
+const ExplorerStack = createStackNavigator();
 const InformationStack = createStackNavigator();
 const TrainingStack = createStackNavigator();
 
@@ -76,12 +78,29 @@ function homeScreen() {
           tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50},
         }}
       >
-        <TopTab.Screen name="Explorar" component={ExploreScreen} />
+        <TopTab.Screen name="Explorar" component={ExplorerStackScreen} />
         <TopTab.Screen name="Información" component={InformationStackScreen} />
         <TopTab.Screen name="Formación" component={TrainingStackScreen} />
     </TopTab.Navigator>
     </LinearGradient>
   )
+};
+
+//Information Stack navigator
+function ExplorerStackScreen() {
+  return (
+    <InformationStack.Navigator
+    screenOptions={{
+      headerTitle: "",
+      headerBackTitleVisible: false,
+      headerStyle: {shadowColor: '#fff'},
+    }}
+    >
+      <ExplorerStack.Screen name="Inicio" component={ExplorerScreen} options={{headerShown: false}}/>
+      <ExplorerStack.Screen name="Recomendado" component={CompanyScreen} />
+      <ExplorerStack.Screen name="Empresas" component={CompanyScreen} />
+    </InformationStack.Navigator>
+  );
 };
 
 //Information Stack navigator
@@ -94,7 +113,7 @@ function InformationStackScreen() {
       headerStyle: {shadowColor: '#fff'},
     }}
     >
-      <InformationStack.Screen name="Information" component={InfoScreen} options={{headerShown: false}}/>
+      <InformationStack.Screen name="Informacion" component={InfoScreen} options={{headerShown: false}}/>
       <InformationStack.Screen name="Topic" component={TopicScreen} />
       <InformationStack.Screen name="Article" component={ArticleScreen} />
       <InformationStack.Screen name="Step" component={StepScreen} />
