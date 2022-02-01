@@ -29,14 +29,15 @@ export default StyleSheet.create({
     height: 35,
   },
   inputContainer: {
-    flex: 1,
+    //flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 20,
+    marginVertical: 20,
   },
   input:{
     width: '100%',
-    padding: 25,
+    padding: 20,
     borderRadius: 30,
     backgroundColor: '#ECF1FE',
   },
