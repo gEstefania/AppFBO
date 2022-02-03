@@ -11,7 +11,22 @@ GoogleSignin.configure({
 });
 
 const Login = () => {
-    
+    async function onSignInButtonPress() {
+        console.log('Email');
+    }
+    async function onGuestButtonPress() {
+        auth()
+        .signInAnonymously()
+        .then(() => {
+            console.log('User signed in anonymously');
+        })
+        .catch(error => {
+            if (error.code === 'auth/operation-not-allowed') {
+                console.log('Enable anonymous in your firebase console.');
+            }
+            console.error(error);
+        });
+    }
     async function onGoogleButtonPress() {
         // Get the users ID token
         const { idToken } = await GoogleSignin.signIn();
@@ -51,18 +66,21 @@ const Login = () => {
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>
             </View>
            <View style={styles.btnGuestView}>
-               <TouchableOpacity style={styles.btnGuest}>
-                        <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <TouchableOpacity 
+                    onPress={() => onGuestButtonPress()}
+                    style={styles.btnGuest}
+                >
+                    <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
                     <View style={styles.textContainer}>
                         <PrimaryText type={'Regular'}>INVITADO</PrimaryText>
                     </View>
-               </TouchableOpacity>
+                </TouchableOpacity>
            </View>
            <View style={styles.btnContainer}>
-               <TouchableOpacity
-                onPress={() => onFacebookButtonPress()}
-               >
-                   <SecondaryText color={'#fff'}>CONTINÚA CON FACEBOOK</SecondaryText>
+                <TouchableOpacity
+                    onPress={() => onFacebookButtonPress()}
+                >
+                    <SecondaryText color={'#fff'}>CONTINÚA CON FACEBOOK</SecondaryText>
                </TouchableOpacity>
            </View>
            <View style={styles.btnContainer}>
@@ -73,7 +91,7 @@ const Login = () => {
                </TouchableOpacity>
            </View>
            <View style={styles.btnSignUp}>
-                <SecondaryText color={'gray'}>REGÍSTRATE CON TU EMAIL</SecondaryText>
+                <SecondaryText color={'gray'}>INICIA SESIÓN CON TU EMAIL</SecondaryText>
            </View>
            <View style={styles.input}>
                 <TextInput
@@ -90,7 +108,9 @@ const Login = () => {
                 />
            </View>
            <View style={styles.btnLogin}>
-               <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => onSignInButtonPress()}
+                >
                    <SecondaryText color={'#fff'}>ENTRAR</SecondaryText>
                </TouchableOpacity>
            </View>
@@ -101,7 +121,7 @@ const Login = () => {
            </View>
            <View style={styles.btnCount}>
                <TouchableOpacity>
-                   <SecondaryText>¿NO TIENES CUENTA? REGISTRARSE</SecondaryText>
+                   <SecondaryText>¿NO TIENES CUENTA? REGÍSTRATE</SecondaryText>
                </TouchableOpacity>
            </View>
         </View>
