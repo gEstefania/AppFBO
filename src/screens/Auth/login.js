@@ -1,11 +1,27 @@
 import * as React from 'react';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { View, TouchableOpacity, Image, TextInput } from "react-native";
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/login';
 
+GoogleSignin.configure({
+    webClientId: '87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com',
+});
+
 const Login = () => {
+    
+    async function onGoogleButtonPress() {
+        // Get the users ID token
+        const { idToken } = await GoogleSignin.signIn();
+      
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+      
+        // Sign-in the user with the credential
+        return auth().signInWithCredential(googleCredential);
+    }
 
     async function onFacebookButtonPress() {
         // Attempt login with permissions
@@ -50,7 +66,9 @@ const Login = () => {
                </TouchableOpacity>
            </View>
            <View style={styles.btnContainer}>
-               <TouchableOpacity>
+               <TouchableOpacity
+                    onPress={() => onGoogleButtonPress()}
+               >
                    <SecondaryText color={'#fff'}>CONTNÚA CON GOOGLE</SecondaryText>
                </TouchableOpacity>
            </View>
