@@ -2,7 +2,7 @@ import * as React from 'react';
 import auth from '@react-native-firebase/auth';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { View, TouchableOpacity, Image, TextInput } from "react-native";
+import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView } from "react-native";
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/login';
 
@@ -61,7 +61,8 @@ const Login = () => {
       }
 
     return(
-        <View style={styles.mainContainer}>
+        <ScrollView contentContainerStyle={styles.mainContainer}>
+            <SafeAreaView></SafeAreaView>
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>
             </View>
@@ -76,21 +77,21 @@ const Login = () => {
                     </View>
                 </TouchableOpacity>
            </View>
-           <View style={styles.btnContainer}>
+           <View style={styles.btnFacebookContainer}>
                 <TouchableOpacity
                     onPress={() => onFacebookButtonPress()}
                 >
                     <SecondaryText color={'#fff'}>CONTINÚA CON FACEBOOK</SecondaryText>
                </TouchableOpacity>
            </View>
-           <View style={styles.btnContainer}>
+           <View style={styles.btnGoogleContainer}>
                <TouchableOpacity
                     onPress={() => onGoogleButtonPress()}
                >
-                   <SecondaryText color={'#fff'}>CONTNÚA CON GOOGLE</SecondaryText>
+                   <SecondaryText>CONTNÚA CON GOOGLE</SecondaryText>
                </TouchableOpacity>
            </View>
-           <View style={styles.btnSignUp}>
+           <View style={styles.titleSignIn}>
                 <SecondaryText color={'gray'}>INICIA SESIÓN CON TU EMAIL</SecondaryText>
            </View>
            <View style={styles.input}>
@@ -103,7 +104,7 @@ const Login = () => {
            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder={'Password'}
+                    placeholder={'Contraseña'}
                     placeholderTextColor="#000"
                 />
            </View>
@@ -119,12 +120,13 @@ const Login = () => {
                    <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
                </TouchableOpacity>
            </View>
-           <View style={styles.btnCount}>
-               <TouchableOpacity>
-                   <SecondaryText>¿NO TIENES CUENTA? REGÍSTRATE</SecondaryText>
-               </TouchableOpacity>
+           <View style={styles.btnSingInContainer}>
+                <SecondaryText>¿NO TIENES CUENTA? </SecondaryText>
+                <TouchableOpacity>
+                    <SecondaryText color={'blue'}>REGÍSTRATE</SecondaryText>
+                </TouchableOpacity>
            </View>
-        </View>
+        </ScrollView>
     )
 }
 

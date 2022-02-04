@@ -36,7 +36,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  btnContainer: {
+  btnFacebookContainer: {
     flex: 1,
     width: '100%',
     justifyContent: 'center',
@@ -46,6 +46,17 @@ export default StyleSheet.create({
     //padding: 10,
     backgroundColor: '#3b5598',
   },
+  btnGoogleContainer: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+    //padding: 10,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: 'gray',
+  },
   btnSignUp: {
     flex: 1,
     width: '100%',
@@ -54,6 +65,11 @@ export default StyleSheet.create({
     borderRadius: 50,
     marginVertical: 10,
     padding: 10,
+  },
+  btnPolicyContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   input: {
     flex: 1,
@@ -77,5 +93,8 @@ export default StyleSheet.create({
     marginVertical: 10,
     //padding: 10,
     backgroundColor: Colors.CORPORATE_ORANGE,
+  },
+  btnSingInContainer: {
+    flexDirection: 'row',
   },
 });
