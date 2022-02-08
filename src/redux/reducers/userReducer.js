@@ -1,9 +1,9 @@
-const defaultState ={} // por que debe tener este objeto aqui
+const defaultState ={}
 
-const reducer =(state=defaultState,{type,payload})=>{
+const UserReducer =(state=defaultState,{type,payload})=>{
     switch (type) {
         case 'LOG_IN':
-            return Object.assign({},state,payload) // como se lee esto
+            return Object.assign({},state,payload)
         case 'LOG_OUT':
             return payload
         default:
@@ -11,4 +11,4 @@ const reducer =(state=defaultState,{type,payload})=>{
     }
 }
 
-export default reducer;
+export default UserReducer;

@@ -18,7 +18,7 @@ import SuggestionScreen from '../screens/suggestionScreen';
 import ContactScreen from '../screens/contactScreen';
 import CompanyScreen from '../screens/Explore/companyScreen'
 import CourseTopMenu from './courseTopMenu';
-import Login from '../screens/Auth/login';
+import SignIn from '../screens/Auth/login';
 import SignUp from '../screens/Auth/signUp';
 import Tags from '../screens/tags';
 import Intro from '../screens/intro';
@@ -26,6 +26,8 @@ import Index from '../screens/index';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
+//Stacks:
+const Stack = createStackNavigator();
 const ExplorerStack = createStackNavigator();
 const InformationStack = createStackNavigator();
 const TrainingStack = createStackNavigator();
@@ -42,24 +44,34 @@ const MyTheme = {
 const AppNavigator = () => {
   return (
     <NavigationContainer theme={MyTheme}>
-      <BottomTab.Navigator
-        initialRouteName={homeScreen}
+      <Stack.Navigator initialRouteName={"SignIn"} screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Home" component={BottomTabNavigator} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+// Bottom Navigator
+function BottomTabNavigator() {
+  return(
+    <BottomTab.Navigator
+        initialRouteName={TopTapNavigator}
         screenOptions={{
           headerShown: false
         }}
       >
-        <BottomTab.Screen name="Inicio" component={homeScreen}/>
+        <BottomTab.Screen name="Inicio" component={TopTapNavigator}/>
         <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
         <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
         <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
         <BottomTab.Screen name="Buscar" component={SearchScreen}/>
       </BottomTab.Navigator>
-    </NavigationContainer>
-  );
-}
+  )
+};
 
 //Home Top Navigator
-function homeScreen() {
+function TopTapNavigator() {
   return(
     <LinearGradient
       colors={['#ff9b04', '#ff000a' ]}
@@ -86,20 +98,20 @@ function homeScreen() {
   )
 };
 
-//Information Stack navigator
+//Explorer Stack navigator
 function ExplorerStackScreen() {
   return (
-    <InformationStack.Navigator
+    <ExplorerStack.Navigator
     screenOptions={{
       headerTitle: "",
       headerBackTitleVisible: false,
       headerStyle: {shadowColor: '#fff'},
     }}
     >
-      <ExplorerStack.Screen name="Inicio" component={ExplorerScreen} options={{headerShown: false}}/>
+      <ExplorerStack.Screen name="Explorar" component={ExplorerScreen} options={{headerShown: false}}/>
       <ExplorerStack.Screen name="Recomendado" component={CompanyScreen} />
       <ExplorerStack.Screen name="Empresas" component={CompanyScreen} />
-    </InformationStack.Navigator>
+    </ExplorerStack.Navigator>
   );
 };
 
