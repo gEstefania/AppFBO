@@ -1,16 +1,56 @@
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
+import base64 from 'react-native-base64';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { View, TouchableOpacity, Image, TextInput } from "react-native";
+import { useDispatch } from 'react-redux';
+import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
-import { PrimaryText, SecondaryText } from '@common'
+import { PrimaryText, SecondaryText } from '@common';
+import userAction from '../../redux/actions/userActions';
+import {axiosApi} from '@http';
 import styles from './styles/signUp';
 
 const SignUp = () => {
+    const [user, setUser] = useState({email: '', password: '', name: ''});
+    const [checkPolicy, setCheckPolicy] = useState(false);
+    const navigation = useNavigation();
 
-    const [checkDownload, setCheckDownload] = useState(false);
-
+    async function onSignUpButtonPress() {
+        if (user.email !== '' && user.password !== '') {
+            if(checkPolicy){
+                try {
+                    const {data} = await axiosApi.post('/users/all',
+                        {
+                            email: user.email,
+                            password: user.password,
+                            name: user.name,
+                        },
+                    );
+                    console.log(data)
+                    if (data?.token) {
+                        await AsyncStorage.setItem('@token', JSON.stringify(data.token));
+                        navigation.navigate("Home")
+                    } else{
+                        console.log('error en el async storage')
+                       // Alert.alert('Oops Algo salió mal')
+                    }
+                    console.log('Login Success! token: ', data.token)
+                } catch (e) {
+                    console.log('Login Error: ', e);
+                    //Alert.alert('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
+                }
+            } else {
+                console.log('No checked')
+               // Alert.alert('Debe aceptar nuestras politicas', 'Por favor.', 'warning');
+            }
+        } else {
+            console.log('Campos vacios')
+            //Alert.alert('Campos vacíos', 'Por favor ingrese sus datos.', 'warning');
+        }
+    }
     async function onGoogleButtonPress() {
         // Get the users ID token
         const { idToken } = await GoogleSignin.signIn();
@@ -45,67 +85,84 @@ const SignUp = () => {
     }
 
     return(
-        <View style={styles.mainContainer}>
+        <ScrollView contentContainerStyle={styles.mainContainer}>
+            <SafeAreaView></SafeAreaView>
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Crea tu cuenta</PrimaryText>
             </View>
-           <View style={styles.btnFacebookContainer}>
-               <TouchableOpacity>
+            <View style={styles.btnFacebookContainer}>
+                <TouchableOpacity
+                    onPress={() => onFacebookButtonPress()}
+                >
                    <SecondaryText color='#fff'>CONTINÚA CON FACEBOOK</SecondaryText>
                </TouchableOpacity>
-           </View>
-           <View style={styles.btnGoogleContainer}>
-               <TouchableOpacity>
+            </View>
+            <View style={styles.btnGoogleContainer}>
+                <TouchableOpacity
+                    onPress={() => onGoogleButtonPress()}
+                >
                    <SecondaryText>CONTINÚA CON GOOGLE</SecondaryText>
                </TouchableOpacity>
-           </View>
-           <View style={styles.btnSignUp}>
+            </View>
+            <View style={styles.titleSignIn}>
                 <SecondaryText color={'gray'}>REGÍSTRATE CON TU EMAIL</SecondaryText>
-           </View>
-           <View style={styles.input}>
+            </View>
+            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Nombre'}
                     placeholderTextColor="#000"
+                    autoCapitalize={'none'}
+                    value={user.name}
+                    onChangeText={text => setUser({...user, name: text})}
                 />
-           </View>
-           <View style={styles.input}>
+            </View>
+            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email'}
                     placeholderTextColor="#000"
+                    autoCapitalize={'none'}
+                    value={user.email}
+                    onChangeText={text => setUser({...user, email: text})}
                 />
-           </View>
-           <View style={styles.input}>
+            </View>
+            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña'}
                     placeholderTextColor="#000"
+                    autoCapitalize={'none'}
+                    value={user.password}
+                    onChangeText={text => setUser({...user, password: text})}
                 />
-           </View>
-           <View style={styles.btnPolicyContainer}>
+            </View>
+            <View style={styles.btnPolicyContainer}>
                 <SecondaryText>Acepto la </SecondaryText>
                 <TouchableOpacity>
-                    <SecondaryText color={'blue'}>Politica de Privacidad*</SecondaryText>
+                    <SecondaryText color={'blue'}>Política de Privacidad*</SecondaryText>
                 </TouchableOpacity>
                 <CheckBox
                     containerStyle={{padding: 0}}
-                    checked={checkDownload}
-                    onPress={() => setCheckDownload(!checkDownload)}
+                    checked={checkPolicy}
+                    onPress={() => setCheckPolicy(!checkPolicy)}
                 />
-           </View>
-           <View style={styles.btnLogin}>
-               <TouchableOpacity>
-                   <SecondaryText color={'#fff'}>REGISTRARME</SecondaryText>
-               </TouchableOpacity>
-           </View>
-           <View style={styles.btnSingInContainer}>
+            </View>
+            <TouchableOpacity
+                style={styles.btnLogin}
+                onPress={() => onSignUpButtonPress()}
+            >
+                <SecondaryText color={'#fff'}>REGISTRARME</SecondaryText>
+            </TouchableOpacity>
+            <View style={styles.btnSingInContainer}>
                 <SecondaryText>¿YA TIENES CUENTA? </SecondaryText>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("SignIn")}
+                >
                     <SecondaryText color={'blue'}>ENTRA</SecondaryText>
                 </TouchableOpacity>
-           </View>
-        </View>
+            </View>
+        </ScrollView>
     )
 }
 
