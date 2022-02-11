@@ -3,14 +3,15 @@ import auth from '@react-native-firebase/auth';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import { useDispatch } from 'react-redux'
-import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert } from "react-native";
+import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert, ActivityIndicator, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 import { PrimaryText, SecondaryText } from '@common';
 import userAction from '../../redux/actions/userActions';
-import {axiosApi} from '@http';
-import axios from 'axios';
+import { axiosApi } from '@http';
+import { ShowAlertMessage } from '@components';
 import styles from './styles/login';
 
 GoogleSignin.configure({
@@ -18,18 +19,19 @@ GoogleSignin.configure({
 });
 
 const Login = () => {
-    const [user, setUser] = useState({email: '', password: ''});
+    const [user, setUser] = useState({ email: '', password: '' });
     const dispatch = useDispatch()
     const navigation = useNavigation();
+    const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(()=>{
-        
-    },[])
-    
+    useEffect(() => {
+
+    }, [])
+
     async function onSignInButtonPress() {
         if (user.email !== '' && user.password !== '') {
             try {
-                const {data} = await axios.post('https://backend-fbo.herokuapp.com/auth',
+                const { data } = await axios.post('https://backend-fbo.herokuapp.com/auth',
                     {
                         email: user.email,
                         password: user.password,
@@ -43,178 +45,183 @@ const Login = () => {
                 if (data?.token) {
                     await AsyncStorage.setItem('@token', JSON.stringify(data.token));
                     navigation.navigate("Home")
-                } else{
-                   // Alert.alert('Oops Algo salió mal')
+                } else {
+                    ShowAlertMessage('Oops algo salió mal', 'Intente nuevamente.',);
                 }
                 console.log('Login Success! token: ', data.token)
             } catch (e) {
                 console.log('Login Error: ', e);
-                //Alert.alert('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
+                ShowAlertMessage('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
             }
         } else {
-            //Alert.alert('Campos vacíos', 'Por favor ingrese sus datos.', 'warning');
+            console.log('Campos vacios')
+            ShowAlertMessage('Campos vacios', 'Por favor intentar de nuevo', 'warning');
         }
     }
     async function onGuestButtonPress() {
         auth()
-        .signInAnonymously()
-        .then(() => {
-            console.log('User signed in anonymously');
-        })
-        .catch(error => {
-            if (error.code === 'auth/operation-not-allowed') {
-                console.log('Enable anonymous in your firebase console.');
-            }
-            console.error(error);
-        });
+            .signInAnonymously()
+            .then(() => {
+                console.log('User signed in anonymously');
+            })
+            .catch(error => {
+                if (error.code === 'auth/operation-not-allowed') {
+                    console.log('Enable anonymous in your firebase console.');
+                }
+                console.error(error);
+            });
     }
     async function onGoogleButtonPress() {
         // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-        console.log('Google token: ', idToken);
+        const { idToken,  } = await GoogleSignin.signIn();
+        console.log('Google idToken: ', idToken);
+
+        //if(statusCodes.IN_PROGRESS) {
+        //    setIsLoading(true);
+        //} else if(statusCodes.SIGN_IN_CANCELLED) {
+        //    setIsLoading(false);
+        //}
+
+        let googleToken = '';
+        if (idToken) {
+            const { accessToken } = await GoogleSignin.getTokens();
+            googleToken = accessToken;
+            console.log('Google accessToken: ', googleToken);
+        }
 
         try {
-            const {data} = await axiosApi.post('/auth/google',
+            const { data } = await axios.post('https://backend-fbo.herokuapp.com/auth/google',
                 {
-                    token: idToken
+                    access_token: googleToken
                 },
             );
             if (data?.token) {
                 await AsyncStorage.setItem('@token', JSON.stringify(data.token));
-                navigation.navigate("Inicio")
-            } else{
-                //Alert.alert('Oops Algo salió mal')
+                setIsLoading(false);
+                navigation.navigate("Home");
+            } else {
+                ShowAlertMessage('Algo salió mal', '', 'warning');
             }
             console.log('Login Success! token: ', data.token)
         } catch (error) {
+            ShowAlertMessage('Algo salió mal', '', 'warning');
             console.log('Login Error: ', error);
         }
-
-        // Create a Google credential with the token
-        //const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      
-        // Sign-in the user with the credential
-        //return auth().signInWithCredential(googleCredential);
     }
 
     async function onFacebookButtonPress() {
         // Attempt login with permissions
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-      
-        if (result.isCancelled) {
-          throw 'User cancelled the login process';
-        }
-      
-        // Once signed in, get the users AccesToken
-        const fbResponse = await AccessToken.getCurrentAccessToken();
-        console.log('facebook token: ', fbResponse);
 
-        if (!fbResponse) {
-          throw 'Something went wrong obtaining access token';
+        if (result.isCancelled) {
+            throw 'User cancelled the login process';
         }
-      
+
+        // Once signed in, get the users AccesToken
+        const { accessToken } = await AccessToken.getCurrentAccessToken();
+        console.log('facebook token: ', accessToken);
+
         try {
-            const {data} = await axiosApi.post('/auth/facebook',
+            const { data } = await axiosApi.post('/auth/facebook',
                 {
-                    token: fbResponse.accessToken
-                },
-                {
-                    headers: {
-                        //Authorization: `Basic ${base64.encode(`${user.email}:${user.password}`)}`,
-                    },
+                    access_token: accessToken
                 },
             );
             if (data?.token) {
                 await AsyncStorage.setItem('@token', JSON.stringify(data.token));
                 navigation.navigate("Inicio")
-            } else{
-                //Alert.alert('Oops Algo salió mal')
+            } else {
+                ShowAlertMessage('Algo salió mal', '', 'warning');
             }
             console.log('Login Success! token: ', data.token)
         } catch (error) {
+            ShowAlertMessage('Algo salió mal', '', 'warning');
             console.log('Login Error: ', error);
         }
 
         // Create a Firebase credential with the AccessToken
         //const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-      
+        //conosole.log()
         // Sign-in the user with the credential
         //return auth().signInWithCredential(facebookCredential);
-      }
+    }
 
-    return(
+    return (
         <ScrollView contentContainerStyle={styles.mainContainer}>
+            {isLoading && <View style={{ backgroundColor: 'rgba(0,0,0,0.25)', height: Dimensions.get('window').height, width: Dimensions.get('window').width, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size="large" color="blue" />
+            </View>}
             <SafeAreaView></SafeAreaView>
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>
             </View>
-           <View style={styles.btnGuestView}>
-                <TouchableOpacity 
+            <View style={styles.btnGuestView}>
+                <TouchableOpacity
                     onPress={() => onGuestButtonPress()}
                     style={styles.btnGuest}
                 >
-                    <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
+                    <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon} />
                     <View style={styles.textContainer}>
                         <PrimaryText type={'Regular'}>INVITADO</PrimaryText>
                     </View>
                 </TouchableOpacity>
-           </View>
-           <View style={styles.btnFacebookContainer}>
+            </View>
+            <View style={styles.btnFacebookContainer}>
                 <TouchableOpacity
                     onPress={() => onFacebookButtonPress()}
                 >
                     <SecondaryText color={'#fff'}>CONTINÚA CON FACEBOOK</SecondaryText>
-               </TouchableOpacity>
-           </View>
-           <View style={styles.btnGoogleContainer}>
-               <TouchableOpacity
+                </TouchableOpacity>
+            </View>
+            <View style={styles.btnGoogleContainer}>
+                <TouchableOpacity
                     onPress={() => onGoogleButtonPress()}
-               >
-                   <SecondaryText>CONTNÚA CON GOOGLE</SecondaryText>
-               </TouchableOpacity>
-           </View>
-           <View style={styles.titleSignIn}>
+                >
+                    <SecondaryText>CONTNÚA CON GOOGLE</SecondaryText>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.titleSignIn}>
                 <SecondaryText color={'gray'}>INICIA SESIÓN CON TU EMAIL</SecondaryText>
-           </View>
-           <View style={styles.input}>
+            </View>
+            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.email}
-                    onChangeText={text => setUser({...user, email: text})}
+                    onChangeText={text => setUser({ ...user, email: text })}
                 />
-           </View>
-           <View style={styles.input}>
+            </View>
+            <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.password}
-                    onChangeText={text => setUser({...user, password: text})}
+                    onChangeText={text => setUser({ ...user, password: text })}
                 />
-           </View>
+            </View>
             <TouchableOpacity
                 style={styles.btnLogin}
                 onPress={() => onSignInButtonPress()}
             >
                 <SecondaryText color={'#fff'}>ENTRAR</SecondaryText>
             </TouchableOpacity>
-           <View style={styles.btnPassword}>
-               <TouchableOpacity>
-                   <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
-               </TouchableOpacity>
-           </View>
-           <View style={styles.btnSingInContainer}>
+            <View style={styles.btnPassword}>
+                <TouchableOpacity>
+                    <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
+                </TouchableOpacity>
+            </View>
+            <View style={styles.btnSingInContainer}>
                 <SecondaryText>¿NO TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignUp")}
                 >
                     <SecondaryText color={'blue'}>REGÍSTRATE</SecondaryText>
                 </TouchableOpacity>
-           </View>
+            </View>
         </ScrollView>
     )
 }

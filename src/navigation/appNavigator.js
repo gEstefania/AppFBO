@@ -4,6 +4,7 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FlashMessage from 'react-native-flash-message';
 import LinearGradient from 'react-native-linear-gradient';
 import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
@@ -49,6 +50,7 @@ const AppNavigator = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="Home" component={BottomTabNavigator} />
       </Stack.Navigator>
+      <FlashMessage position="top"/>
     </NavigationContainer>
   );
 }
@@ -56,17 +58,17 @@ const AppNavigator = () => {
 function BottomTabNavigator() {
   return(
     <BottomTab.Navigator
-        initialRouteName={TopTapNavigator}
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        <BottomTab.Screen name="Inicio" component={TopTapNavigator}/>
-        <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
-        <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
-        <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
-        <BottomTab.Screen name="Buscar" component={SearchScreen}/>
-      </BottomTab.Navigator>
+      initialRouteName={TopTapNavigator}
+      screenOptions={{
+        headerShown: false
+      }}
+    >
+      <BottomTab.Screen name="Inicio" component={TopTapNavigator}/>
+      <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
+      <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
+      <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
+      <BottomTab.Screen name="Buscar" component={SearchScreen}/>
+    </BottomTab.Navigator>
   )
 };
 

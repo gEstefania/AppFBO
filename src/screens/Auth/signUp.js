@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import userAction from '../../redux/actions/userActions';
+import { ShowAlertMessage } from '@components';
 import {axiosApi} from '@http';
 import styles from './styles/signUp';
 
@@ -34,54 +35,89 @@ const SignUp = () => {
                         await AsyncStorage.setItem('@token', JSON.stringify(data.token));
                         navigation.navigate("Home")
                     } else{
-                        console.log('error en el async storage')
-                       // Alert.alert('Oops Algo salió mal')
+                        ShowAlertMessage('Oops algo salió mal', 'Intente nuevamente.',);
                     }
                     console.log('Login Success! token: ', data.token)
                 } catch (e) {
                     console.log('Login Error: ', e);
-                    //Alert.alert('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
+                    ShowAlertMessage('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
                 }
             } else {
                 console.log('No checked')
-               // Alert.alert('Debe aceptar nuestras politicas', 'Por favor.', 'warning');
+                ShowAlertMessage('Revise las políticas de privacidad', 'Por favor marcar campo', 'warning');
             }
         } else {
             console.log('Campos vacios')
-            //Alert.alert('Campos vacíos', 'Por favor ingrese sus datos.', 'warning');
+            ShowAlertMessage('Campos vacios', 'Por favor intentar de nuevo', 'warning');
         }
     }
     async function onGoogleButtonPress() {
-        // Get the users ID token
-        const { idToken } = await GoogleSignin.signIn();
-      
-        // Create a Google credential with the token
-        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(googleCredential);
+         // Get the users ID token
+         const { idToken,  } = await GoogleSignin.signIn();
+         console.log('Google idToken: ', idToken);
+ 
+         //if(statusCodes.IN_PROGRESS) {
+         //    setIsLoading(true);
+         //} else if(statusCodes.SIGN_IN_CANCELLED) {
+         //    setIsLoading(false);
+         //}
+ 
+         let googleToken = '';
+         if (idToken) {
+             const { accessToken } = await GoogleSignin.getTokens();
+             googleToken = accessToken;
+             console.log('Google accessToken: ', googleToken);
+         }
+ 
+         try {
+             const { data } = await axios.post('https://backend-fbo.herokuapp.com/auth/google',
+                 {
+                     access_token: googleToken
+                 },
+             );
+             if (data?.token) {
+                 await AsyncStorage.setItem('@token', JSON.stringify(data.token));
+                 setIsLoading(false);
+                 navigation.navigate("Home");
+             } else {
+                 ShowAlertMessage('Algo salió mal', '', 'warning');
+             }
+             console.log('Login Success! token: ', data.token)
+         } catch (error) {
+             ShowAlertMessage('Algo salió mal', '', 'warning');
+             console.log('Login Error: ', error);
+         }
     }
 
     async function onFacebookButtonPress() {
         // Attempt login with permissions
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
-      
+
         if (result.isCancelled) {
-          throw 'User cancelled the login process';
+            throw 'User cancelled the login process';
         }
-      
+
         // Once signed in, get the users AccesToken
-        const data = await AccessToken.getCurrentAccessToken();
-      
-        if (!data) {
-          throw 'Something went wrong obtaining access token';
+        const { accessToken } = await AccessToken.getCurrentAccessToken();
+        console.log('facebook token: ', accessToken);
+
+        try {
+            const { data } = await axiosApi.post('/auth/facebook',
+                {
+                    access_token: accessToken
+                },
+            );
+            if (data?.token) {
+                await AsyncStorage.setItem('@token', JSON.stringify(data.token));
+                navigation.navigate("Inicio")
+            } else {
+                ShowAlertMessage('Algo salió mal', '', 'warning');
+            }
+            console.log('Login Success! token: ', data.token)
+        } catch (error) {
+            ShowAlertMessage('Algo salió mal', '', 'warning');
+            console.log('Login Error: ', error);
         }
-      
-        // Create a Firebase credential with the AccessToken
-        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-      
-        // Sign-in the user with the credential
-        return auth().signInWithCredential(facebookCredential);
     }
 
     return(
