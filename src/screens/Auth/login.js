@@ -76,36 +76,17 @@ const Login = () => {
         const { idToken,  } = await GoogleSignin.signIn();
         console.log('Google idToken: ', idToken);
 
-        //if(statusCodes.IN_PROGRESS) {
-        //    setIsLoading(true);
-        //} else if(statusCodes.SIGN_IN_CANCELLED) {
-        //    setIsLoading(false);
-        //}
-
-        let googleToken = '';
-        if (idToken) {
-            const { accessToken } = await GoogleSignin.getTokens();
-            googleToken = accessToken;
-            console.log('Google accessToken: ', googleToken);
-        }
+        // Create a Google credential with the token
+        const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
         try {
-            const { data } = await axios.post('https://backend-fbo.herokuapp.com/auth/google',
-                {
-                    access_token: googleToken
-                },
-            );
-            if (data?.token) {
-                await AsyncStorage.setItem('@token', JSON.stringify(data.token));
-                setIsLoading(false);
-                navigation.navigate("Home");
-            } else {
-                ShowAlertMessage('Algo salió mal', '', 'warning');
-            }
-            console.log('Login Success! token: ', data.token)
+            // Sign-in the user with the credential
+            auth().signInWithCredential(googleCredential);
+            await AsyncStorage.setItem('@token', idToken);
+            navigation.navigate("Home")
+            console.log('Login with Google Success')
         } catch (error) {
-            ShowAlertMessage('Algo salió mal', '', 'warning');
-            console.log('Login Error: ', error);
+            console.log('Error login with Google: ', error)
         }
     }
 
@@ -118,32 +99,28 @@ const Login = () => {
         }
 
         // Once signed in, get the users AccesToken
-        const { accessToken } = await AccessToken.getCurrentAccessToken();
-        console.log('facebook token: ', accessToken);
+        const data = await AccessToken.getCurrentAccessToken();
+
+        if (!data) {
+          throw 'Something went wrong obtaining access token';
+        }
+
+        // Create a Firebase credential with the AccessToken
+        const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
+        console.log(facebookCredential)
 
         try {
-            const { data } = await axiosApi.post('/auth/facebook',
-                {
-                    access_token: accessToken
-                },
-            );
-            if (data?.token) {
-                await AsyncStorage.setItem('@token', JSON.stringify(data.token));
-                navigation.navigate("Inicio")
-            } else {
-                ShowAlertMessage('Algo salió mal', '', 'warning');
+            // Sign-in the user with the credential
+            const authFacebook = auth().signInWithCredential(facebookCredential);
+            if(authFacebook){
+                await AsyncStorage.setItem('@token', data.accessToken);
+                navigation.navigate("Home")
+                console.log('Login Success!')
             }
-            console.log('Login Success! token: ', data.token)
         } catch (error) {
             ShowAlertMessage('Algo salió mal', '', 'warning');
             console.log('Login Error: ', error);
         }
-
-        // Create a Firebase credential with the AccessToken
-        //const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        //conosole.log()
-        // Sign-in the user with the credential
-        //return auth().signInWithCredential(facebookCredential);
     }
 
     return (
