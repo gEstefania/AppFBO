@@ -23,24 +23,28 @@ const SignUp = () => {
         if (user.email !== '' && user.password !== '') {
             if(checkPolicy){
                 try {
-                    const {data} = await axiosApi.post('/users/all',
-                        {
-                            email: user.email,
-                            password: user.password,
-                            name: user.name,
-                        },
-                    );
-                    console.log(data)
-                    if (data?.token) {
-                        await AsyncStorage.setItem('@token', JSON.stringify(data.token));
+                    auth()
+                    .createUserWithEmailAndPassword(user.email, user.password)
+                    .then(() => {
+                        console.log('User account created & signed in!');
+                        //AsyncStorage.setItem('@token', JSON.stringify(data.token));
                         navigation.navigate("Home")
-                    } else{
-                        ShowAlertMessage('Oops algo salió mal', 'Intente nuevamente.',);
-                    }
-                    console.log('Login Success! token: ', data.token)
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/email-already-in-use') {
+                            ShowAlertMessage('Ese usuario ya existe', 'Inicie sesión o utilice una cuenta de correo diferente', 'warning');
+                            console.log('That email address is already in use!');
+                        }
+
+                        if (error.code === 'auth/invalid-email') {
+                            ShowAlertMessage('Email o contraseña incorrecta', '', 'warning');
+                            console.log('That email address is invalid!');
+                        }
+                        console.error(error);
+                    });
                 } catch (e) {
                     console.log('Login Error: ', e);
-                    ShowAlertMessage('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
+                    ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');
                 }
             } else {
                 console.log('No checked')
