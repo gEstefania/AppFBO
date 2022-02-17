@@ -20,23 +20,7 @@ GoogleSignin.configure({
 
 const Login = () => {
     const [user, setUser] = useState({ email: '', password: '' });
-    const dispatch = useDispatch()
-    // Set an initializing state whilst Firebase connects
-    const [initializing, setInitializing] = useState(true);
-    const [userAuth, setUserAuth] = useState();
-    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
-    
-    // Handle user state changes
-    function onAuthStateChanged(userAuth) {
-        setUserAuth(userAuth);
-        if (initializing) setInitializing(false);
-    }
-
-    useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-        return subscriber; // unsubscribe on unmount
-    }, []);
 
     async function onSignInButtonPress() {
         if (user.email !== '' && user.password !== '') {

@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
 import { Image, View } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -43,16 +44,54 @@ const MyTheme = {
 
 //Main Navigator
 const AppNavigator = () => {
+
+  // Set an initializing state whilst Firebase connects
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <NavigationContainer theme={MyTheme}>
+        <Stack.Navigator initialRouteName={"SignIn"} screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Home" component={BottomTabNavigator} />
+        </Stack.Navigator>
+        <FlashMessage position="top"/>
+      </NavigationContainer>
+    );
+  }
+
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName={"SignIn"} screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={BottomTabNavigator} />
-      </Stack.Navigator>
-      <FlashMessage position="top"/>
+      <BottomTab.Navigator
+        initialRouteName={TopTapNavigator}
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
+        <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
+        <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
+        <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
+        <BottomTab.Screen name="Buscar" component={SearchScreen}/>
+      </BottomTab.Navigator>
     </NavigationContainer>
   );
+    
 }
 // Bottom Navigator
 function BottomTabNavigator() {
@@ -63,7 +102,7 @@ function BottomTabNavigator() {
         headerShown: false
       }}
     >
-      <BottomTab.Screen name="Inicio" component={TopTapNavigator}/>
+      <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
       <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
       <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
       <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
