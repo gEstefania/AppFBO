@@ -33,21 +33,21 @@
 		00E356EE1AD99517003FC87E /* AppFBOTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AppFBOTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* AppFBOTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppFBOTests.m; sourceTree = "<group>"; };
-		035FBBC427AA425F00FD18A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		027B8D36DCA3DD5964CD8D7A /* Pods-AppFBO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO.release.xcconfig"; path = "Target Support Files/Pods-AppFBO/Pods-AppFBO.release.xcconfig"; sourceTree = "<group>"; };
+		035FBBC427AA425F00FD18A0 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* AppFBO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppFBO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AppFBO/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = AppFBO/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AppFBO/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AppFBO/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AppFBO/main.m; sourceTree = "<group>"; };
-		1C9AE7679D6EFFC9F9FD8483 /* Pods-AppFBO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO.debug.xcconfig"; path = "Target Support Files/Pods-AppFBO/Pods-AppFBO.debug.xcconfig"; sourceTree = "<group>"; };
-		37A0861013E6863CBD7D15C9 /* Pods-AppFBO.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO.release.xcconfig"; path = "Target Support Files/Pods-AppFBO/Pods-AppFBO.release.xcconfig"; sourceTree = "<group>"; };
 		77815CABFC994F02D9F614FE /* libPods-AppFBO.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppFBO.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AppFBO/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		81BF33511556C8660EEEE39E /* Pods-AppFBO-AppFBOTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO-AppFBOTests.debug.xcconfig"; path = "Target Support Files/Pods-AppFBO-AppFBOTests/Pods-AppFBO-AppFBOTests.debug.xcconfig"; sourceTree = "<group>"; };
+		962AFD2124E39C25FF50C5A7 /* Pods-AppFBO-AppFBOTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO-AppFBOTests.debug.xcconfig"; path = "Target Support Files/Pods-AppFBO-AppFBOTests/Pods-AppFBO-AppFBOTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B266359E91AA46AD99F71F72 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
-		D04CAB075F662E96C66F4593 /* Pods-AppFBO-AppFBOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO-AppFBOTests.release.xcconfig"; path = "Target Support Files/Pods-AppFBO-AppFBOTests/Pods-AppFBO-AppFBOTests.release.xcconfig"; sourceTree = "<group>"; };
+		BCCD07B3B5684FCCE2A73191 /* Pods-AppFBO.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO.debug.xcconfig"; path = "Target Support Files/Pods-AppFBO/Pods-AppFBO.debug.xcconfig"; sourceTree = "<group>"; };
 		D25241E9C8454B3C84127303 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		D9E53F645142C355657E2C79 /* Pods-AppFBO-AppFBOTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AppFBO-AppFBOTests.release.xcconfig"; path = "Target Support Files/Pods-AppFBO-AppFBOTests/Pods-AppFBO-AppFBOTests.release.xcconfig"; sourceTree = "<group>"; };
 		DC4E3303F07EC22457149656 /* libPods-AppFBO-AppFBOTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AppFBO-AppFBOTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -122,6 +122,17 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		6D6C030010E1C929B43F2E71 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BCCD07B3B5684FCCE2A73191 /* Pods-AppFBO.debug.xcconfig */,
+				027B8D36DCA3DD5964CD8D7A /* Pods-AppFBO.release.xcconfig */,
+				962AFD2124E39C25FF50C5A7 /* Pods-AppFBO-AppFBOTests.debug.xcconfig */,
+				D9E53F645142C355657E2C79 /* Pods-AppFBO-AppFBOTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,8 +148,8 @@
 				00E356EF1AD99517003FC87E /* AppFBOTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				92F7B50BC0D3FCDA82FC09C0 /* Pods */,
 				69825449E80C4B7B95DCC2A0 /* Resources */,
+				6D6C030010E1C929B43F2E71 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -152,17 +163,6 @@
 				00E356EE1AD99517003FC87E /* AppFBOTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		92F7B50BC0D3FCDA82FC09C0 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				1C9AE7679D6EFFC9F9FD8483 /* Pods-AppFBO.debug.xcconfig */,
-				37A0861013E6863CBD7D15C9 /* Pods-AppFBO.release.xcconfig */,
-				81BF33511556C8660EEEE39E /* Pods-AppFBO-AppFBOTests.debug.xcconfig */,
-				D04CAB075F662E96C66F4593 /* Pods-AppFBO-AppFBOTests.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -462,7 +462,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81BF33511556C8660EEEE39E /* Pods-AppFBO-AppFBOTests.debug.xcconfig */;
+			baseConfigurationReference = 962AFD2124E39C25FF50C5A7 /* Pods-AppFBO-AppFBOTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -489,7 +489,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D04CAB075F662E96C66F4593 /* Pods-AppFBO-AppFBOTests.release.xcconfig */;
+			baseConfigurationReference = D9E53F645142C355657E2C79 /* Pods-AppFBO-AppFBOTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -513,7 +513,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C9AE7679D6EFFC9F9FD8483 /* Pods-AppFBO.debug.xcconfig */;
+			baseConfigurationReference = BCCD07B3B5684FCCE2A73191 /* Pods-AppFBO.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -539,7 +539,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37A0861013E6863CBD7D15C9 /* Pods-AppFBO.release.xcconfig */;
+			baseConfigurationReference = 027B8D36DCA3DD5964CD8D7A /* Pods-AppFBO.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
