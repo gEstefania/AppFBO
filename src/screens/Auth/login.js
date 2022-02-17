@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
-import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { useDispatch } from 'react-redux'
 import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert, ActivityIndicator, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
@@ -20,38 +20,30 @@ GoogleSignin.configure({
 
 const Login = () => {
     const [user, setUser] = useState({ email: '', password: '' });
-    const dispatch = useDispatch()
     const navigation = useNavigation();
-    const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-
-    }, [])
 
     async function onSignInButtonPress() {
         if (user.email !== '' && user.password !== '') {
             try {
-                const { data } = await axios.post('https://backend-fbo.herokuapp.com/auth',
-                    {
-                        email: user.email,
-                        password: user.password,
-                    },
-                    {
-                        headers: {
-                            Authorization: `Basic ${base64.encode(`${user.email}:${user.password}`)}`,
-                        },
-                    },
-                );
-                if (data?.token) {
-                    await AsyncStorage.setItem('@token', JSON.stringify(data.token));
+                auth()
+                .signInWithEmailAndPassword(user.email, user.password)
+                .then(() => {
+                    console.log('User signed in!');
+                    //AsyncStorage.setItem('@token', JSON.stringify(data.token));
                     navigation.navigate("Home")
-                } else {
-                    ShowAlertMessage('Oops algo salió mal', 'Intente nuevamente.',);
-                }
-                console.log('Login Success! token: ', data.token)
+                })
+                .catch(error => {
+                    if (error.code === 'auth/user-not-found') {
+                        ShowAlertMessage('Usuario inexistente', '', 'warning');
+                    }
+                    if (error.code === 'auth/invalid-email') {
+                        ShowAlertMessage('Email inválido', 'Por favor intentar de nuevo', 'warning');
+                    }
+                    console.error(error);
+                });
             } catch (e) {
                 console.log('Login Error: ', e);
-                ShowAlertMessage('Credenciales incorrectas', 'Por favor intentar de nuevo', 'warning');
+                ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');
             }
         } else {
             console.log('Campos vacios')
@@ -62,6 +54,7 @@ const Login = () => {
         auth()
             .signInAnonymously()
             .then(() => {
+                navigation.navigate("Home")
                 console.log('User signed in anonymously');
             })
             .catch(error => {

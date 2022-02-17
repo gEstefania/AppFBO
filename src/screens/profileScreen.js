@@ -1,9 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, FlatList, ScrollView, SafeAreaView } from "react-native";
+import { View, Image, TouchableOpacity, SafeAreaView } from "react-native";
+import auth from '@react-native-firebase/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
 
 const ProfileScreen = () => {
+
+    const navigation = useNavigation();
+
+    async function onLogOutButtonPress() {
+        try {
+            await GoogleSignin.revokeAccess();
+            await GoogleSignin.signOut();
+            auth().signOut().then(() => console.log('User signed out!'));
+            await AsyncStorage.removeItem('@token');
+            navigation.navigate("SignIn")
+        } catch (error) {
+            console.error(error);
+        }
+        
+    }
+
     return (
         <View style={styles.mainContainer}>
             <SafeAreaView></SafeAreaView>
@@ -43,15 +63,18 @@ const ProfileScreen = () => {
                 </View>
             </View>
             <View style={styles.bar}></View>
-            <View style={styles.btnRow}>
+            <TouchableOpacity style={styles.btnRow}>
                 <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
                 <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
-            </View>
+            </TouchableOpacity>
             <View style={styles.bar}></View>
-            <View style={styles.btnRow}>
+            <TouchableOpacity
+                style={styles.btnRow}
+                onPress={() => onLogOutButtonPress()}
+            >
                 <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
                 <PrimaryText style={styles.title}>Cerrar sesión</PrimaryText>
-            </View>
+            </TouchableOpacity>
             <View style={styles.bar}></View>
         </View>
     )
