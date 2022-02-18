@@ -8,12 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import { PrimaryText, SecondaryText } from '@common';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/login';
+import {createUserSocialRegiter} from '@firestore/user' 
+import { login } from '../../redux/actions/userActions';
+import { connect } from 'react-redux';
 
 GoogleSignin.configure({
     webClientId: '87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com',
 });
 
-const Login = () => {
+const Login = (props) => {
     const [user, setUser] = useState({ email: '', password: '' });
     const navigation = useNavigation();
 
@@ -69,10 +72,23 @@ const Login = () => {
 
         try {
             // Sign-in the user with the credential
-            auth().signInWithCredential(googleCredential);
-            await AsyncStorage.setItem('@token', idToken);
-            navigation.navigate("Home")
-            console.log('Login with Google Success')
+            let userCredentials = await auth().signInWithCredential(googleCredential);
+            let userProfile = userCredentials.additionalUserInfo?.profile
+            if(userProfile){
+                const userData={
+                    email:userProfile.email,
+                    name:userProfile.name,
+                    picture:userProfile.picture,
+                    role:"user",
+                    group:[],
+                    category:[],
+                }
+                let res = await createUserSocialRegiter(userData)
+                props.loginUser(res.data())
+                await AsyncStorage.setItem('@token', idToken);
+                navigation.navigate("Home")
+            }
+            
         } catch (error) {
             console.log('Error login with Google: ', error)
         }
@@ -187,5 +203,7 @@ const Login = () => {
         </ScrollView>
     )
 }
-
-export default Login;
+const dispatchStateToProps={
+    loginUser:login
+}
+export default connect(null,dispatchStateToProps)(Login) ;
