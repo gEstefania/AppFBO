@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
-import base64 from 'react-native-base64';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
