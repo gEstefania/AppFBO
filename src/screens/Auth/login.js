@@ -113,9 +113,6 @@ const Login = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.mainContainer}>
-            {isLoading && <View style={{ backgroundColor: 'rgba(0,0,0,0.25)', height: Dimensions.get('window').height, width: Dimensions.get('window').width, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="blue" />
-            </View>}
             <SafeAreaView></SafeAreaView>
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>
