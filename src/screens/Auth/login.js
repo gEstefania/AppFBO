@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import base64 from 'react-native-base64'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useDispatch } from 'react-redux'
 import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert, ActivityIndicator, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
 import { PrimaryText, SecondaryText } from '@common';
-import userAction from '../../redux/actions/userActions';
-import { axiosApi } from '@http';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/login';
 
@@ -118,9 +113,6 @@ const Login = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.mainContainer}>
-            {isLoading && <View style={{ backgroundColor: 'rgba(0,0,0,0.25)', height: Dimensions.get('window').height, width: Dimensions.get('window').width, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <ActivityIndicator size="large" color="blue" />
-            </View>}
             <SafeAreaView></SafeAreaView>
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>

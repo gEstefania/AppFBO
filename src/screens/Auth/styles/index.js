@@ -21,7 +21,7 @@ export default StyleSheet.create({
   },
   textIntro:{
     textAlign: 'center',
-    maxWidth: '60%',
+    maxWidth: '70%',
     marginTop: 30,
     marginBottom: 20,
   },
@@ -33,5 +33,8 @@ export default StyleSheet.create({
     marginBottom: 20,
     borderRadius: 30,
     backgroundColor: Colors.CORPORATE_ORANGE,
+  },
+  btnSingInContainer: {
+    flexDirection: 'row',
   },
 });
