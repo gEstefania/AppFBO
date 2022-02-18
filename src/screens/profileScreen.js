@@ -13,11 +13,10 @@ const ProfileScreen = () => {
 
     async function onLogOutButtonPress() {
         try {
-            await GoogleSignin.revokeAccess();
-            await GoogleSignin.signOut();
+            //await GoogleSignin.revokeAccess();
+            //await GoogleSignin.signOut();
             auth().signOut().then(() => console.log('User signed out!'));
-            await AsyncStorage.removeItem('@token');
-            navigation.navigate("SignIn")
+            navigation.navigate("Index")
         } catch (error) {
             console.error(error);
         }

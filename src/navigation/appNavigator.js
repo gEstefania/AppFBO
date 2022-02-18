@@ -24,7 +24,7 @@ import SignIn from '../screens/Auth/login';
 import SignUp from '../screens/Auth/signUp';
 import Tags from '../screens/tags';
 import Intro from '../screens/intro';
-import Index from '../screens/index';
+import Index from '../screens/Auth/index';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -65,7 +65,9 @@ const AppNavigator = () => {
   if (!user) {
     return (
       <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName={"SignIn"} screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Intro" component={Intro} />
+          <Stack.Screen name="Index" component={Index} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Home" component={BottomTabNavigator} />

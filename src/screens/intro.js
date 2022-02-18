@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/intro';
 
-const Intro = ({navigation}) => {
+const Intro = () => {
+    const navigation = useNavigation();
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.navigate("Index")
+        }, 1500);
+
+        //time()
+    }, []);
+
     return (
         <View style={styles.mainContainer}>
             <ImageBackground
@@ -19,12 +29,6 @@ const Intro = ({navigation}) => {
                         <PrimaryText color={'#fff'} type={'Regular'} style={styles.title}>Bienvenido a <PrimaryText color={'#fff'}>App FBO</PrimaryText></PrimaryText>
                         <SecondaryText color={'#ff000a'} style={styles.textIntro}>Explora nuestra app y encuentra todo lo que necesitas</SecondaryText>
                     </View>
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity style={styles.btnGo}>
-                            <PrimaryText type={'Regular'}>¡VAMOS!</PrimaryText>
-                        </TouchableOpacity>
-                    </View>
-                
             </ImageBackground>
         </View>
     )
