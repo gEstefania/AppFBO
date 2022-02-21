@@ -1,4 +1,3 @@
-import { axiosApi } from "../../http"
 import { GET_DESCRIPTION, GET_LESSONS } from "../types/actionTypes";
 
 export const fetchLessons = () => {
