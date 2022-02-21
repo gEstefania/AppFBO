@@ -70,7 +70,6 @@ const AppNavigator = () => {
           <Stack.Screen name="Index" component={Index} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="Home" component={BottomTabNavigator} />
         </Stack.Navigator>
         <FlashMessage position="top"/>
       </NavigationContainer>
@@ -79,18 +78,10 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <BottomTab.Navigator
-        initialRouteName={TopTapNavigator}
-        screenOptions={{
-          headerShown: false
-        }}
-      >
-        <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
-        <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
-        <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
-        <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
-        <BottomTab.Screen name="Buscar" component={SearchScreen}/>
-      </BottomTab.Navigator>
+      <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={BottomTabNavigator} />
+          <Stack.Screen name="TagsPreferences" component={Tags} />
+        </Stack.Navigator>
     </NavigationContainer>
   );
     
@@ -105,7 +96,7 @@ function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
-      <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
+      <BottomTab.Screen name="Perfil" component={Tags}/>
       <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
       <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
       <BottomTab.Screen name="Buscar" component={SearchScreen}/>
