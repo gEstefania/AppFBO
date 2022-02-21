@@ -87,7 +87,7 @@ const Login = (props) => {
                 props.loginUser(res.data())
                 await AsyncStorage.setItem('@token', idToken);
                 if(res.data().category.length===0){
-                    navigation.navigate("TagsPreferences")
+                    navigation.navigate("Tags")
                 }else{
                     navigation.navigate("Home")
                 }

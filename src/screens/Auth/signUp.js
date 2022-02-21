@@ -24,9 +24,8 @@ const SignUp = () => {
                     auth()
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
+                        navigation.navigate("TagsPreferences")
                         console.log('User account created & signed in!');
-                        //AsyncStorage.setItem('@token', JSON.stringify(data.token));
-                        navigation.navigate("Home")
                     })
                     .catch(error => {
                         if (error.code === 'auth/email-already-in-use') {

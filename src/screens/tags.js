@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, TouchableOpacity, useWindowDimensions } from "react-native";
+import { View, FlatList, TouchableOpacity, useWindowDimensions, Image } from "react-native";
+import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Tags = ({navigation}) => {
     const [selectedTags, setSelectedTags] = useState([]);
@@ -109,20 +111,40 @@ const Tags = ({navigation}) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <SecondaryText>¿Qué te interesa?</SecondaryText>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate("Inicio")}
-                >
-                    <SecondaryText>Saltar</SecondaryText>
-                </TouchableOpacity>
+            <LinearGradient
+                colors={['#ff9b04', '#ff000a' ]}
+                style={styles.LinearGradientView}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1.4, y: 1.4 }}
+                locations={[0.2, 0.4]}
+            >
+                <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+            </LinearGradient>
+            
             </View>
-            <FlatList
-                data={dataList}
-                contentContainerStyle={{flexGrow: 1}}
-                numColumns={2}
-                keyExtractor={item => item.id}
-                renderItem={renderList}
-            />
+            <View style={styles.body}>
+                <View style={styles.row}>
+                    <SecondaryText>¿Qué te interesa?</SecondaryText>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("Home")}
+                    >
+                        <SecondaryText>Saltar</SecondaryText>
+                    </TouchableOpacity>
+                </View>
+                <FlatList
+                    data={dataList}
+                    contentContainerStyle={{flexGrow: 1}}
+                    numColumns={2}
+                    keyExtractor={item => item.id}
+                    renderItem={renderList}
+                />
+                <TouchableOpacity
+                        onPress={() => navigation.navigate("Home")}
+                        style={styles.btnSave}
+                    >
+                        <SecondaryText>Guardar</SecondaryText>
+                    </TouchableOpacity>
+            </View>
         </View>
     )
 }

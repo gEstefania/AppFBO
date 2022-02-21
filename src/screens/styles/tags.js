@@ -4,13 +4,23 @@ import {Colors} from '@common';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    margin: 20,
-    marginTop: 40,
   },
   headerContainer:{
+    height: 200,
+  },
+  LinearGradientView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  row:{
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
+  },
+  body:{
+    margin: 20,
+    marginTop: 20,
   },
   btnTopic: {
     //flex: 1,
@@ -34,5 +44,8 @@ export default StyleSheet.create({
     marginHorizontal: 10,
     borderRadius: 15,
     backgroundColor: Colors.ORANGE,
-  }
+  },
+  btnSave:{
+    alignItems: 'flex-end',
+  },
 });
