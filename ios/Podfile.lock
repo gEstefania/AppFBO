@@ -9,8 +9,8 @@ PODS:
     - React
   - CocoaAsyncSocket (7.6.5)
   - DoubleConversion (1.1.6)
-  - FBAEMKit (12.2.1):
-    - FBSDKCoreKit_Basics (= 12.2.1)
+  - FBAEMKit (12.3.2):
+    - FBSDKCoreKit_Basics (= 12.3.2)
   - FBLazyVector (0.67.1)
   - FBReactNativeSpec (0.67.1):
     - RCT-Folly (= 2021.06.28.00-v2)
@@ -19,14 +19,14 @@ PODS:
     - React-Core (= 0.67.1)
     - React-jsi (= 0.67.1)
     - ReactCommon/turbomodule/core (= 0.67.1)
-  - FBSDKCoreKit (12.2.1):
-    - FBAEMKit (= 12.2.1)
-    - FBSDKCoreKit_Basics (= 12.2.1)
-  - FBSDKCoreKit_Basics (12.2.1)
-  - FBSDKLoginKit (12.2.1):
-    - FBSDKCoreKit (= 12.2.1)
-  - FBSDKShareKit (12.2.1):
-    - FBSDKCoreKit (= 12.2.1)
+  - FBSDKCoreKit (12.3.2):
+    - FBAEMKit (= 12.3.2)
+    - FBSDKCoreKit_Basics (= 12.3.2)
+  - FBSDKCoreKit_Basics (12.3.2)
+  - FBSDKLoginKit (12.3.2):
+    - FBSDKCoreKit (= 12.3.2)
+  - FBSDKShareKit (12.3.2):
+    - FBSDKCoreKit (= 12.3.2)
   - Firebase/Auth (8.11.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 8.11.0)
@@ -41,7 +41,7 @@ PODS:
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
-  - FirebaseCoreDiagnostics (8.11.0):
+  - FirebaseCoreDiagnostics (8.12.0):
     - GoogleDataTransport (~> 9.1)
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/Logger (~> 7.7)
@@ -112,7 +112,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleSignIn (6.0.2):
+  - GoogleSignIn (6.1.0):
     - AppAuth (~> 1.4)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
@@ -345,23 +345,23 @@ PODS:
     - react-native-config/App (= 1.4.5)
   - react-native-config/App (1.4.5):
     - React-Core
-  - react-native-fbsdk-next (7.0.1):
+  - react-native-fbsdk-next (7.1.0):
     - React-Core
-    - react-native-fbsdk-next/Core (= 7.0.1)
-    - react-native-fbsdk-next/Login (= 7.0.1)
-    - react-native-fbsdk-next/Share (= 7.0.1)
-  - react-native-fbsdk-next/Core (7.0.1):
-    - FBSDKCoreKit (~> 12.2.1)
+    - react-native-fbsdk-next/Core (= 7.1.0)
+    - react-native-fbsdk-next/Login (= 7.1.0)
+    - react-native-fbsdk-next/Share (= 7.1.0)
+  - react-native-fbsdk-next/Core (7.1.0):
+    - FBSDKCoreKit (~> 12.3.2)
     - React-Core
-  - react-native-fbsdk-next/Login (7.0.1):
-    - FBSDKLoginKit (~> 12.2.1)
+  - react-native-fbsdk-next/Login (7.1.0):
+    - FBSDKLoginKit (~> 12.3.2)
     - React-Core
-  - react-native-fbsdk-next/Share (7.0.1):
-    - FBSDKShareKit (~> 12.2.1)
+  - react-native-fbsdk-next/Share (7.1.0):
+    - FBSDKShareKit (~> 12.3.2)
     - React-Core
-  - react-native-pager-view (5.4.9):
+  - react-native-pager-view (5.4.11):
     - React-Core
-  - react-native-safe-area-context (3.3.2):
+  - react-native-safe-area-context (3.4.0):
     - React-Core
   - react-native-video (5.2.0):
     - React-Core
@@ -433,24 +433,26 @@ PODS:
     - React-jsi (= 0.67.1)
     - React-logger (= 0.67.1)
     - React-perflogger (= 0.67.1)
-  - RNCAsyncStorage (1.15.17):
+  - RNCAsyncStorage (1.16.1):
     - React-Core
-  - RNFBApp (14.3.0):
+  - RNFBApp (14.5.0):
     - Firebase/CoreOnly (= 8.11.0)
     - React-Core
-  - RNFBAuth (14.3.0):
+  - RNFBAuth (14.5.0):
     - Firebase/Auth (= 8.11.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.2.0):
     - React-Core
-  - RNGoogleSignin (7.0.4):
-    - GoogleSignIn (~> 6.0.0)
+  - RNGoogleSignin (7.1.0):
+    - GoogleSignIn (~> 6.1.0)
     - React-Core
-  - RNScreens (3.10.2):
+  - RNScreens (3.12.0):
     - React-Core
     - React-RCTImage
-  - RNVectorIcons (9.0.0):
+  - RNSVG (12.1.1):
+    - React
+  - RNVectorIcons (9.1.0):
     - React-Core
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -484,7 +486,6 @@ DEPENDENCIES:
   - FlipperKit/FlipperKitUserDefaultsPlugin (= 0.99.0)
   - FlipperKit/SKIOSNetworkPlugin (= 0.99.0)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - GoogleSignIn (~> 6.0.2)
   - OpenSSL-Universal (= 1.1.180)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -523,6 +524,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - "RNGoogleSignin (from `../node_modules/@react-native-google-signin/google-signin`)"
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -643,6 +645,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-google-signin/google-signin"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -654,17 +658,17 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
-  FBAEMKit: 4cea610d0bc1680572f2aad7b25db7a2f2690d82
+  FBAEMKit: 955ca52eba8219c20f90774e8c6ff8bc7b3192a3
   FBLazyVector: cf409c74423d3507bda74bda1dc41e903ec2cd5b
   FBReactNativeSpec: ef0ce762fdb37900abb01e008cce5f0ef2cce6b7
-  FBSDKCoreKit: 5b1992fe65802ca26be7e68bc4fac5f59fa39908
-  FBSDKCoreKit_Basics: a6a92ca628e05f86f458a4721574c5ddfb058ba3
-  FBSDKLoginKit: 7467b7f988ca4fdf48f12a839bcfce4264752429
-  FBSDKShareKit: 25fe0e2cd0811918e5b5b1603cb3fc580154cc48
+  FBSDKCoreKit: 678f64eda3f0ff25c189c2ebbfe87b1d96a85a6d
+  FBSDKCoreKit_Basics: 6bee7c1f0932432901781203fa5e587ec5099148
+  FBSDKLoginKit: 56d55e23fe66a6db045826190b0b4dbc0e1ca0a0
+  FBSDKShareKit: 4ef957addab76816116ea92bd872e792f7137669
   Firebase: 44dd9724c84df18b486639e874f31436eaa9a20c
   FirebaseAuth: d96d73aba85d192d7a7aa0b86dd6d7f8ec170b4b
   FirebaseCore: 2f4f85b453cc8fea4bb2b37e370007d2bcafe3f0
-  FirebaseCoreDiagnostics: 64d9709d804a6c25bd77841371c1fcfd909d5601
+  FirebaseCoreDiagnostics: 3b40dfadef5b90433a60ae01f01e90fe87aa76aa
   Flipper: 30e8eeeed6abdc98edaf32af0cda2f198be4b733
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 57ffbe81ef95306cc9e69c4aa3aeeeeb58a6a28c
@@ -677,7 +681,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
-  GoogleSignIn: fd381840dbe7c1137aa6dc30849a5c3e070c034a
+  GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   GTMAppAuth: ad5c2b70b9a8689e1a04033c9369c4915bfcbe89
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
@@ -698,9 +702,9 @@ SPEC CHECKSUMS:
   React-jsinspector: ab80bcdb02f28cdfc0dbbaea6db1241565d59002
   React-logger: b08f354e4c928ff794ca477347fea0922aaf11c3
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
-  react-native-fbsdk-next: 800e60618cd7b861eb5d37ed4b653b5bc72e7ceb
-  react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
-  react-native-safe-area-context: 584dc04881deb49474363f3be89e4ca0e854c057
+  react-native-fbsdk-next: 7fa197c23545e36aa7549ef1ede3a63669981bc5
+  react-native-pager-view: 7f00d63688f7df9fad86dfb0154814419cc5eb8d
+  react-native-safe-area-context: f4f7cc09d81ae2d39dfd13e764d718969af07080
   react-native-video: a4c2635d0802f983594b7057e1bce8f442f0ad28
   React-perflogger: 9a6172711d9c4c8c7ac0a426717317c3c6ecf85c
   React-RCTActionSheet: ed408b54b08278e6af8a75e08679675041da61ae
@@ -714,16 +718,17 @@ SPEC CHECKSUMS:
   React-RCTVibration: 19c012d1202df46bafbe49268a346f6b3edadfdd
   React-runtimeexecutor: 2c92a8bddd1a3e72c7513d1e74235c2d9c84875c
   ReactCommon: 2e816fad39f65f2a94a5999d5be463a6b620dcf6
-  RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
-  RNFBApp: 16bdf8b75b84631513da3d5f5e2520a436ec9b29
-  RNFBAuth: 7eb50d60c82b4a59018b0c7a1d4afdd1250eff74
+  RNCAsyncStorage: b49b4e38a1548d03b74b30e558a1d18465b94be7
+  RNFBApp: 4a5d794ce679d939e805bff4b830b4e59a2cfc67
+  RNFBAuth: fc3a017ba19f0874d7ee454aabe3203f20ee6be5
   RNGestureHandler: bf572f552ea324acd5b5464b8d30755b2d8c1de6
-  RNGoogleSignin: c4381751eefd73c552b923ba347a9bfc6f18771c
-  RNScreens: d6da2b9e29cf523832c2542f47bf1287318b1868
-  RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
+  RNGoogleSignin: 233fdfa02522216c19bf02a1e6c60b60a75ffb4c
+  RNScreens: 2559f98b0835103cbef3b26ba77fa61d4bb37ae7
+  RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
+  RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b
   Yoga: 5cbf25add73edb290e1067017690f7ebf56c5468
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 
-PODFILE CHECKSUM: 82131cf4a72abe4607abc8f7960368d4d5e8a7b3
+PODFILE CHECKSUM: 96a35d48b20db6c1d777a1a89e91499fa4863ad8
 
 COCOAPODS: 1.11.2

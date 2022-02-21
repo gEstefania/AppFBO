@@ -1,6 +1,9 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+# Override Firebase SDK Version
+$FirebaseSDKVersion = '8.11.0'
+
 platform :ios, '11.0'
 
 target 'AppFBO' do
@@ -12,7 +15,7 @@ target 'AppFBO' do
     :hermes_enabled => false
   )
 
-  pod 'GoogleSignIn', '~> 6.0.2'
+  #pod 'GoogleSignIn', '~> 6.0.2'
   
   target 'AppFBOTests' do
     inherit! :complete
