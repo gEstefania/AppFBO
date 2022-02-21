@@ -9,7 +9,7 @@ import videoScreen from '../screens/Training/screens/videoScreen';
 const CourseTopTab = createMaterialTopTabNavigator();
 const LessonStack = createStackNavigator();
 
-const courseTopMenu = ({route}) => {
+const CourseTopMenu = ({route}) => {
     return(
       <CourseTopTab.Navigator
         screenOptions={{
@@ -42,4 +42,4 @@ const courseTopMenu = ({route}) => {
     );
   };
 
-  export default courseTopMenu;
+  export default CourseTopMenu;

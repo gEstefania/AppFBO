@@ -86,7 +86,12 @@ const Login = (props) => {
                 let res = await createUserSocialRegiter(userData)
                 props.loginUser(res.data())
                 await AsyncStorage.setItem('@token', idToken);
-                navigation.navigate("Home")
+                if(res.data().category.length===0){
+                    navigation.navigate("TagsPreferences")
+                }else{
+                    navigation.navigate("Home")
+                }
+                
             }
             
         } catch (error) {

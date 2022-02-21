@@ -10,7 +10,6 @@ import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import userAction from '../../redux/actions/userActions';
 import { ShowAlertMessage } from '@components';
-import {axiosApi} from '@http';
 import styles from './styles/signUp';
 
 const SignUp = () => {

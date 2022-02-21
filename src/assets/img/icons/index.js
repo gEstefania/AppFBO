@@ -1,0 +1,23 @@
+import _buscar_hover from './buscar_hover.svg';
+import _buscar from './buscar.svg';
+import _compartir from './compartir.svg';
+import _facebook from './facebook.svg';
+import _google from './google.svg';
+import _hablemos_hover from './buscar_hover.svg';
+import _hablemos from './hablemos.svg';
+import _perfil_hover from './perfil_hover.svg';
+import _perfil from './perfil.svg';
+import _sugerencias_hover from './hablemos.svg';
+import _sugerencias from './sugerencias.svg';
+
+export const IconBuscar = _buscar_hover;
+export const IconBuscarHover = _buscar_hover;
+export const IconCompartir = _buscar_hover;
+export const IconFacebook = _buscar_hover;
+export const IconGoogle = _buscar_hover;
+export const IconHablemosHover = _buscar_hover;
+export const IconHablemos = _buscar_hover;
+export const IconPerfilHover = _buscar_hover;
+export const IconPerfil = _buscar_hover;
+export const IconSugerenciasHover = _buscar_hover;
+export const IconSugerencias = _buscar_hover;
