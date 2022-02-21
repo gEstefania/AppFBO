@@ -62,6 +62,20 @@ const Login = (props) => {
                 console.error(error);
             });
     }
+    const insertUser=async (userProfile)=>{
+        console.log(userProfile);
+        const userData={
+            email:userProfile.email,
+            name:userProfile.name,
+            picture:userProfile.picture,
+            role:"user",
+            group:[],
+            category:[],
+        }
+        let res = await createUserSocialRegiter(userData)
+        props.loginUser({id:res.id,...res.data()})
+        return res
+    }
     async function onGoogleButtonPress() {
         // Get the users ID token
         const { idToken,  } = await GoogleSignin.signIn();
@@ -75,19 +89,10 @@ const Login = (props) => {
             let userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
             if(userProfile){
-                const userData={
-                    email:userProfile.email,
-                    name:userProfile.name,
-                    picture:userProfile.picture,
-                    role:"user",
-                    group:[],
-                    category:[],
-                }
-                let res = await createUserSocialRegiter(userData)
-                props.loginUser(res.data())
+                let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
                 if(res.data().category.length===0){
-                    navigation.navigate("Tags")
+                    navigation.navigate("TagsPreferences")
                 }else{
                     navigation.navigate("Home")
                 }
@@ -99,7 +104,7 @@ const Login = (props) => {
         }
     }
 
-    async function onFacebookButtonPress() {
+    async function onFacebookButtonPress (){
         // Attempt login with permissions
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -116,14 +121,22 @@ const Login = (props) => {
 
         // Create a Firebase credential with the AccessToken
         const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        console.log(facebookCredential)
 
         try {
             // Sign-in the user with the credential
-            const authFacebook = auth().signInWithCredential(facebookCredential);
+            const authFacebook = await auth().signInWithCredential(facebookCredential);
+
             if(authFacebook){
+                console.log("FACEBOOK ", authFacebook)
+                let userProfile = authFacebook.additionalUserInfo?.profile
+
+                let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
-                navigation.navigate("Home")
+                if(res.data().category.length===0){
+                    navigation.navigate("TagsPreferences")
+                }else{
+                    navigation.navigate("Home")
+                }
                 console.log('Login Success!')
             }
         } catch (error) {

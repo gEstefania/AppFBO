@@ -1,4 +1,5 @@
 import firestore,{Timestamp} from '@react-native-firebase/firestore';
+import {store} from '../redux/store'
 
 export const createUserSocialRegiter = (userData) => {
     return new Promise(async(resolve, reject) => {
@@ -28,6 +29,25 @@ export const createUserSocialRegiter = (userData) => {
             
         } catch (e) {
             reject({ error: e });
+        }
+    })
+}
+
+export const editCategories=(categoriesId)=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            let userId = store.getState().users.id
+            firestore()
+                .collection("Users")
+                .doc(userId)
+                .update({ 
+                    category:categoriesId.map(cat=>firestore().doc(`Category/${cat.id}`))
+                })
+            
+            resolve({msg:"User updated"})
+            
+        }catch(e){
+            reject({error:e});
         }
     })
 }

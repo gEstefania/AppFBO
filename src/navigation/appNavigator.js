@@ -96,7 +96,7 @@ function BottomTabNavigator() {
       }}
     >
       <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
-      <BottomTab.Screen name="Perfil" component={Tags}/>
+      <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
       <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
       <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
       <BottomTab.Screen name="Buscar" component={SearchScreen}/>
