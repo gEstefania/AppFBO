@@ -4,77 +4,48 @@ import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import {getAllCategories} from '@firestore/category';
+import {editCategories} from '@firestore/user'
+import { showMessage } from 'react-native-flash-message';
 
 const Tags = ({navigation}) => {
     const [selectedTags, setSelectedTags] = useState([]);
+    const [tags,setTags]=useState([]);
     const {width} = useWindowDimensions();
 
-    const dataList = [
-        {
-            id: 1,
-            name: 'Familia',
-        },
-        {
-            id: 2,
-            name: 'Salud',
-        },
-        {
-            id: 3,
-            name: 'Mente',
-        },
-        {
-            id: 4,
-            name: 'Educacion',
-        },
-        {
-            id: 5,
-            name: 'Legal',
-        },
-        {
-            id: 6,
-            name: 'Prestaciones',
-        },
-        {
-            id: 7,
-            name: 'Hermanos',
-        },
-        {
-            id: 8,
-            name: 'Sucesiones',
-        },
-        {
-            id: 9,
-            name: 'Talleres',
-        },
-        {
-            id: 10,
-            name: 'Embarazo',
-        },
-        {
-            id: 11,
-            name: 'Formacion',
-        },
-        {
-            id: 12,
-            name: 'Ayuda',
-        },
-        {
-            id: 13,
-            name: 'Laboral',
-        },
-        {
-            id: 14,
-            name: 'Movilidad',
-        },
-        {
-            id: 15,
-            name: 'Fiscal',
-        },
-        {
-            id: 16,
-            name: 'Actualidad',
-        },
-      ];
+    useEffect(()=>{
+        getData()
+    },[])  
+    
+    const getData=async()=>{
+        try {
+            let res = await getAllCategories()
+            let tmpArray = []
+            res.forEach(doc=>{
+                tmpArray.push({id:doc.id,...doc.data()})
+            })
+            setTags(tmpArray)
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    const updateTagsUser=async()=>{
+        try{
+            let res = await editCategories(selectedTags)
+            showMessage({
+                message:"Preferencias actualizadas.",
+                description:"Sus categorias preferidas se han guardado exitosamente.",
+                icon:"success",
+                type:"success",
+                duration:1000
+            })
+            navigation.navigate("Home")
+        }catch(e){
+            console.log(e)
+        }
+    }
+    
 
     const renderList = ({item, index}) => {
             const itemFound = selectedTags.find(tag => tag.id === item.id);
@@ -132,14 +103,14 @@ const Tags = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
                 <FlatList
-                    data={dataList}
+                    data={tags  }
                     contentContainerStyle={{flexGrow: 1}}
                     numColumns={2}
                     keyExtractor={item => item.id}
                     renderItem={renderList}
                 />
                 <TouchableOpacity
-                        onPress={() => navigation.navigate("Home")}
+                        onPress={updateTagsUser}
                         style={styles.btnSave}
                     >
                         <SecondaryText>Guardar</SecondaryText>

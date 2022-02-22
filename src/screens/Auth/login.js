@@ -8,12 +8,15 @@ import { useNavigation } from '@react-navigation/native';
 import { PrimaryText, SecondaryText } from '@common';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/login';
+import {createUserSocialRegiter} from '@firestore/user' 
+import { login } from '../../redux/actions/userActions';
+import { connect } from 'react-redux';
 
 GoogleSignin.configure({
     webClientId: '87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com',
 });
 
-const Login = () => {
+const Login = (props) => {
     const [user, setUser] = useState({ email: '', password: '' });
     const navigation = useNavigation();
 
@@ -59,6 +62,20 @@ const Login = () => {
                 console.error(error);
             });
     }
+    const insertUser=async (userProfile)=>{
+        console.log(userProfile);
+        const userData={
+            email:userProfile.email,
+            name:userProfile.name,
+            picture:userProfile.picture,
+            role:"user",
+            group:[],
+            category:[],
+        }
+        let res = await createUserSocialRegiter(userData)
+        props.loginUser({id:res.id,...res.data()})
+        return res
+    }
     async function onGoogleButtonPress() {
         // Get the users ID token
         const { idToken,  } = await GoogleSignin.signIn();
@@ -69,16 +86,25 @@ const Login = () => {
 
         try {
             // Sign-in the user with the credential
-            auth().signInWithCredential(googleCredential);
-            await AsyncStorage.setItem('@token', idToken);
-            navigation.navigate("Home")
-            console.log('Login with Google Success')
+            let userCredentials = await auth().signInWithCredential(googleCredential);
+            let userProfile = userCredentials.additionalUserInfo?.profile
+            if(userProfile){
+                let res = await insertUser(userProfile)
+                await AsyncStorage.setItem('@token', idToken);
+                if(res.data().category.length===0){
+                    navigation.navigate("TagsPreferences")
+                }else{
+                    navigation.navigate("Home")
+                }
+                
+            }
+            
         } catch (error) {
             console.log('Error login with Google: ', error)
         }
     }
 
-    async function onFacebookButtonPress() {
+    async function onFacebookButtonPress (){
         // Attempt login with permissions
         const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -95,14 +121,22 @@ const Login = () => {
 
         // Create a Firebase credential with the AccessToken
         const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        console.log(facebookCredential)
 
         try {
             // Sign-in the user with the credential
-            const authFacebook = auth().signInWithCredential(facebookCredential);
+            const authFacebook = await auth().signInWithCredential(facebookCredential);
+
             if(authFacebook){
+                console.log("FACEBOOK ", authFacebook)
+                let userProfile = authFacebook.additionalUserInfo?.profile
+
+                let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
-                navigation.navigate("Home")
+                if(res.data().category.length===0){
+                    navigation.navigate("TagsPreferences")
+                }else{
+                    navigation.navigate("Home")
+                }
                 console.log('Login Success!')
             }
         } catch (error) {
@@ -187,5 +221,7 @@ const Login = () => {
         </ScrollView>
     )
 }
-
-export default Login;
+const dispatchStateToProps={
+    loginUser:login
+}
+export default connect(null,dispatchStateToProps)(Login) ;
