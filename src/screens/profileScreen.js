@@ -16,7 +16,6 @@ const ProfileScreen = () => {
             //await GoogleSignin.revokeAccess();
             //await GoogleSignin.signOut();
             auth().signOut().then(() => console.log('User signed out!'));
-            navigation.navigate("Index")
         } catch (error) {
             console.error(error);
         }

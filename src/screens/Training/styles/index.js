@@ -17,6 +17,27 @@ export default StyleSheet.create({
   title: {
     fontSize: 20,
   },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30,
+    paddingHorizontal: 10,
+    marginHorizontal: 30,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+  },
+  modalDetail: {
+    marginTop: 20,
+  },
+  btnModal:{
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginTop: 30,
+    borderRadius: 100,
+    backgroundColor: Colors.CORPORATE_ORANGE,
+  },
   btnCard: {
     width: 300,
     height: 400,

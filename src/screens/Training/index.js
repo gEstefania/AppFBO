@@ -1,10 +1,26 @@
-import { View, Image, Text, TouchableOpacity } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Button } from 'react-native';
 import React, { useEffect, useState } from 'react';
+import auth from '@react-native-firebase/auth';
 import { FlatList } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import Modal from "react-native-modal";
 import styles from './styles/index';
 import {PrimaryText, SecondaryText} from '@common';
 
-const Index = ({navigation}) => {
+const Index = () => {
+  const [user, setUser] = useState();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation();
+
+  function onAuthStateChanged(user) {
+    setUser(user);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
   const dataList = [
     {
       name: 'Desde cero',
@@ -31,6 +47,20 @@ const Index = ({navigation}) => {
       name: 'Lorem ipsum',
     },
   ];
+
+  const onViewAllButtonPress = () => {
+    if(user.isAnonymous == true){
+      setModalVisible(!isModalVisible);
+    }
+  }
+
+  const onSignUpButtonPress = () => {
+    try {
+      auth().signOut()
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const renderList = ({item}) => {
     return (
@@ -75,7 +105,27 @@ const Index = ({navigation}) => {
       <Image/>
       <View style={styles.titleContainer}>
         <PrimaryText style={styles.title}>#Construcciones</PrimaryText>
-        <SecondaryText>Ver todo</SecondaryText>
+        <TouchableOpacity
+          onPress={() => onViewAllButtonPress()}
+        >
+          <SecondaryText>Ver todo</SecondaryText>
+        </TouchableOpacity>
+        <Modal
+          isVisible={isModalVisible}
+          onBackdropPress={() => setModalVisible(false)}
+          swipeDirection="left"
+        >
+          <View style={styles.modal}>
+            <PrimaryText>¿No tienes cuenta?</PrimaryText>
+            <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+            <TouchableOpacity
+              onPress={() => onSignUpButtonPress()}
+              style={styles.btnModal}
+            >
+              <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
+            </TouchableOpacity>
+          </View>
+      </Modal>
       </View>
       <FlatList
         horizontal
