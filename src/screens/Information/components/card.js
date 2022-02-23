@@ -37,7 +37,7 @@ const Card = ({title, cardColor, navigation}) => {
   return(
     <View style={styles.mainContainer}>
       <View style={styles.titleContainer}>
-      <PrimaryText style={styles.titleSection}>{title}</PrimaryText>
+      <PrimaryText color={cardColor} style={styles.titleSection}>{title}</PrimaryText>
         <TouchableOpacity
         onPress={() => navigation.navigate("Topic", { title: title, color: cardColor, data: dataList} )}
         >
