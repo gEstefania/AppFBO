@@ -4,7 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {getAllCategories} from '@firestore/category';
+import {getAllCategories} from '@firestore/tagsPreferences';
 import {editCategories} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
 
