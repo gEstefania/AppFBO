@@ -12,18 +12,19 @@ export const createUserSocialRegiter = (userData) => {
                     name: userData.name,
                     picture: userData.picture,
                     role: "user",
-                    group: [],
-                    category: [],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now()
                 }
                 firestore()
                 .collection('Users')
                 .add(registerData)
-                .then((doc) => {
-                    resolve(doc);
+                .then(async(doc) => {
+                    let existUser = await firestore().collection("Users").where('email','==',userData.email).get()
+                    let docsQuery = existUser.docs                    
+                    resolve(docsQuery[0]);
                 })
             }else{
+                console.log("Firebase found user ", doc)
                 resolve(docsQuery[0])
             }
             

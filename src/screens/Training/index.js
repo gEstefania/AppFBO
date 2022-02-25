@@ -1,4 +1,4 @@
-import { View, Image, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Button,ImageBackground} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import { FlatList } from 'react-native-gesture-handler';
@@ -6,11 +6,15 @@ import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modal";
 import styles from './styles/index';
 import {PrimaryText, SecondaryText} from '@common';
-
-const Index = () => {
+import {getActiveCourses} from '@firestore/courses'
+import {connect} from 'react-redux'
+import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
+const Index = (props) => {
   const [user, setUser] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
+  const [allCourses,setAllCourses] = useState([]);
   const navigation = useNavigation();
+  
 
   function onAuthStateChanged(user) {
     setUser(user);
@@ -18,35 +22,14 @@ const Index = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
+    const subscriberFirebase = getActiveCourses()
+    return ()=>{
+      subscriber();
+      subscriberFirebase()
+    } ; // unsubscribe on unmount
   }, []);
 
-  const dataList = [
-    {
-      name: 'Desde cero',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-  ];
+
 
   const onViewAllButtonPress = () => {
     if(user.isAnonymous == true){
@@ -62,39 +45,52 @@ const Index = () => {
     }
   }
 
+  const navigateToCourseDetails=(item)=>{
+    navigation.navigate("TopMenu")
+    props.setCurrentCourse(item)
+  }
+
   const renderList = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("TopMenu", { courseTitle: item.name})}
+        onPress={()=>navigateToCourseDetails(item) }
         style={styles.btnCard}
       >
         <View style={styles.container}>
+          {item?.images?.url&&(
+            <ImageBackground
+              resizeMode="cover"
+              source={{uri:item.images.url}}
+              style={styles.backgorundImage}
+             />
+          )}
+          <ImageBackground /> 
           <View style={{flex: 1}}>
-            <PrimaryText style={styles.cardTitle}>{item.name}</PrimaryText>
+            <PrimaryText style={styles.cardTitle}>{item.title}</PrimaryText>
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.row}>
               <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'} style={styles.infoText}>6 videos</PrimaryText>
+                <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalVideos} vídeos</PrimaryText>
               </View>
             </View>
             <View style={styles.row}>
               <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'}  style={styles.infoText}>40 minutos</PrimaryText>
+                <PrimaryText type={'Regular'}  style={styles.infoText}>{item.totalTime} minutos</PrimaryText>
               </View>
             </View>
             <View style={styles.row}>
               <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'}  style={styles.infoText}>2,122 inscritos</PrimaryText>
+                <PrimaryText type={'Regular'}  style={styles.infoText}>{item.users} inscritos</PrimaryText>
               </View>
             </View>
           </View>
         </View>
         <View style={styles.descriptionContainer}>
-          <SecondaryText>Autem vel eum iriuere dolor in hendreit in vulpurate velit</SecondaryText>
+          <SecondaryText>{item.summary.slice(0,parseInt(item.summary.length/4))} ...</SecondaryText>
         </View>
       </TouchableOpacity>
     );
@@ -129,7 +125,7 @@ const Index = () => {
       </View>
       <FlatList
         horizontal
-        data={dataList}
+        data={props.courses}
         renderItem={renderList}
         //keyExtractor={item => item.id}
       />
@@ -137,4 +133,11 @@ const Index = () => {
   )
 }
 
-export default Index;
+const mapStateToProps=(state)=>({
+  courses:state.courses
+})
+const dispatchStateToProps={
+  setCurrentCourse:setCurrentCourse
+}
+
+export default connect(mapStateToProps,dispatchStateToProps)  (Index);

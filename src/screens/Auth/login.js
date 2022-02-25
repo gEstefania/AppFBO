@@ -67,13 +67,20 @@ const Login = (props) => {
         const userData={
             email:userProfile.email,
             name:userProfile.name,
-            picture:userProfile.picture,
+            picture:{
+                refImage:"",
+                url:userProfile.picture
+            },
             role:"user",
             group:[],
-            category:[],
         }
         let res = await createUserSocialRegiter(userData)
-        props.loginUser({id:res.id,...res.data()})
+        if(res.data()){
+            props.loginUser({id:res.id,...res.data()})
+        }else{
+            console.log("res.data() no definido.")
+        }
+        
         return res
     }
     async function onGoogleButtonPress() {
@@ -91,11 +98,9 @@ const Login = (props) => {
             if(userProfile){
                 let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
-                if(res.data().category.length===0){
-                    navigation.navigate("TagsPreferences")
-                }else{
-                    navigation.navigate("Home")
-                }
+                
+                navigation.navigate("Home")
+                
                 
             }
             
@@ -132,12 +137,9 @@ const Login = (props) => {
 
                 let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
-                if(res.data().category.length===0){
-                    navigation.navigate("TagsPreferences")
-                }else{
-                    navigation.navigate("Home")
-                }
-                console.log('Login Success!')
+                
+                navigation.navigate("Home")
+                
             }
         } catch (error) {
             ShowAlertMessage('Algo salió mal', '', 'warning');

@@ -6,6 +6,7 @@ import { persistor, store } from "./src/redux/store/index";
 import AppNavigator from './src/navigation/appNavigator'
 
 export default function App() {
+  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
