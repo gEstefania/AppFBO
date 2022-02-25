@@ -7,10 +7,34 @@ import Video from 'react-native-video';
 import { getExtensionCapitalFromURI, getVideoId } from '@utils/tools'
 import YouTube from 'react-native-youtube';
 import { Vimeo } from 'react-native-vimeo-iframe'
+import { connect } from 'react-redux';
+import { setTaskLesson } from '@firestore/courses'
+import {toggleTasks} from '../../../redux/actions/tasksActions'
 
-const VideoScreen = ({ route, navigation }) => {
+export const TaskItem = ({item,toggleTask,lesson}) => {
+    
+    return (
+        <View style={styles.taskItem}>
+            <CheckBox
+                center
+                checked={item.complete}
+                onPress={() =>toggleTask({
+                    lessonId:lesson.id,
+                    taskId:item.taskId,
+                })}
+            />
+            <SecondaryText>{item.task}</SecondaryText>
+        </View>
+    )
+}
+
+const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
     const { lesson } = route.params
-    const [checkDownload, setCheckDownload] = useState(false);
+
+    useEffect(() => {
+        let subscriber = setTaskLesson(currentCourse.id, lesson.id)
+        return subscriber
+    }, [])
 
     return (
         <ScrollView style={styles.mainContainer}>
@@ -22,7 +46,7 @@ const VideoScreen = ({ route, navigation }) => {
                         style={{ alignSelf: 'stretch', height: 300 }}
                     />
                 ) : (
-                    <View style={{height:300}}>
+                    <View style={{ height: 300 }}>
                         <Vimeo
                             videoId={getVideoId(lesson.url)}
                             onReady={() => console.log('Video is ready')}
@@ -45,35 +69,31 @@ const VideoScreen = ({ route, navigation }) => {
                 <PrimaryText style={styles.sectionTitle}>Descripción</PrimaryText>
                 <SecondaryText>{lesson.description}</SecondaryText>
             </View>
-            <View style={styles.resourceContainer}>
-                <PrimaryText style={styles.sectionTitle}>Recursos</PrimaryText>
-                <Pressable
-                    onPress={() => {
-                        Linking.openURL(lesson.archive.url)
-                    }}
-                    style={styles.downloadCard}>
-                    <View style={styles.textContainer}>
-                        <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive.fileName}</SecondaryText>
-                        <SecondaryText color={'#fff'} type={'Bold'}>{getExtensionCapitalFromURI(lesson.archive.url)}</SecondaryText>
-                    </View>
-                    <View>
-                        <Image source={require('../../../assets/img/icons/home.jpg')} style={styles.icon} />
-                    </View>
-                </Pressable>
-            </View>
+            {lesson?.archive?.url !== "" && lesson?.archive?.url !== null && (
+                <View style={styles.resourceContainer}>
+                    <PrimaryText style={styles.sectionTitle}>Recursos</PrimaryText>
+                    <Pressable
+                        onPress={() => {
+                            Linking.openURL(lesson.archive.url)
+                        }}
+                        style={styles.downloadCard}>
+                        <View style={styles.textContainer}>
+                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive.fileName}</SecondaryText>
+                            <SecondaryText color={'#fff'} type={'Bold'}>{getExtensionCapitalFromURI(lesson.archive.url)}</SecondaryText>
+                        </View>
+                        <View>
+                            <Image source={require('../../../assets/img/icons/home.jpg')} style={styles.icon} />
+                        </View>
+                    </Pressable>
+                </View>
+            )}
+
             <View style={styles.taskContainer}>
                 <PrimaryText style={styles.sectionTitle}>Tareas</PrimaryText>
                 <View style={styles.itemContainer}>
 
-                    {lesson.checks.map((item, i) => (
-                        <View style={styles.taskItem} key={i}>
-                            <CheckBox
-                                center
-                                checked={checkDownload}
-                                onPress={() => setCheckDownload(!checkDownload)}
-                            />
-                            <SecondaryText>{item}</SecondaryText>
-                        </View>
+                    {tasks.map((item) => (
+                        <TaskItem item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
                     ))}
                 </View>
 
@@ -81,5 +101,11 @@ const VideoScreen = ({ route, navigation }) => {
         </ScrollView>
     )
 };
-
-export default VideoScreen;
+const mapStateToProps = (state) => ({
+    currentCourse: state.currentCourse,
+    tasks: state.tasks
+})
+const dispatchStateToProps={
+    toggleTasks
+}
+export default connect(mapStateToProps,dispatchStateToProps)(VideoScreen);
