@@ -16,12 +16,14 @@ export default StyleSheet.create({
     maxWidth: 150,
     fontSize: 20,
   },
-  btnStep: {
+  btnArticle: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: 20,
     borderRadius: 20,
+  },
+  btnContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   circle: {
     width: 15,

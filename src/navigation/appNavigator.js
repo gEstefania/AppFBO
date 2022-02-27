@@ -10,10 +10,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
 import TrainingScreen from '../screens/Training/index';
-import TopicScreen from '../screens/Information/screens/Topic/topicScreen';
-import ArticleScreen from '../screens/Information/screens/Topic/articleScreen';
-import StepScreen from '../screens/Information/screens/Topic/stepScreen';
-import PostScreen from '../screens/Information/screens/Topic/postScreen';
+import ArticleScreen from '../screens/Information/screens/articleScreen';
+import CategoryScreen from '../screens/Information/screens/categoryScreen';
+import SubCategoryScreen from '../screens/Information/screens/subCategoryScreen';
+import TopicScreen from '../screens/Information/screens/topicScreen';
 import ProfileScreen from '../screens/profileScreen';
 import SearchScreen from '../screens/searchScreen';
 import SuggestionScreen from '../screens/suggestionScreen';
@@ -159,11 +159,11 @@ function InformationStackScreen() {
       headerStyle: {shadowColor: '#fff'},
     }}
     >
-      <InformationStack.Screen name="Informacion" component={InfoScreen} options={{headerShown: false}}/>
+      <InformationStack.Screen name="Information" component={InfoScreen} options={{headerShown: false}}/>
+      <InformationStack.Screen name="Category" component={CategoryScreen} />
+      <InformationStack.Screen name="Subcategory" component={SubCategoryScreen} />    
       <InformationStack.Screen name="Topic" component={TopicScreen} />
       <InformationStack.Screen name="Article" component={ArticleScreen} />
-      <InformationStack.Screen name="Step" component={StepScreen} />
-      <InformationStack.Screen name="Post" component={PostScreen} />
     </InformationStack.Navigator>
   );
 };

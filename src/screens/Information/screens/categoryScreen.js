@@ -1,16 +1,26 @@
 import { FlatList, Text, TouchableOpacity, View, ImageBackground} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText, SecondaryText} from '@common';
-import styles from './styles/topicScreen';
+import styles from './styles/subcategoryScreen';
 
-const Topic = ({route, navigation}) => {
+const Category = ({route, navigation}) => {
   const color = route.params.color;
   const dataList = route.params.data;
+  const description = route.params.catDesc;
+  const catId = route.params.catId;
+  const subCatId = route.params.subCatId;
 
   const renderList = ({item}) => {
+    
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Article", { title: item.name, color: color} )}
+        onPress={() => navigation.navigate("Subcategory", {
+          title: item.name,
+          color: color,
+          catId: catId,
+          subCatId: item.id,
+          }
+        )}
         style={[styles.btnArticle, {backgroundColor: color}]}
       >
         <PrimaryText color={'#fff'} style={styles.btnText}>{item.name}</PrimaryText>
@@ -23,8 +33,8 @@ const Topic = ({route, navigation}) => {
       <ImageBackground
       resizeMode="cover"
       style={styles.imageBackground}
-      source={require('../../../../assets/img/FBO-bannerSocial.jpg')}>
-      <SecondaryText color={'#fff'} style={styles.imageText}>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</SecondaryText>
+      source={require('../../../assets/img/FBO-bannerSocial.jpg')}>
+      <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
       </ImageBackground>
       <FlatList
         data={dataList}
@@ -36,4 +46,4 @@ const Topic = ({route, navigation}) => {
   )
 }
 
-export default Topic;
+export default Category;
