@@ -1,21 +1,39 @@
 import React, {useEffect, useState} from 'react';
 import auth from '@react-native-firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
-import userAction from '../../redux/actions/userActions';
+import {createUserSocialRegiter} from '@firestore/user' 
+import { login } from '../../redux/actions/userActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
 
 const SignUp = () => {
     const [user, setUser] = useState({email: '', password: '', name: ''});
     const [checkPolicy, setCheckPolicy] = useState(false);
+    const dispatch = useDispatch();
     const navigation = useNavigation();
+
+    const insertUser = async (userProfile)=>{
+        console.log('userProfile: ',userProfile);
+        const userData = {
+            email: userProfile.email,
+            name: userProfile.name,
+            picture: userProfile?.picture,
+            role: "user",
+            group: [],
+            category: [],
+        }
+        //Firestore
+        let res = await createUserSocialRegiter(userData)
+        //Redux
+        dispatch(login({id:res.id}))
+        return res
+    }
 
     async function onSignUpButtonPress() {
         if (user.email !== '' && user.password !== '') {
@@ -24,6 +42,7 @@ const SignUp = () => {
                     auth()
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
+                        insertUser(user)
                         navigation.navigate("TagsPreferences")
                         console.log('User account created & signed in!');
                     })
@@ -62,10 +81,13 @@ const SignUp = () => {
 
         try {
             // Sign-in the user with the credential
-            auth().signInWithCredential(googleCredential);
-            await AsyncStorage.setItem('@token', idToken);
-            navigation.navigate("Home")
-            console.log('Login with Google Success')
+            userCredentials = await auth().signInWithCredential(googleCredential);
+            let userProfile = userCredentials.additionalUserInfo?.profile
+            if(userProfile){
+                await insertUser(userProfile)
+                navigation.navigate("TagsPreferences")
+                console.log('Login with Google Success')
+            }
         } catch (error) {
             console.log('Error login with Google: ', error)
         }
@@ -88,14 +110,14 @@ const SignUp = () => {
 
         // Create a Firebase credential with the AccessToken
         const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
-        console.log(facebookCredential)
 
         try {
             // Sign-in the user with the credential
-            const authFacebook = auth().signInWithCredential(facebookCredential);
+            const authFacebook = await auth().signInWithCredential(facebookCredential);
             if(authFacebook){
-                await AsyncStorage.setItem('@token', data.accessToken);
-                navigation.navigate("Home")
+                let userProfile = authFacebook.additionalUserInfo?.profile
+                await insertUser(userProfile)
+                navigation.navigate("TagsPreferences")
                 console.log('Login Success!')
             }
         } catch (error) {

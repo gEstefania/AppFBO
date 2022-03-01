@@ -10,25 +10,29 @@ export const createUserSocialRegiter = (userData) => {
                 let registerData={
                     email: userData.email,
                     name: userData.name,
-                    picture: userData.picture,
+                    picture: userData?.picture || null,
                     role: "user",
                     group: [],
                     category: [],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now()
                 }
+                console.log('registerData', registerData);
                 firestore()
                 .collection('Users')
                 .add(registerData)
                 .then((doc) => {
                     resolve(doc);
+                    console.log('exito:', doc)
                 })
             }else{
                 resolve(docsQuery[0])
+                console.log('exito:', docsQuery[0])
             }
             
         } catch (e) {
             reject({ error: e });
+            console.log('error en user register')
         }
     })
 }
@@ -48,6 +52,25 @@ export const editCategories=(categoriesId)=>{
             
         }catch(e){
             reject({error:e});
+        }
+    })
+}
+
+export const unsubscribeUser = () => {
+    return new Promise(async(resolve,reject)=>{
+        try {
+            let userId = store.getState().users.id
+            console.log(userId)
+            firestore()
+            .collection('Users')
+            .doc(userId)
+            .delete()
+            .then(() => {
+                console.log('User deleted!');
+            });
+            resolve({msg:"User deleted"})
+        } catch (error) {
+            reject({ error: e });
         }
     })
 }
