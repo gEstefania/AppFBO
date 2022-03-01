@@ -1,32 +1,11 @@
-import { GET_DESCRIPTION, GET_LESSONS } from "../types/actionTypes";
+import {SET_LESSONS } from "../types/actionTypes";
 
-const initialState = {
-    isLoading: false,
-    lessonDescription: '',
-    lessons: []
-};
-
-// dispatch({
-//     type: '',
-//     payload: {}
-// })
+const initialState = []
 
 export default (state = initialState, action) => {
     switch (action.type) {
-
-        case GET_LESSONS:
-            return {
-                ...state,
-                lessons: action.payload.lessons,
-            }
-
-        case GET_DESCRIPTION:
-            
-            return {
-                ...state,
-                description: action.payload,
-            };
-    
+        case SET_LESSONS:
+            return action.payload 
         default:
             return state;
     }

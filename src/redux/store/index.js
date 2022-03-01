@@ -6,6 +6,9 @@ import thunk from 'redux-thunk';
 
 import UserReducer from "../reducers/userReducer"
 import LessonsReducer from "../reducers/lessonsReducer"
+import CoursesReducer from "../reducers/coursesReducer"
+import SelectedCourseReducer from "../reducers/selectedCourseReducer"
+import taskReducer from '../reducers/tasksReducer';
 
 // Middleware: Redux Persist Config
 const persistConfig = {
@@ -15,7 +18,10 @@ const persistConfig = {
 
 const reducers = combineReducers({
     users: UserReducer,
-    lessons: LessonsReducer
+    lessons: LessonsReducer,
+    courses:CoursesReducer,
+    currentCourse:SelectedCourseReducer,
+    tasks:taskReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -12,8 +12,6 @@ export const createUserSocialRegiter = (userData) => {
                     name: userData.name,
                     picture: userData?.picture || null,
                     role: "user",
-                    group: [],
-                    category: [],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now()
                 }
@@ -26,6 +24,7 @@ export const createUserSocialRegiter = (userData) => {
                     console.log('exito:', doc)
                 })
             }else{
+                console.log("Firebase found user ", doc)
                 resolve(docsQuery[0])
                 console.log('exito:', docsQuery[0])
             }

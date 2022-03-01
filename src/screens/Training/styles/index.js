@@ -42,7 +42,7 @@ export default StyleSheet.create({
     width: 300,
     height: 400,
     padding: 20,
-    marginRight: 10,
+    margin: 10,
     borderRadius: 20,
     backgroundColor: '#fff',
     shadowColor: '#470000',
@@ -58,6 +58,7 @@ export default StyleSheet.create({
     padding: 20,
     borderRadius: 20,
     backgroundColor: '#ECF1FE',
+    position:"relative"
   },
   descriptionContainer: {
     paddingHorizontal: 20,
@@ -83,4 +84,9 @@ export default StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'center',
   },
+
+  backgorundImage:{
+    width:100,
+    height:100
+  }
 });

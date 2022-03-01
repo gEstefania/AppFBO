@@ -10,6 +10,7 @@ const CourseTopTab = createMaterialTopTabNavigator();
 const LessonStack = createStackNavigator();
 
 const CourseTopMenu = ({route}) => {
+  console.log(route);
     return(
       <CourseTopTab.Navigator
         screenOptions={{
@@ -19,8 +20,8 @@ const CourseTopMenu = ({route}) => {
             tabBarIndicatorContainerStyle: {backgroundColor: '#ECF1FE', borderRadius: 50, height: 7, marginTop: 40},
         }}
       >
-        <CourseTopTab.Screen name="Resumen" component={overviewScreen} />
-        <CourseTopTab.Screen name="Presentación" component={detailScreen} />
+        <CourseTopTab.Screen name="Resumen" component={overviewScreen}  />
+        <CourseTopTab.Screen name="Presentacion" component={detailScreen} />
         <CourseTopTab.Screen name="Lecciones" component={LessonStackScreen} />
       </CourseTopTab.Navigator>
     )

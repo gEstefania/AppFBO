@@ -1,33 +1,8 @@
-import { GET_DESCRIPTION, GET_LESSONS } from "../types/actionTypes";
+import { SET_LESSONS } from "../types/actionTypes";
 
-export const fetchLessons = () => {
-    return async (dispatch) => {
-        const {data} = await axiosApi.get('https://jsonplaceholder.typicode.com/todos');
-        
-        dispatch({
-            type: GET_LESSONS,
-            payload: {
-                lessons: data,
-            }
-        })
-
+export const setLeassons=(payload)=>{
+    return{
+        type:SET_LESSONS,
+        payload
     }
-}
-
-export const fetchLessonDescription = () => {
-
-    return async (dispatch) => {
-
-        const {data} = await axiosApi.get('https://jsonplaceholder.typicode.com/todos/1');
-
-        dispatch({
-            type: GET_DESCRIPTION,
-            payload: data.title
-        })
-
-        
-
-    }
-    
-
 }

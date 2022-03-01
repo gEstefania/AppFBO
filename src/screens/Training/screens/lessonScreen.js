@@ -3,41 +3,22 @@ import { View, FlatList, TouchableOpacity } from "react-native";
 import VideoThumbnail from '../components/videoThumbnail';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/lessonScreen';
+import { connect } from 'react-redux';
+import { getCoursesLessons } from '../../../firestore/courses';
 //import { useDispatch, useSelector } from 'react-redux';
 //import { fetchLessonDescription, fetchLessons } from '../../../redux/actions/lessonsActions';
 
-const LessonScreen = ({navigation}) => {
-    const dataList = [
-        {
-            name: 'Paso 1',
-        },
-        {
-            name: 'Paso 2',
-        },
-        {
-            name: 'Paso 3',
-        },
-        {
-            name: 'Paso 4',
-        },
-        {
-            name: 'Paso 5',
-        },
-        {
-            name: 'Paso 6',
-        },
-        {
-            name: 'Paso 7',
-        },
-        {
-            name: 'Paso 8',
-        },
-      ];
+const LessonScreen = ({navigation,lessons,currentCourse}) => {
+
+    React.useEffect(() => {
+        let subscriber = getCoursesLessons(currentCourse.id)
+        return subscriber
+    },[])
 
     const renderList = ({item}) => {
         return (
             <TouchableOpacity
-                onPress={() => navigation.navigate("LessonVideo")}
+                onPress={() => navigation.navigate("LessonVideo",{lesson:item})}
                 style={styles.btnSteps}
             >
                 {/* <Text>{description}</Text> */}
@@ -45,8 +26,8 @@ const LessonScreen = ({navigation}) => {
                     <VideoThumbnail/>
                 </View>
                 <View style={styles.descContainer}>
-                    <PrimaryText style={styles.btnText}>{item.name}</PrimaryText>
-                    <SecondaryText style={styles.btnText}>Lorem Ipsum</SecondaryText>
+                    <PrimaryText style={styles.btnText}>{item.title}</PrimaryText>
+                    <SecondaryText style={styles.btnText}>{item.subtitle}</SecondaryText>
                 </View>
             </TouchableOpacity>
         );
@@ -54,7 +35,7 @@ const LessonScreen = ({navigation}) => {
     return (
         <View style={styles.mainContainer}>
             <FlatList
-                data={dataList}
+                data={lessons}
                 renderItem={renderList}
                 //keyExtractor={item => item.id}
                 style={styles.btnList}
@@ -62,5 +43,8 @@ const LessonScreen = ({navigation}) => {
         </View>
     )
 }
-
-export default LessonScreen;
+const mapStateToProps = (state) =>({
+    lessons:state.lessons,
+    currentCourse:state.currentCourse
+})
+export default connect(mapStateToProps) (LessonScreen);

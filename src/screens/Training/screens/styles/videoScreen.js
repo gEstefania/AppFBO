@@ -32,12 +32,17 @@ export default StyleSheet.create({
     marginBottom: 30,
   },
   itemContainer:{
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
     paddingHorizontal: 10,
     borderWidth: 1,
     borderRadius: 20,
     borderColor: Colors.CORPORATE_ORANGE,
+  },
+  taskItem:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
   },
   downloadCard:{
     flexDirection: 'row',
