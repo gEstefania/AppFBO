@@ -1,13 +1,14 @@
-import { FlatList, Text, TouchableOpacity, View, Image} from 'react-native';
+import { TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/articleScreen';
-import { ListItem } from 'react-native-elements/dist/list/ListItem';
+import {IconCompartir} from '@icons';
 
 const Post = ({route}) => {
     const data = route.params?.data;
     const color = route.params.color;
+    console.log(data)
     return(
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleContainer}>
@@ -20,7 +21,7 @@ const Post = ({route}) => {
                 <TouchableOpacity
                     style={styles.btnShare}
                 >
-                    <Image/>
+                    <IconCompartir width={30} height={30} />
                     <PrimaryText type={'Regular'} style={styles.text}>Compartir</PrimaryText>
                 </TouchableOpacity>
             </View>

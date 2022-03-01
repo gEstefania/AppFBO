@@ -11,6 +11,7 @@ import styles from './styles/login';
 import {createUserSocialRegiter} from '@firestore/user' 
 import { login } from '../../redux/actions/userActions';
 import { connect } from 'react-redux';
+import {IconInvitado, IconFacebook, IconGoogle} from '@icons';
 
 GoogleSignin.configure({
     webClientId: '87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com',
@@ -153,31 +154,33 @@ const Login = (props) => {
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Bienvenida Familia</PrimaryText>
             </View>
-            <View style={styles.btnGuestView}>
-                <TouchableOpacity
-                    onPress={() => onGuestButtonPress()}
-                    style={styles.btnGuest}
-                >
-                    <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon} />
-                    <View style={styles.textContainer}>
-                        <PrimaryText type={'Regular'}>INVITADO</PrimaryText>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.btnFacebookContainer}>
-                <TouchableOpacity
-                    onPress={() => onFacebookButtonPress()}
-                >
-                    <SecondaryText color={'#fff'}>CONTINÚA CON FACEBOOK</SecondaryText>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.btnGoogleContainer}>
-                <TouchableOpacity
-                    onPress={() => onGoogleButtonPress()}
-                >
-                    <SecondaryText>CONTNÚA CON GOOGLE</SecondaryText>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+                onPress={() => onGuestButtonPress()}
+                style={styles.btnGuestView}
+            >
+                <IconInvitado width={30} height={30} />
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <PrimaryText type={'Regular'}>INVITADO</PrimaryText>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => onFacebookButtonPress()}
+                style={styles.btnFacebookContainer}
+            >
+                <IconFacebook width={30} height={30} />
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <SecondaryText color='#fff'>CONTINÚA CON FACEBOOK</SecondaryText>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => onGoogleButtonPress()}
+                style={styles.btnGoogleContainer}
+            >
+                <IconGoogle width={30} height={30} />
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <SecondaryText>CONTINÚA CON GOOGLE</SecondaryText>
+                </View>
+            </TouchableOpacity>
             <View style={styles.titleSignIn}>
                 <SecondaryText color={'gray'}>INICIA SESIÓN CON TU EMAIL</SecondaryText>
             </View>

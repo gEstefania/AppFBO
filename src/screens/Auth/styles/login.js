@@ -19,6 +19,7 @@ export default StyleSheet.create({
   btnGuestView: {
       //flex: 1,
       width: '100%',
+      flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
       borderRadius: 50,
@@ -28,10 +29,6 @@ export default StyleSheet.create({
       borderWidth: 1,
       borderColor: Colors.CORPORATE_ORANGE,
   },
-  btnGuest:{
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   textContainer:{
     flex: 1,
     justifyContent: 'center',
@@ -40,6 +37,7 @@ export default StyleSheet.create({
   btnFacebookContainer: {
     //flex: 1,
     width: '100%',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
@@ -50,6 +48,7 @@ export default StyleSheet.create({
   btnGoogleContainer: {
     //flex: 1,
     width: '100%',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,

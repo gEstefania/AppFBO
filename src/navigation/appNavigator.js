@@ -25,6 +25,8 @@ import SignUp from '../screens/Auth/signUp';
 import Tags from '../screens/tags';
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
+//icons
+import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias} from '@icons';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -92,14 +94,56 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName={TopTapNavigator}
       screenOptions={{
-        headerShown: false
+        headerShown: false,
+        tabBarLabelStyle: {color: '#ff5f00'},
+        tabBarStyle: { height: 120, paddingVertical: 20, },
       }}
     >
-      <BottomTab.Screen name="TopTapNavigator" component={TopTapNavigator}/>
-      <BottomTab.Screen name="Perfil" component={ProfileScreen}/>
-      <BottomTab.Screen name="Hablemos" component={ContactScreen}/>
-      <BottomTab.Screen name="Sugerencias" component={SuggestionScreen}/>
-      <BottomTab.Screen name="Buscar" component={SearchScreen}/>
+      <BottomTab.Screen
+        name="TopTapNavigator"
+        component={TopTapNavigator}
+        options={{
+          tabBarLabel: 'Inicio',
+          tabBarIcon: ({ focused }) => (
+          focused ? <IconBuscar width={35} height={35} /> : <IconBuscarHover width={35} height={35} />)
+        }}
+      />
+      <BottomTab.Screen
+        name="Perfil"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: 'Perfil',
+          tabBarIcon: ({ focused }) => (
+            focused ? <IconPerfil width={35} height={35} /> : <IconPerfilHover width={35} height={35} />)
+          }}
+      />
+      <BottomTab.Screen
+        name="Hablemos"
+        component={ContactScreen}
+        options={{
+          tabBarLabel: 'Hablemos',
+          tabBarIcon: ({ focused }) => (
+            focused ? <IconHablemos width={35} height={35} /> : <IconHablemosHover width={35} height={35} />)
+        }}
+      />
+      <BottomTab.Screen
+        name="Sugerencias"
+        component={SuggestionScreen}
+        options={{
+          tabBarLabel: 'Sugerencias',
+          tabBarIcon: ({ focused }) => (
+            focused ? <IconSugerencias width={35} height={35} /> : <IconSugerenciasHover width={35} height={35} />)
+        }}
+      />
+      <BottomTab.Screen
+        name="Buscar"
+        component={SearchScreen}
+        options={{
+          tabBarLabel: 'Buscar',
+          tabBarIcon: ({ focused }) => (
+          focused ? <IconBuscar width={35} height={35} /> : <IconBuscarHover width={35} height={35} />)
+        }}
+      />
     </BottomTab.Navigator>
   )
 };

@@ -21,14 +21,14 @@ const Index = () => {
                 style={styles.btnSignUp}
                 onPress={() => navigation.navigate("SignUp")}
                 >
-                    <PrimaryText color={'#fff'} type={'Regular'}>REGISTRATE</PrimaryText>
+                    <PrimaryText color={'#fff'} type={'Regular'}>REGÍSTRATE</PrimaryText>
              </TouchableOpacity>
              <View style={styles.btnSingInContainer}>
-                <SecondaryText color={'gray'}>YA TIENES CUENTA? </SecondaryText>
+                <SecondaryText color={'gray'}>¿YA TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignIn")}
                 >
-                    <SecondaryText color={'skyblue'}>INICIAR SESION</SecondaryText>
+                    <SecondaryText color={'skyblue'}>INICIAR SESIÓN</SecondaryText>
                 </TouchableOpacity>
             </View>
          </View>

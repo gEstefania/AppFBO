@@ -11,6 +11,7 @@ import {createUserSocialRegiter} from '@firestore/user'
 import { login } from '../../redux/actions/userActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
+import {IconFacebook, IconGoogle} from '@icons';
 
 const SignUp = () => {
     const [user, setUser] = useState({email: '', password: '', name: ''});
@@ -132,27 +133,31 @@ const SignUp = () => {
             <View style={styles.welcome}>
                 <PrimaryText style={styles.welcomeText}>Crea tu cuenta</PrimaryText>
             </View>
-            <View style={styles.btnFacebookContainer}>
-                <TouchableOpacity
-                    onPress={() => onFacebookButtonPress()}
-                >
-                   <SecondaryText color='#fff'>CONTINÚA CON FACEBOOK</SecondaryText>
-               </TouchableOpacity>
-            </View>
-            <View style={styles.btnGoogleContainer}>
-                <TouchableOpacity
-                    onPress={() => onGoogleButtonPress()}
-                >
-                   <SecondaryText>CONTINÚA CON GOOGLE</SecondaryText>
-               </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+                onPress={() => onFacebookButtonPress()}
+                style={styles.btnFacebookContainer}
+            >
+                <IconFacebook width={30} height={30} />
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <SecondaryText color='#fff'>CONTINÚA CON FACEBOOK</SecondaryText>
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => onGoogleButtonPress()}
+                style={styles.btnGoogleContainer}
+            >
+                <IconGoogle width={30} height={30} />
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <SecondaryText>CONTINÚA CON GOOGLE</SecondaryText>
+                </View>
+            </TouchableOpacity>
             <View style={styles.titleSignIn}>
                 <SecondaryText color={'gray'}>REGÍSTRATE CON TU EMAIL</SecondaryText>
             </View>
             <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder={'Nombre'}
+                    placeholder={'Nombre*'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.name}
@@ -162,7 +167,7 @@ const SignUp = () => {
             <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder={'Email'}
+                    placeholder={'Email*'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.email}
@@ -172,7 +177,7 @@ const SignUp = () => {
             <View style={styles.input}>
                 <TextInput
                     style={styles.loginInput}
-                    placeholder={'Contraseña'}
+                    placeholder={'Contraseña*'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.password}

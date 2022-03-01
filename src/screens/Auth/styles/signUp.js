@@ -39,6 +39,7 @@ export default StyleSheet.create({
   btnFacebookContainer: {
     //flex: 1,
     width: '100%',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
@@ -49,6 +50,7 @@ export default StyleSheet.create({
   btnGoogleContainer: {
     //flex: 1,
     width: '100%',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 10,

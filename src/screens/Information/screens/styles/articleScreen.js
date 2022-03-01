@@ -16,13 +16,14 @@ export default StyleSheet.create({
   },
   btnShare: {
     width: '100%',
+    flexDirection: 'row',
     padding: 20,
     marginVertical: 20,
     justifyContent: 'center',
     alignItems: 'center',
     borderColor: '#ff9b04',
     borderRadius: 50,
-    borderWidth: 2,
+    borderWidth: 1,
   },
   text:{
     color: '#ff9b04',
