@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, SafeAreaView } from "react-native";
 import auth from '@react-native-firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import { useNavigation } from '@react-navigation/native';
+import {unsubscribeUser} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
 
 const ProfileScreen = () => {
 
-    const navigation = useNavigation();
+    const onUnsubscribeButtonPress = async () => {
+        try {
+            await unsubscribeUser()
+            auth().signOut().then(() => console.log('User signed out!'));
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     async function onLogOutButtonPress() {
         try {
@@ -61,7 +66,10 @@ const ProfileScreen = () => {
                 </View>
             </View>
             <View style={styles.bar}></View>
-            <TouchableOpacity style={styles.btnRow}>
+            <TouchableOpacity 
+                style={styles.btnRow}
+                onPress={() => onUnsubscribeButtonPress()}
+                >
                 <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
                 <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
             </TouchableOpacity>
