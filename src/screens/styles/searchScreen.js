@@ -45,5 +45,6 @@ export default StyleSheet.create({
     flex: 3,
     borderTopColor: Colors.CORPORATE_ORANGE,
     borderTopWidth: 1,
+    marginHorizontal:16,
   },
 });
