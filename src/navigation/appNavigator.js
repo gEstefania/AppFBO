@@ -199,6 +199,7 @@ function InformationStackScreen() {
     <InformationStack.Navigator
     screenOptions={{
       headerTitle: "",
+      headerStatusBarHeight: 0,
       headerBackTitleVisible: false,
       headerStyle: {shadowColor: '#fff'},
     }}
