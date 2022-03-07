@@ -20,11 +20,13 @@ const SignUp = () => {
     const navigation = useNavigation();
 
     const insertUser = async (userProfile)=>{
-        console.log('userProfile: ',userProfile);
+        
         const userData = {
             email: userProfile.email,
             name: userProfile.name,
-            picture: userProfile?.picture,
+            picture: {
+                url:userProfile?.picture.data?userProfile?.picture.data.url:userProfile?.picture
+            },
             role: "user",
             group: [],
             category: [],
@@ -32,7 +34,7 @@ const SignUp = () => {
         //Firestore
         let res = await createUserSocialRegiter(userData)
         //Redux
-        dispatch(login({id:res.id}))
+        dispatch(login({id:res.id,...res.data()}))
         return res
     }
 
@@ -85,9 +87,17 @@ const SignUp = () => {
             userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
             if(userProfile){
-                await insertUser(userProfile)
-                navigation.navigate("TagsPreferences")
-                console.log('Login with Google Success')
+                let res = await insertUser(userProfile)
+
+                if(res.data()){
+                    if(res.data().myTags){
+                        if(res.data().myTags.length===0){
+                            navigation.navigate("TagsPreferences")
+                        }
+                    }
+                }else{
+                    navigation.navigate("Home")
+                }
             }
         } catch (error) {
             console.log('Error login with Google: ', error)
@@ -117,9 +127,16 @@ const SignUp = () => {
             const authFacebook = await auth().signInWithCredential(facebookCredential);
             if(authFacebook){
                 let userProfile = authFacebook.additionalUserInfo?.profile
-                await insertUser(userProfile)
-                navigation.navigate("TagsPreferences")
-                console.log('Login Success!')
+                let res = await insertUser(userProfile)
+                if(res.data()){
+                    if(res.data().myTags){
+                        if(res.data().myTags.length===0){
+                            navigation.navigate("TagsPreferences")
+                        }
+                    }
+                }else{
+                    navigation.navigate("Home")
+                }
             }
         } catch (error) {
             ShowAlertMessage('Algo salió mal', '', 'warning');

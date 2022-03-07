@@ -1,4 +1,4 @@
-import firestore,{Timestamp} from '@react-native-firebase/firestore';
+import firestore,{ Timestamp} from '@react-native-firebase/firestore';
 import {store} from '../redux/store'
 
 export const createUserSocialRegiter = (userData) => {
@@ -12,21 +12,21 @@ export const createUserSocialRegiter = (userData) => {
                     name: userData.name,
                     picture: userData?.picture || null,
                     role: "user",
+                    myTags:[],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now()
                 }
-                console.log('registerData', registerData);
                 firestore()
                 .collection('Users')
                 .add(registerData)
-                .then((doc) => {
-                    resolve(doc);
-                    console.log('exito:', doc)
+                .then(async(doc) => {
+                    console.log("CREATED USER")
+                    let createdUser = await firestore().doc(doc.path).get()
+                    resolve(createdUser);
                 })
             }else{
-                console.log("Firebase found user ", doc)
+                console.log("ENTRO AQUI", docsQuery[0])
                 resolve(docsQuery[0])
-                console.log('exito:', docsQuery[0])
             }
             
         } catch (e) {
@@ -36,24 +36,29 @@ export const createUserSocialRegiter = (userData) => {
     })
 }
 
-export const editCategories=(categoriesId)=>{
+export const editMyTags=(categoriesId)=>{
     return new Promise(async(resolve,reject)=>{
         try {
             let userId = store.getState().users.id
-            firestore()
+            await firestore()
                 .collection("Users")
                 .doc(userId)
                 .update({ 
-                    category:categoriesId.map(cat=>firestore().doc(`Category/${cat.id}`))
+                    myTags:categoriesId.map(cat=>firestore().doc(`Tags/${cat.id}`))
                 })
+            let userUpdated = await firestore().collection("Users").doc(userId).get()
+            if(userUpdated){
+                resolve(userUpdated)
+            }
             
-            resolve({msg:"User updated"})
             
         }catch(e){
             reject({error:e});
         }
     })
 }
+
+
 
 export const unsubscribeUser = () => {
     return new Promise(async(resolve,reject)=>{
