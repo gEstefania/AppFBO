@@ -73,3 +73,23 @@ export const unsubscribeUser = () => {
         }
     })
 }
+
+export const getUserData = () => {
+    return new Promise(async(resolve, reject) => {
+        try {
+            let userId = store.getState().users.id
+            let info = await
+            firestore()
+            .collection('Users')
+            .doc(userId)
+            .get()
+            if(info){
+                resolve(info.data())
+            }
+            
+        } catch (e) {
+            reject({ error: e });
+            console.log('error en user user data', e)
+        }
+    })
+}

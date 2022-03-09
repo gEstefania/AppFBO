@@ -17,7 +17,9 @@ const Topic = ({route, navigation}) => {
 
   const getData=async()=>{
     try {
+      console.log(catId, subCatId, topicId);
         let res = await getArticles(catId, subCatId, topicId)
+        console.log('res:', res);
         let articleList = []
         res.forEach(doc=>{
           articleList.push({id:doc.id,...doc.data()})
@@ -34,8 +36,9 @@ const Topic = ({route, navigation}) => {
         underlayColor={hexToRGBA(color, .2)}
         style={styles.btnArticle}
         onPress={() => navigation.navigate("Article", {
-          data: item,
-          color: color,
+          title: item.title,
+          body: item.body,
+          color,
           }  
         )} 
       >
@@ -47,6 +50,10 @@ const Topic = ({route, navigation}) => {
       </TouchableHighlight>
     );
   };
+
+  empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
+    <PrimaryText>Sin Artículos...</PrimaryText>
+    </View>
 
   function hexToRGBA(hex, opacity) {
     return 'rgba(' + (hex = hex.replace('#', ''))
@@ -63,6 +70,7 @@ const Topic = ({route, navigation}) => {
       </View>
       <FlatList
         data={articles}
+        ListEmptyComponent={empty}
         renderItem={renderList}
         keyExtractor={item => item.id}
       />

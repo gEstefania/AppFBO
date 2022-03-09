@@ -3,16 +3,20 @@ import firestore from '@react-native-firebase/firestore';
 export const getArticles=(catId, subCatId, topicId)=>{
     return new Promise(async(resolve, reject)=>{
         try{
-            let article = await
+            let querySubCategory = 
             firestore()
             .collection("Categories").doc(catId)
             .collection("Subcategories").doc(subCatId)
-            .collection("Topics").doc(topicId)
+            .collection("Topics").doc(topicId);
+
+            let articles = await
+            firestore()
             .collection("Articles")
-            .get()
-            if(article){
-                resolve(article.docs)
-            }
+            .where('subcategory','==', querySubCategory)
+            .get();
+
+            resolve(articles.docs)
+
         }catch(e){
             reject({error:"Get data firestore error."})
         }

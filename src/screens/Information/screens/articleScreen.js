@@ -6,16 +6,17 @@ import styles from './styles/articleScreen';
 import {IconCompartir} from '@icons';
 
 const Post = ({route}) => {
-    const data = route.params?.data;
+    const title = route.params?.title;
+    const body = route.params?.body;
     const color = route.params.color;
-    console.log(data)
+    console.log(route.params)
     return(
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleContainer}>
-                <PrimaryText color={color} style={styles.postTitle}>{data.title}</PrimaryText>
+                <PrimaryText color={color} style={styles.postTitle}>{title}</PrimaryText>
             </View>
             <View style={styles.postContainer}>
-                <SecondaryText>{data.body}</SecondaryText>
+                <SecondaryText>{body}</SecondaryText>
             </View>
             <View>
                 <TouchableOpacity

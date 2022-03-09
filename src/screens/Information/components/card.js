@@ -1,11 +1,12 @@
 import { FlatList, TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
-import {getSubCategory} from '@firestore/subCategory';
+import {getDataFromCategory} from '@firestore/category';
 import styles from './styles/card';
 
 const Card = ({title, catId, catDesc, cardColor, navigation}) => {
   const [ subCategory, setSubCategory ] = useState([]);
+  const [ articles, setArticles ] = useState([]);
 
   useEffect(() => { 
     getData() 
@@ -13,30 +14,55 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
 
   const getData=async()=>{
     try {
-        let res = await getSubCategory(catId)
-        let subCategoryList = []
-        res.forEach(doc=>{
-          subCategoryList.push({id:doc.id,...doc.data()})
+        let res = await getDataFromCategory(catId)
+        //Set Subcategories:
+        let subcategoryList = []
+        res[0].data.forEach(doc=>{
+          subcategoryList.push({id:doc.id,...doc.data(), type: 'subcategory'})
         })
-        setSubCategory(subCategoryList)
+        setSubCategory(subcategoryList)
+        
+        //Set Articles:
+        let articlesList = []
+        res[1].data.forEach(doc=>{
+          articlesList.push({id:doc.id,...doc.data(), type: 'article'})
+        })
+        setArticles(articlesList)
+        console.log('ARTICULOS: ', articles)
+        
     }catch(e){
-        console.log(e)
+        console.log('error en get data en card',e)
+    }
+  }
+
+  const onButtonPress= (item) => {
+    console.log('ITEM: ',item)
+    if(item.type== 'article'){
+      navigation.navigate("Article", {
+        title: item.title,
+        body: item.body,
+        color: cardColor,
+        }
+      )
+    }
+    if(item.type== 'subcategory'){
+      navigation.navigate("Subcategory", {
+        title: item.name,
+        color: cardColor,
+        catId: catId,
+        subCatId: item.id
+        }
+      )
     }
   }
 
   const renderList = ({item}) => {
     return (
       <TouchableOpacity
-        onPress={() => navigation.navigate("Subcategory", {
-          title: item.name,
-          color: cardColor,
-          catId: catId,
-          subCatId: item.id
-          }
-        )}
+        onPress={() => onButtonPress(item)}
         style={[styles.cardView, {backgroundColor: cardColor}]}
       >
-        <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{item.name}</PrimaryText>
+        <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{item.title || item.name}</PrimaryText>
       </TouchableOpacity>
         
     );
@@ -51,7 +77,8 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
           onPress={() => navigation.navigate("Category", {
             title: title,
             color: cardColor,
-            data: subCategory,
+            subCategories: subCategory,
+            articles: articles,
             catDesc: catDesc,
             catId: catId,
             subCatId: '',
@@ -63,7 +90,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
       </View>
         <FlatList
           horizontal
-          data={subCategory}
+          data={articles.concat(subCategory)}
           renderItem={renderList}
           //keyExtractor={item => item.id}
         />
