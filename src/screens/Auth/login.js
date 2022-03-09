@@ -26,10 +26,21 @@ const Login = (props) => {
             try {
                 auth()
                 .signInWithEmailAndPassword(user.email, user.password)
-                .then(() => {
+                .then(async() => {
                     console.log('User signed in!');
-                    //AsyncStorage.setItem('@token', JSON.stringify(data.token));
-                    navigation.navigate("Home")
+                    const userData={
+                        email:user.email
+                    }
+                    let res = await insertUser(userData)
+                    if(res.data()){
+                        if(res.data().myTags){
+                            if(res.data().myTags.length===0){
+                                navigation.navigate("TagsPreferences")
+                            }
+                        }
+                    }else{
+                        navigation.navigate("Home")
+                    }
                 })
                 .catch(error => {
                     if (error.code === 'auth/user-not-found') {
@@ -64,13 +75,11 @@ const Login = (props) => {
             });
     }
     const insertUser=async (userProfile)=>{
-        console.log(userProfile);
         const userData={
             email:userProfile.email,
             name:userProfile.name,
-            picture:{
-                refImage:"",
-                url:userProfile.picture
+            picture: {
+                url:userProfile?.picture?.data?userProfile?.picture.data.url:userProfile?.picture
             },
             role:"user",
             group:[],
@@ -99,8 +108,16 @@ const Login = (props) => {
             if(userProfile){
                 let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
+                if(res.data()){
+                    if(res.data().myTags){
+                        if(res.data().myTags.length===0){
+                            navigation.navigate("TagsPreferences")
+                        }
+                    }
+                }else{
+                    navigation.navigate("Home")
+                }
                 
-                navigation.navigate("Home")
                 
                 
             }
@@ -139,7 +156,15 @@ const Login = (props) => {
                 let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
                 
-                navigation.navigate("Home")
+                if(res.data()){
+                    if(res.data().myTags){
+                        if(res.data().myTags.length===0){
+                            navigation.navigate("TagsPreferences")
+                        }
+                    }
+                }else{
+                    navigation.navigate("Home")
+                }
                 
             }
         } catch (error) {

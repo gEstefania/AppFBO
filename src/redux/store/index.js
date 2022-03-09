@@ -25,7 +25,7 @@ const reducers = combineReducers({
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers);
-const store = createStore(persistedReducer, applyMiddleware(createLogger(),thunk));
+const store = createStore(persistedReducer);
 let persistor = persistStore(store);
 
 export {store, persistor};

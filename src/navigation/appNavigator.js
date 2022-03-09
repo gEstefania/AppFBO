@@ -112,6 +112,7 @@ function BottomTabNavigator() {
         name="Perfil"
         component={ProfileScreen}
         options={{
+          lazy:true,
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ focused }) => (
             focused ? <IconPerfil width={35} height={35} /> : <IconPerfilHover width={35} height={35} />)

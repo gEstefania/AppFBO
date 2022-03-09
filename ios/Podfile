@@ -16,7 +16,8 @@ target 'AppFBO' do
   )
 
   pod 'GoogleSignIn'
-  
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'AppFBOTests' do
     inherit! :complete
     # Pods for testing

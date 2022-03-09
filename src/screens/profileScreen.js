@@ -1,13 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, Image, TouchableOpacity, SafeAreaView, Alert } from "react-native";
 import auth from '@react-native-firebase/auth';
 import {unsubscribeUser} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
+import { connect } from 'react-redux';
+import firestore from '@react-native-firebase/firestore'
+import PreferenceTag from '@components/PreferenceTag'
+import { useNavigation } from '@react-navigation/core';
+import {editMyTags} from '@firestore/user'
+import Icon from 'react-native-vector-icons/Entypo';
+const ProfileScreen = (props) => {
+    const navigation = useNavigation();
 
-const ProfileScreen = () => {
+    const [user,setUser]=useState(null)
+    const [tags,setTags]=useState([])
 
+    useEffect(() => {
+        if(props.user){
+            const suscriber = firestore()
+            .collection("Users")
+            .doc(props.user.id)
+            .onSnapshot(dataSnapshot => {
+                if(dataSnapshot){
+                    setTags([])
+                    let dUser = dataSnapshot.data()
+                    setUser(user)
+                    dUser.myTags.forEach(async doc=>{
+                        let dTag = await firestore().doc(doc.path).get()
+                        setTags(oldTags=>[...oldTags,{id:dTag.id,...dTag.data()}])
+                    })
+                      
+                }
+            })
+            
+            return suscriber 
+        }
+        
+    },[props.user])
+
+    const confirmDeleteUser=()=>{
+        Alert.alert("¡Atención!","Tu cuenta se eliminará, esta acción no se puede deshacer, ¿Deseas continuar?",
+        [
+            {
+              text: "Cancel",
+              style: "cancel"
+            },
+            { text: "OK", onPress: () => onUnsubscribeButtonPress() }
+          ]
+        )
+    }
+    
     const onUnsubscribeButtonPress = async () => {
+        
         try {
             await unsubscribeUser()
             auth().signOut().then(() => console.log('User signed out!'));
@@ -26,7 +71,10 @@ const ProfileScreen = () => {
         }
         
     }
-
+    const deleteTag=async(tagId)=>{
+        let filter  = tags.filter(tag=>tag.id !== tagId)
+        await editMyTags(filter)
+    }
     return (
         <View style={styles.mainContainer}>
             <SafeAreaView></SafeAreaView>
@@ -46,8 +94,8 @@ const ProfileScreen = () => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <SecondaryText color={'gray'}>Ana Silvero</SecondaryText>
-                    <SecondaryText color={'gray'}>ana@silvero.com</SecondaryText>
+                    <SecondaryText color={'gray'}>{props.user?.name}</SecondaryText>
+                    <SecondaryText color={'gray'}>{props.user?.email}</SecondaryText>
                 </View>
             </View>
             <View style={styles.bar}></View>
@@ -57,18 +105,22 @@ const ProfileScreen = () => {
                         <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
                         <PrimaryText style={styles.title}>Intereses</PrimaryText>
                     </View>
-                    <TouchableOpacity>
-                        <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                    <TouchableOpacity
+                    onPress={()=>navigation.navigate("TagsPreferences")}
+                    >
+                        <Icon name="plus" style={[styles.icon,{color:"#ff9b04"}]} />
                     </TouchableOpacity>
                 </View>
-                <View style={styles.tagsContainer}>
-                    
+                <View style={{flexDirection:"row"}}>
+                    {tags&&tags.map(tag=>(
+                        <PreferenceTag onDeleteTag={deleteTag} key={tag.id} {...tag} />
+                    ))}
                 </View>
             </View>
             <View style={styles.bar}></View>
             <TouchableOpacity 
                 style={styles.btnRow}
-                onPress={() => onUnsubscribeButtonPress()}
+                onPress={confirmDeleteUser}
                 >
                 <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
                 <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
@@ -86,4 +138,7 @@ const ProfileScreen = () => {
     )
 }
 
-export default ProfileScreen;
+const mapStateToProps=(state)=>({
+    user:state.users
+})
+export default connect(mapStateToProps) (ProfileScreen);

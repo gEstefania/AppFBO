@@ -1,9 +1,9 @@
 import firestore from '@react-native-firebase/firestore';
 
-export const getAllCategories=()=>{
+export const getAllTags=()=>{
     return new Promise(async(resolve, reject)=>{
         try{
-            let categories = await firestore().collection("Category").get()
+            let categories = await firestore().collection("Tags").get()
             if(categories){
                 resolve(categories)
             }

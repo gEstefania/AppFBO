@@ -4,11 +4,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {getAllCategories} from '@firestore/tagsPreferences';
-import {editCategories} from '@firestore/user'
+import {getAllTags} from '@firestore/tagsPreferences';
+import {editMyTags} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
-
-const Tags = ({navigation}) => {
+import {login} from '../redux/actions/userActions'
+import { connect } from 'react-redux';
+const Tags = ({navigation,login}) => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [tags,setTags]=useState([]);
     const {width} = useWindowDimensions();
@@ -19,7 +20,7 @@ const Tags = ({navigation}) => {
     
     const getData=async()=>{
         try {
-            let res = await getAllCategories()
+            let res = await getAllTags()
             let tmpArray = []
             res.forEach(doc=>{
                 tmpArray.push({id:doc.id,...doc.data()})
@@ -32,7 +33,7 @@ const Tags = ({navigation}) => {
 
     const updateTagsUser=async()=>{
         try{
-            let res = await editCategories(selectedTags)
+            let res = await editMyTags(selectedTags)
             showMessage({
                 message:"Preferencias actualizadas.",
                 description:"Sus categorias preferidas se han guardado exitosamente.",
@@ -40,6 +41,8 @@ const Tags = ({navigation}) => {
                 type:"success",
                 duration:1000
             })
+            console.log("UPDATED USER", {id:res.id,...res.data()})
+            login({id:res.id,...res.data()})
             navigation.navigate("Home")
         }catch(e){
             console.log(e)
@@ -119,5 +122,7 @@ const Tags = ({navigation}) => {
         </View>
     )
 }
-
-export default Tags;
+dispatchStateToProps={
+    login
+}
+export default connect(null,dispatchStateToProps) (Tags);
