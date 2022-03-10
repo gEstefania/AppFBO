@@ -6,7 +6,9 @@ export const createUserSocialRegiter = (userData) => {
         try {
             let existUser = await firestore().collection("Users").where('email','==',userData.email).get()
             let docsQuery = existUser.docs
+            let deviceToken = store.getState().config.deviceToken
             if(docsQuery.length === 0) {
+                
                 let registerData={
                     email: userData.email,
                     name: userData.name,
@@ -14,18 +16,29 @@ export const createUserSocialRegiter = (userData) => {
                     role: "user",
                     myTags:[],
                     createdAt: firestore.Timestamp.now(),
-                    updatedAt: firestore.Timestamp.now()
+                    updatedAt: firestore.Timestamp.now(),
+                    tokens:[deviceToken]
                 }
                 firestore()
                 .collection('Users')
                 .add(registerData)
                 .then(async(doc) => {
-                    console.log("CREATED USER")
                     let createdUser = await firestore().doc(doc.path).get()
                     resolve(createdUser);
                 })
             }else{
-                console.log("ENTRO AQUI", docsQuery[0])
+                let oldTokens = docsQuery[0].data().tokens
+                if(!oldTokens){
+                    oldTokens =[]
+                }else{
+                    oldTokens = oldTokens.filter(t =>t!==deviceToken)
+                }
+                await firestore()
+                .collection('Users')
+                .doc(docsQuery[0].id)
+                .update({
+                    tokens:[...oldTokens,deviceToken]
+                })
                 resolve(docsQuery[0])
             }
             
@@ -96,5 +109,25 @@ export const getUserData = () => {
             reject({ error: e });
             console.log('error en user user data', e)
         }
+    })
+}
+
+
+export const unregisterDevice=()=>{
+    return new Promise(async(resolve, reject) => {
+        let user = store.getState().users
+        let tokenDevice = store.getState().config.deviceToken
+        firestore()
+        .collection("Users")
+        .doc(user.id)
+        .update({
+            tokens:user.tokens.filter(t=>t!==tokenDevice)
+        })
+        .then(()=>{
+            resolve("unregister device")
+        })
+        .catch(e=>{
+            reject(e)
+        })
     })
 }

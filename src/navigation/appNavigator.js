@@ -88,6 +88,9 @@ const AppNavigator = () => {
   );
     
 }
+
+
+
 // Bottom Navigator
 function BottomTabNavigator() {
   return(

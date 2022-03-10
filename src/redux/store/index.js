@@ -9,7 +9,7 @@ import LessonsReducer from "../reducers/lessonsReducer"
 import CoursesReducer from "../reducers/coursesReducer"
 import SelectedCourseReducer from "../reducers/selectedCourseReducer"
 import taskReducer from '../reducers/tasksReducer';
-
+import configReducer from '../reducers/configReducer';
 // Middleware: Redux Persist Config
 const persistConfig = {
     key: 's0luc10n35r00t5',
@@ -21,7 +21,8 @@ const reducers = combineReducers({
     lessons: LessonsReducer,
     courses:CoursesReducer,
     currentCourse:SelectedCourseReducer,
-    tasks:taskReducer
+    tasks:taskReducer,
+    config:configReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers);
