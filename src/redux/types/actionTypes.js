@@ -8,3 +8,5 @@ export const SET_CURRENT_COURSE = "SET_CURRENT_COURSE"
 export const SET_TASKS = "SET_TASKS"
 
 export const TOGGLE_TASK = "TOGGLE_TASK"
+
+export const SET_DEVICE_TOKEN = "SET_DEVICE_TOKEN"

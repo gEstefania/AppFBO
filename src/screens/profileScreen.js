@@ -10,6 +10,7 @@ import PreferenceTag from '@components/PreferenceTag'
 import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import Icon from 'react-native-vector-icons/Entypo';
+import {unregisterDevice} from '@firestore/user'
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const [userInfo, setUserInfo] = useState({ name: '', email: '' });
@@ -79,6 +80,7 @@ const ProfileScreen = (props) => {
         try {
             //await GoogleSignin.revokeAccess();
             //await GoogleSignin.signOut();
+            await unregisterDevice()
             auth().signOut().then(() => console.log('User signed out!'));
         } catch (error) {
             console.error(error);
