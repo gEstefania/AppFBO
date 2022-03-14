@@ -3,6 +3,7 @@ import { View, Image, TouchableOpacity, TextInput, SafeAreaView} from "react-nat
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/contactScreen'; 
+import {IconHablemos} from '@icons';
 
 const ContactScreen = () => {
     const [userName, setUserName] = useState('');
@@ -13,7 +14,7 @@ const ContactScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconHablemos width={30} height={30} />
                 <PrimaryText>Hablemos</PrimaryText>
             </View>
             <View style={styles.shadow}></View>

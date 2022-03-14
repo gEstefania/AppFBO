@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import { Image, View } from 'react-native';
+import { Image, View, useWindowDimensions, Platform } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -80,7 +80,7 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName={"TagsPreferences"} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={BottomTabNavigator} />
           <Stack.Screen name="TagsPreferences" component={Tags} />
         </Stack.Navigator>
@@ -93,6 +93,7 @@ const AppNavigator = () => {
 
 // Bottom Navigator
 function BottomTabNavigator() {
+  const { height } = useWindowDimensions();
   return(
     <BottomTab.Navigator
       initialRouteName={TopTapNavigator}
@@ -100,8 +101,9 @@ function BottomTabNavigator() {
         headerShown: false,
         tabBarLabelStyle: {color: '#ff5f00', marginBottom: 20},
         tabBarStyle: {
-          height: 100,
+          height: Platform.OS === 'ios' ? 115 : height*0.10,
           paddingHorizontal: 20,
+          paddingTop: Platform.OS === 'ios' ? 0 : 10,
           //shadow:
           borderBottomWidth: 0.5,
           borderBottomColor: 'rgba(0, 0, 0, 0.1)', 

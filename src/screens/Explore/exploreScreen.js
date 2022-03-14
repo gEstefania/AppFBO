@@ -31,6 +31,7 @@ const ExploreScreen = () => {
         showPagination
         data={courses}
         renderItem={renderList}
+        paginationDefaultColor={'rgba(255,255,255,0.7)'}
       />
       </View>
       <CardExplorer/>

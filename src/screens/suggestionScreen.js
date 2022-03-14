@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity } from "react-native";
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/suggestionScreen';
+import {IconSugerencias} from '@icons';
 
 const Suggestions = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconSugerencias width={30} height={30} />
                 <PrimaryText>Sugerencias</PrimaryText>
             </View>
             <View style={styles.shadow}></View>

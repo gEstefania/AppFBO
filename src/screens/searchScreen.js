@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Image, TextInput } from "react-native";
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/searchScreen';
+import {IconBuscar} from '@icons';
 
 const SearchScreen = () => {
     const [searchText, setSearchText] = useState('');
@@ -9,7 +10,7 @@ const SearchScreen = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconBuscar width={30} height={30} />
                 <PrimaryText>Buscar</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
