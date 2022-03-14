@@ -25,7 +25,7 @@ const SignUp = () => {
             email: userProfile.email,
             name: userProfile.name,
             picture: {
-                url:userProfile?.picture.data?userProfile?.picture.data.url:userProfile?.picture
+                url:userProfile.picture?userProfile.picture.data?userProfile?.picture.data.url:userProfile?.picture:""
             },
             role: "user",
             group: [],
