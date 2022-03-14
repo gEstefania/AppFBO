@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TouchableOpacity, SafeAreaView, Alert } from "react-native";
 import auth from '@react-native-firebase/auth';
-import {unsubscribeUser} from '@firestore/user';
+import {unsubscribeUser, getUserData} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
 import { connect } from 'react-redux';
@@ -12,7 +12,7 @@ import {editMyTags} from '@firestore/user'
 import Icon from 'react-native-vector-icons/Entypo';
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
-
+    const [userInfo, setUserInfo] = useState({ name: '', email: '' });
     const [user,setUser]=useState(null)
     const [tags,setTags]=useState([])
 
@@ -25,8 +25,9 @@ const ProfileScreen = (props) => {
                 if(dataSnapshot){
                     setTags([])
                     let dUser = dataSnapshot.data()
+                    console.log('dUser: ',dUser);
                     setUser(user)
-                    dUser.myTags.forEach(async doc=>{
+                    dUser.myTags?.forEach(async doc=>{
                         let dTag = await firestore().doc(doc.path).get()
                         setTags(oldTags=>[...oldTags,{id:dTag.id,...dTag.data()}])
                     })
@@ -38,6 +39,19 @@ const ProfileScreen = (props) => {
         }
         
     },[props.user])
+
+    useEffect(() => { 
+        getData() 
+    }, []);
+    
+    const getData=async()=>{
+        try {
+            let res = await getUserData()
+            setUserInfo({name: res.name, email: res.email})
+        }catch(e){
+            console.log(e)
+        }
+    }
 
     const confirmDeleteUser=()=>{
         Alert.alert("¡Atención!","Tu cuenta se eliminará, esta acción no se puede deshacer, ¿Deseas continuar?",
@@ -94,8 +108,8 @@ const ProfileScreen = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <SecondaryText color={'gray'}>{props.user?.name}</SecondaryText>
-                    <SecondaryText color={'gray'}>{props.user?.email}</SecondaryText>
+                    <SecondaryText color={'gray'}>{userInfo.name}</SecondaryText>
+                    <SecondaryText color={'gray'}>{userInfo.email}</SecondaryText>
                 </View>
             </View>
             <View style={styles.bar}></View>
