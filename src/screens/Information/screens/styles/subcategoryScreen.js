@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    margin: 30,
+    marginHorizontal: 30,
   },
   topicTitle: {
     fontSize: 30,

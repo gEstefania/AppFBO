@@ -1,7 +1,7 @@
 import { View, Image, Text, TouchableOpacity, Button,ImageBackground} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modal";
 import styles from './styles/index';
@@ -9,6 +9,8 @@ import {PrimaryText, SecondaryText} from '@common';
 import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
+import {IconBuscar} from '@icons';
+
 const Index = (props) => {
   const [user, setUser] = useState();
   const [isModalVisible, setModalVisible] = useState(false);
@@ -70,21 +72,15 @@ const Index = (props) => {
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.row}>
-              <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
+              <IconBuscar width={20} height={20} />
               <View style={styles.columnText}>
                 <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalVideos} vídeos</PrimaryText>
               </View>
             </View>
             <View style={styles.row}>
-              <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
+              <IconBuscar width={20} height={20} />
               <View style={styles.columnText}>
                 <PrimaryText type={'Regular'}  style={styles.infoText}>{item.totalTime} minutos</PrimaryText>
-              </View>
-            </View>
-            <View style={styles.row}>
-              <Image source={require('../../assets/img/icons/home.jpg')} style={styles.icon}/>
-              <View style={styles.columnText}>
-                <PrimaryText type={'Regular'}  style={styles.infoText}>{item.users} inscritos</PrimaryText>
               </View>
             </View>
           </View>
@@ -97,8 +93,8 @@ const Index = (props) => {
   };
 
   return(
-    <View style={styles.mainContainer}>
-      <Image/>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
+      <Image source={require('../../assets/img/formacion_index.png')} style={styles.imgIndex}/>
       <View style={styles.titleContainer}>
         <PrimaryText style={styles.title}>#Construcciones</PrimaryText>
         <TouchableOpacity
@@ -129,7 +125,7 @@ const Index = (props) => {
         renderItem={renderList}
         //keyExtractor={item => item.id}
       />
-    </View>
+    </ScrollView>
   )
 }
 

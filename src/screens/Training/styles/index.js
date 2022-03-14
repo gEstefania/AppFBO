@@ -3,7 +3,6 @@ import {Colors} from '@common';
 
 export default StyleSheet.create({
   mainContainer: {
-    flex: 1,
     marginLeft: 10,
     paddingLeft: 20,
     paddingTop: 20,
@@ -84,9 +83,19 @@ export default StyleSheet.create({
     marginLeft: 10,
     justifyContent: 'center',
   },
-
   backgorundImage:{
     width:100,
-    height:100
-  }
+    height:100,
+  },
+  imgContainer: {
+    //width: 100,
+    paddingLeft: 20,
+    marginBottom: 20,
+    backgroundColor: 'red',
+  },
+  imgIndex: {
+   width: 280,
+   marginLeft: 20,
+   resizeMode: 'contain'
+  },
 });

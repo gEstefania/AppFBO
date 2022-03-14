@@ -2,6 +2,7 @@ import { FlatList, Text, TouchableOpacity, View, ImageBackground} from 'react-na
 import React, { useEffect, useState } from 'react';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/subcategoryScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Category = ({route, navigation}) => {
   const color = route.params.color;
@@ -44,7 +45,7 @@ const Category = ({route, navigation}) => {
   };
 
   return(
-    <View style={styles.mainContainer}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <PrimaryText style={styles.topicTitle}>Ayuda <Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
       <ImageBackground
         resizeMode="cover"
@@ -58,7 +59,7 @@ const Category = ({route, navigation}) => {
         //keyExtractor={item => item.id}
         style={styles.bntList}
       />
-    </View>
+    </ScrollView>
   )
 }
 

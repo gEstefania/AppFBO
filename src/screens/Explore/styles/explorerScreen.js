@@ -10,6 +10,7 @@ export default StyleSheet.create({
   },
   swiper: {
     height: '100%',
+    width: 350,
     alignItems:"flex-start",
     justifyContent:"flex-end",
     backgroundColor:"#ff9b04",
@@ -19,7 +20,7 @@ export default StyleSheet.create({
   },
   titleSlide: {
     fontSize: 20,
-    maxWidth: 100,
+    maxWidth: 150,
   },
   dotStyle: {
     backgroundColor: 'rgba(255,255,255,.5)', width: 15, height: 15, borderRadius: 50

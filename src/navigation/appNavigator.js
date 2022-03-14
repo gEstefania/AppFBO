@@ -95,8 +95,18 @@ function BottomTabNavigator() {
       initialRouteName={TopTapNavigator}
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: {color: '#ff5f00'},
-        tabBarStyle: { height: 120, paddingVertical: 20, },
+        tabBarLabelStyle: {color: '#ff5f00', marginBottom: 20},
+        tabBarStyle: {
+          height: 100,
+          paddingHorizontal: 20,
+          //shadow:
+          borderBottomWidth: 0.5,
+          borderBottomColor: 'rgba(0, 0, 0, 0.1)', 
+          shadowOffset: {width: 0,height: 11},
+          shadowOpacity: 0.55,
+          shadowRadius: 14.78,
+          elevation: 22,
+        },
       }}
     >
       <BottomTab.Screen
@@ -105,7 +115,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={35} height={35} /> : <IconBuscarHover width={35} height={35} />)
+          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -115,7 +125,7 @@ function BottomTabNavigator() {
           lazy:true,
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconPerfil width={35} height={35} /> : <IconPerfilHover width={35} height={35} />)
+            focused ? <IconPerfil width={30} height={30} /> : <IconPerfilHover width={30} height={30} />)
           }}
       />
       <BottomTab.Screen
@@ -124,7 +134,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Hablemos',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconHablemos width={35} height={35} /> : <IconHablemosHover width={35} height={35} />)
+            focused ? <IconHablemos width={30} height={30} /> : <IconHablemosHover width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -133,7 +143,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Sugerencias',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconSugerencias width={35} height={35} /> : <IconSugerenciasHover width={35} height={35} />)
+            focused ? <IconSugerencias width={30} height={30} /> : <IconSugerenciasHover width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -142,7 +152,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Buscar',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={35} height={35} /> : <IconBuscarHover width={35} height={35} />)
+          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
         }}
       />
     </BottomTab.Navigator>
@@ -156,17 +166,17 @@ function TopTapNavigator() {
       colors={['#ff9b04', '#ff000a' ]}
       style={{flex: 1}}
       start={{ x: 0, y: 0 }}
-      end={{ x: 1.4, y: 1.4 }}
+      end={{ x: 1.4, y: 1.7 }}
       locations={[0.2, 0.4]}
     >
-      <View style={{backgroundColor: 'transparent', height: 125, justifyContent: 'flex-end', alignItems: 'center'}}>
+      <View style={{backgroundColor: 'transparent', height: 125, alignItems: 'center', paddingTop: 40}}>
         <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
       </View>
       <TopTab.Navigator
         screenOptions={{
           tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: 16},
           tabBarStyle: { backgroundColor: 'transparent', paddingVertical: 15, },
-          tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50},
+          tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50, bottom: -4, width: 55, left: 45,},
         }}
       >
         <TopTab.Screen name="Explorar" component={ExplorerStackScreen} />
@@ -184,6 +194,7 @@ function ExplorerStackScreen() {
     screenOptions={{
       headerTitle: "",
       headerBackTitleVisible: false,
+      headerStatusBarHeight: 0,
       headerStyle: {shadowColor: '#fff'},
     }}
     >

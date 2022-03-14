@@ -8,6 +8,7 @@ import {getAllTags} from '@firestore/tagsPreferences';
 import {editMyTags} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
 import {login} from '../redux/actions/userActions'
+import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
 const Tags = ({navigation,login}) => {
     const [selectedTags, setSelectedTags] = useState([]);
@@ -60,10 +61,10 @@ const Tags = ({navigation,login}) => {
                     marginBottom: 10,
                     marginRight: index % 2 !== 0 ? 0 : 10,
                     flexGrow: 1,
-                    backgroundColor:  itemFound?.selected ? 'red' : 'orange',
+                    backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
                     paddingHorizontal: 20,
                     paddingVertical: 10,
-                    borderRadius: 10,
+                    borderRadius: 25,
                     //maxWidth: width / 2 - 20,
                     width: item.name?.length <= 5 ? width / 2 - 100 : width / 2 - 30,
                     }}>
@@ -89,8 +90,8 @@ const Tags = ({navigation,login}) => {
                 colors={['#ff9b04', '#ff000a' ]}
                 style={styles.LinearGradientView}
                 start={{ x: 0, y: 0 }}
-                end={{ x: 1.4, y: 1.4 }}
-                locations={[0.2, 0.4]}
+                end={{ x: 3.5, y: 5 }}
+                locations={[0.2, 0.3]}
             >
                 <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
             </LinearGradient>
@@ -113,11 +114,11 @@ const Tags = ({navigation,login}) => {
                     renderItem={renderList}
                 />
                 <TouchableOpacity
-                        onPress={updateTagsUser}
-                        style={styles.btnSave}
-                    >
-                        <SecondaryText>Guardar</SecondaryText>
-                    </TouchableOpacity>
+                    onPress={updateTagsUser}
+                    style={styles.btnSave}
+                >
+                    <Icon name="arrow-right" size={18}/>
+                </TouchableOpacity>
             </View>
         </View>
     )
