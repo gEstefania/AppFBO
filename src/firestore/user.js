@@ -8,7 +8,6 @@ export const createUserSocialRegiter = (userData) => {
             let docsQuery = existUser.docs
             let deviceToken = store.getState().config.deviceToken
             if(docsQuery.length === 0) {
-                
                 let registerData={
                     email: userData.email,
                     name: userData.name,
@@ -17,7 +16,7 @@ export const createUserSocialRegiter = (userData) => {
                     myTags:[],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now(),
-                    tokens:[deviceToken]
+                    tokens:deviceToken?[deviceToken]:[]
                 }
                 firestore()
                 .collection('Users')
@@ -28,16 +27,18 @@ export const createUserSocialRegiter = (userData) => {
                 })
             }else{
                 let oldTokens = docsQuery[0].data().tokens
+                console.log(oldTokens)
                 if(!oldTokens){
                     oldTokens =[]
                 }else{
                     oldTokens = oldTokens.filter(t =>t!==deviceToken)
                 }
+                console.log("LOG DATA ",deviceToken?[...oldTokens,deviceToken]:[...oldTokens])
                 await firestore()
                 .collection('Users')
                 .doc(docsQuery[0].id)
                 .update({
-                    tokens:[...oldTokens,deviceToken]
+                    tokens:deviceToken?[...oldTokens,deviceToken]:[...oldTokens]
                 })
                 resolve(docsQuery[0])
             }

@@ -23,7 +23,7 @@ const ProfileScreen = (props) => {
             .collection("Users")
             .doc(props.user.id)
             .onSnapshot(dataSnapshot => {
-                if(dataSnapshot){
+                if(dataSnapshot.exists){
                     setTags([])
                     let dUser = dataSnapshot.data()
                     console.log('dUser: ',dUser);
@@ -80,8 +80,9 @@ const ProfileScreen = (props) => {
         try {
             //await GoogleSignin.revokeAccess();
             //await GoogleSignin.signOut();
-            await unregisterDevice()
             auth().signOut().then(() => console.log('User signed out!'));
+            await unregisterDevice()
+
         } catch (error) {
             console.error(error);
         }
