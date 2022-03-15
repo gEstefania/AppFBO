@@ -10,6 +10,7 @@ import { Vimeo } from 'react-native-vimeo-iframe'
 import { connect } from 'react-redux';
 import { setTaskLesson } from '@firestore/courses'
 import {toggleTasks} from '../../../redux/actions/tasksActions'
+import {IconDescarga} from '@icons';
 
 export const TaskItem = ({item,toggleTask,lesson}) => {
     
@@ -82,7 +83,7 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
                             <SecondaryText color={'#fff'} type={'Bold'}>{getExtensionCapitalFromURI(lesson.archive.url)}</SecondaryText>
                         </View>
                         <View>
-                            <Image source={require('../../../assets/img/icons/home.jpg')} style={styles.icon} />
+                            <IconDescarga width={45} height={45} />
                         </View>
                     </Pressable>
                 </View>

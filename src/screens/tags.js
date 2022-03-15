@@ -8,8 +8,9 @@ import {getAllTags} from '@firestore/tagsPreferences';
 import {editMyTags} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
 import {login} from '../redux/actions/userActions'
-import Icon from 'react-native-vector-icons/Feather';
 import { connect } from 'react-redux';
+import {IconFlechaDark} from '@icons';
+
 const Tags = ({navigation,login}) => {
     const [selectedTags, setSelectedTags] = useState([]);
     const [tags,setTags]=useState([]);
@@ -117,7 +118,7 @@ const Tags = ({navigation,login}) => {
                     onPress={updateTagsUser}
                     style={styles.btnSave}
                 >
-                    <Icon name="arrow-right" size={18}/>
+                    <IconFlechaDark width={17} height={17} />
                 </TouchableOpacity>
             </View>
         </View>

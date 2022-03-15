@@ -10,7 +10,9 @@ import PreferenceTag from '@components/PreferenceTag'
 import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import Icon from 'react-native-vector-icons/Entypo';
-import {unregisterDevice} from '@firestore/user'
+import {unregisterDevice} from '@firestore/user';
+import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses} from '@icons';
+
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const [userInfo, setUserInfo] = useState({ name: '', email: '' });
@@ -103,11 +105,11 @@ const ProfileScreen = (props) => {
             <View style={styles.userData}>
                 <View style={styles.row}>
                     <View style={styles.sectionTitle}>
-                        <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                        <IconDatos width={17} height={17} />
                         <PrimaryText style={styles.title}>Datos</PrimaryText>
                     </View>
                     <TouchableOpacity>
-                        <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                        <IconEditar width={15} height={15} />
                     </TouchableOpacity>
                 </View>
                 <View>
@@ -119,13 +121,13 @@ const ProfileScreen = (props) => {
             <View style={styles.userTags}>
                 <View style={styles.row}>
                     <View style={styles.sectionTitle}>
-                        <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                        <IconIntereses width={17} height={17} />
                         <PrimaryText style={styles.title}>Intereses</PrimaryText>
                     </View>
                     <TouchableOpacity
                     onPress={()=>navigation.navigate("TagsPreferences")}
                     >
-                        <Icon name="plus" style={[styles.icon,{color:"#ff9b04"}]} />
+                        <IconMas width={17} height={17} />
                     </TouchableOpacity>
                 </View>
                 <View style={{flexDirection:"row", flexWrap: 'wrap'}}>
@@ -139,7 +141,7 @@ const ProfileScreen = (props) => {
                 style={styles.btnRow}
                 onPress={confirmDeleteUser}
                 >
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconBaja width={17} height={17} />
                 <PrimaryText style={styles.title}>Darme de baja</PrimaryText>
             </TouchableOpacity>
             <View style={styles.bar}></View>
@@ -147,7 +149,7 @@ const ProfileScreen = (props) => {
                 style={styles.btnRow}
                 onPress={() => onLogOutButtonPress()}
             >
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconCerrar width={17} height={17} />
                 <PrimaryText style={styles.title}>Cerrar sesión</PrimaryText>
             </TouchableOpacity>
             <View style={styles.bar}></View>

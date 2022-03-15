@@ -3,6 +3,7 @@ import { View, Text, Image } from "react-native";
 import styles from './styles/overviewScreen';
 import {PrimaryText, SecondaryText} from '@common';
 import { connect } from 'react-redux';
+import {IconRelojNube, IconVideoNube} from '@icons';
 
 const OverviewScreen = ({route,navigation,course}) => {
     
@@ -10,13 +11,13 @@ const OverviewScreen = ({route,navigation,course}) => {
         <View style={styles.mainContainer}>
             <View style={styles.summaryContainer}>
                 <View style={styles.row}>
-                    <Image source={require('../../../assets/img/icons/home.jpg')} style={styles.icon}/>
+                <IconVideoNube width={25} height={25} />
                     <View style={styles.columnText}>
                         <PrimaryText color={'#fff'}>{course.totalVideos} videos</PrimaryText>
                     </View>
                 </View>
                 <View style={styles.row}>
-                    <Image source={require('../../../assets/img/icons/home.jpg')} style={styles.icon}/>
+                    <IconRelojNube width={25} height={25} />
                     <View style={styles.columnText}>
                         <PrimaryText color={'#fff'}>{course.totalTime} minutos</PrimaryText>
                     </View>

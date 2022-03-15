@@ -9,7 +9,7 @@ import {PrimaryText, SecondaryText} from '@common';
 import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
-import {IconBuscar} from '@icons';
+import {IconRelojOrange, IconVideo} from '@icons';
 
 const Index = (props) => {
   const [user, setUser] = useState();
@@ -72,13 +72,13 @@ const Index = (props) => {
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.row}>
-              <IconBuscar width={20} height={20} />
+              <IconVideo width={20} height={20} />
               <View style={styles.columnText}>
                 <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalVideos} vídeos</PrimaryText>
               </View>
             </View>
             <View style={styles.row}>
-              <IconBuscar width={20} height={20} />
+              <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
                 <PrimaryText type={'Regular'}  style={styles.infoText}>{item.totalTime} minutos</PrimaryText>
               </View>

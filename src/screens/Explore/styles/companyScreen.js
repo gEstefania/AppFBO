@@ -6,7 +6,7 @@ export default StyleSheet.create({
     //marginHorizontal: '10%',
   },
   title:{
-    marginVertical: 20,
+    marginBottom: 20,
     marginHorizontal: '10%',
   },
   companyList:{
