@@ -128,7 +128,7 @@ const ProfileScreen = (props) => {
                         <Icon name="plus" style={[styles.icon,{color:"#ff9b04"}]} />
                     </TouchableOpacity>
                 </View>
-                <View style={{flexDirection:"row"}}>
+                <View style={{flexDirection:"row", flexWrap: 'wrap'}}>
                     {tags&&tags.map(tag=>(
                         <PreferenceTag onDeleteTag={deleteTag} key={tag.id} {...tag} />
                     ))}
