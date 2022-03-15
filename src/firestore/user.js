@@ -9,6 +9,8 @@ export const createUserSocialRegiter = (userData) => {
             let deviceToken = store.getState().config.deviceToken
             if(docsQuery.length === 0) {
                 let registerData={
+                    enable: true,
+                    group: [],
                     email: userData.email,
                     name: userData.name,
                     picture: userData?.picture || null,
