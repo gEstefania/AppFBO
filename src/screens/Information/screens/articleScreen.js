@@ -1,22 +1,23 @@
 import { TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/articleScreen';
 import {IconCompartir} from '@icons';
 
-const Post = ({route}) => {
+const Post = ({route, article}) => {
     const title = route.params?.title;
     const body = route.params?.body;
-    const color = route.params.color;
-    console.log(route.params)
+    const color = route.params?.color || '#000';
+    console.log(route)
     return(
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleContainer}>
-                <PrimaryText color={color} style={styles.postTitle}>{title}</PrimaryText>
+                <PrimaryText color={color} style={styles.postTitle}>{title || article.title}</PrimaryText>
             </View>
             <View style={styles.postContainer}>
-                <SecondaryText>{body}</SecondaryText>
+                <SecondaryText>{body || article.body}</SecondaryText>
             </View>
             <View>
                 <TouchableOpacity
@@ -29,5 +30,8 @@ const Post = ({route}) => {
         </ScrollView>
     )
 }
+const mapStateToProps=(state)=>({
+    article:state.currentArticle
+})
 
-export default Post;
+export default connect(mapStateToProps)(Post);

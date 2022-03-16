@@ -45,6 +45,8 @@ export default StyleSheet.create({
     flex: 3,
     borderTopColor: Colors.CORPORATE_ORANGE,
     borderTopWidth: 1,
+    paddingLeft: 40,
+    paddingTop: 30,
   },
   titleSize:{
     fontSize: 30,

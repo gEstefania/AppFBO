@@ -8,6 +8,7 @@ import UserReducer from "../reducers/userReducer"
 import LessonsReducer from "../reducers/lessonsReducer"
 import CoursesReducer from "../reducers/coursesReducer"
 import SelectedCourseReducer from "../reducers/selectedCourseReducer"
+import SelectedArticleReducer from "../reducers/selectedArticleReducer"
 import taskReducer from '../reducers/tasksReducer';
 import configReducer from '../reducers/configReducer';
 // Middleware: Redux Persist Config
@@ -21,6 +22,7 @@ const reducers = combineReducers({
     lessons: LessonsReducer,
     courses:CoursesReducer,
     currentCourse:SelectedCourseReducer,
+    currentArticle: SelectedArticleReducer,
     tasks:taskReducer,
     config:configReducer
 })
