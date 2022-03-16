@@ -10,8 +10,8 @@ const SearchScreen = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <IconBuscar width={30} height={30} />
-                <PrimaryText>Buscar</PrimaryText>
+                <IconBuscar width={30} height={30} style={{marginBottom: 5}}/>
+                <PrimaryText style={styles.titleSize}>Buscar</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
             <View style={styles.inputContainer}>

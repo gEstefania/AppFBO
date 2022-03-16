@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import Icon from 'react-native-vector-icons/Entypo';
 import {unregisterDevice} from '@firestore/user';
-import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses} from '@icons';
+import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses, IconPerfil} from '@icons';
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
@@ -98,8 +98,8 @@ const ProfileScreen = (props) => {
         <View style={styles.mainContainer}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.headerIcon}/>
-                <PrimaryText style={styles.title}>Mi perfil</PrimaryText>
+                <IconPerfil width={30} height={30} style={{marginBottom: 10}}/>
+                <PrimaryText style={styles.titleSize}>Mi perfil</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
             <View style={styles.userData}>

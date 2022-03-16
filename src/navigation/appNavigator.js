@@ -180,8 +180,8 @@ function TopTapNavigator() {
       <TopTab.Navigator
         screenOptions={{
           tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: 16},
-          tabBarStyle: { backgroundColor: 'transparent', paddingVertical: 15, },
-          tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50, bottom: -4, width: 55, left: 45,},
+          tabBarStyle: { backgroundColor: 'transparent', },
+          tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50, bottom: -4, width: 55, left: 40,},
         }}
       >
         <TopTab.Screen name="Explorar" component={ExplorerStackScreen} />

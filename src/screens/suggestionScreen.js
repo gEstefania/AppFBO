@@ -8,8 +8,8 @@ const Suggestions = () => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <IconSugerencias width={30} height={30} />
-                <PrimaryText>Sugerencias</PrimaryText>
+                <IconSugerencias width={30} height={30} style={{marginBottom: 5}} />
+                <PrimaryText style={styles.titleSize}>Sugerencias</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
             <View style={styles.descContainer}>

@@ -7,23 +7,24 @@ export default StyleSheet.create({
   },
   headerContainer: {
     //flex: 1,
+    height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    //marginTop: 20,
     padding: 30,
   },
   shadow: {
-    borderBottomColor: '#fff',
-    borderBottomWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
+    height: 1,
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)', 
+    shadowOffset: {
+      width: 0,
+      height: 11,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 14.78,
+    elevation: 8,
   },
   headerIcon: {
     width: 35,
@@ -51,6 +52,10 @@ export default StyleSheet.create({
   },
   title:{
     marginLeft: 10,  
+  },
+  titleSize:{
+    fontSize: 30,
+    marginLeft: 10,
   },
   icon:{
     width: 15,

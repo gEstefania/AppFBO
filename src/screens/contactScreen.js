@@ -14,8 +14,8 @@ const ContactScreen = () => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
-                <IconHablemos width={30} height={30} />
-                <PrimaryText>Hablemos</PrimaryText>
+                <IconHablemos width={30} height={30} style={{marginBottom: 5}}/>
+                <PrimaryText style={styles.titleSize}>Hablemos</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
             <View style={styles.formContainer}>

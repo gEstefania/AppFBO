@@ -6,13 +6,12 @@ export default StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flex: 1,
+    //flex: 1,
+    height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-    shadowColor: "#000",
-
+    //marginTop: 20,
   },
   shadow: {
     height: 1,
@@ -45,4 +44,8 @@ export default StyleSheet.create({
     borderRadius: 30,
     backgroundColor: Colors.CORPORATE_ORANGE,
   },
+  titleSize:{
+    fontSize: 30,
+    marginLeft: 10,
+  }
 });

@@ -2,29 +2,26 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '@common';
 
 export default StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
   headerContainer: {
     flex: 1,
+    height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    //marginTop: 20,
     padding: 20,
   },
   shadow: {
-    borderBottomColor: '#fff',
-    borderBottomWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-    elevation: 1,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10,
+    height: 1,
+    borderBottomWidth: 0.5,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)', 
+    shadowOffset: {
+      width: 0,
+      height: 11,
+    },
+    shadowOpacity: 0.55,
+    shadowRadius: 14.78,
+    elevation: 8,
   },
   icon: {
     width: 35,
@@ -57,4 +54,8 @@ export default StyleSheet.create({
     borderRadius: 30,
     backgroundColor: Colors.CORPORATE_ORANGE,
   },
+  titleSize:{
+    fontSize: 30,
+    marginLeft: 10,
+  }
 });
