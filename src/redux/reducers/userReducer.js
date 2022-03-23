@@ -5,7 +5,7 @@ const UserReducer =(state=defaultState,{type,payload})=>{
         case 'LOG_IN':
             return Object.assign({},state,payload)
         case 'LOG_OUT':
-            return payload
+            return defaultState
         default:
             return state
     }

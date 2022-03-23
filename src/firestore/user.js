@@ -18,7 +18,8 @@ export const createUserSocialRegiter = (userData) => {
                     myTags:[],
                     createdAt: firestore.Timestamp.now(),
                     updatedAt: firestore.Timestamp.now(),
-                    tokens:deviceToken?[deviceToken]:[]
+                    tokens:deviceToken?[deviceToken]:[],
+                    removed: false,
                 }
                 firestore()
                 .collection('Users')

@@ -226,6 +226,7 @@ const Login = (props) => {
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
                     value={user.password}
+                    secureTextEntry={true}
                     onChangeText={text => setUser({ ...user, password: text })}
                 />
             </View>

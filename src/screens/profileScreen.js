@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TouchableOpacity, SafeAreaView, Alert } from "react-native";
+import { View, TextInput, TouchableOpacity, SafeAreaView } from "react-native";
 import auth from '@react-native-firebase/auth';
+import Modal from "react-native-modal";
+import { useDispatch } from 'react-redux';
 import {unsubscribeUser, getUserData} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
@@ -9,7 +11,7 @@ import firestore from '@react-native-firebase/firestore'
 import PreferenceTag from '@components/PreferenceTag'
 import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
-import Icon from 'react-native-vector-icons/Entypo';
+import { logout } from '../redux/actions/userActions';
 import {unregisterDevice} from '@firestore/user';
 import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses, IconPerfil} from '@icons';
 
@@ -18,6 +20,10 @@ const ProfileScreen = (props) => {
     const [userInfo, setUserInfo] = useState({ name: '', email: '' });
     const [user,setUser]=useState(null)
     const [tags,setTags]=useState([])
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [isEditModalVisible, setEditModalVisible] = useState(false);
+    const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if(props.user){
@@ -28,7 +34,7 @@ const ProfileScreen = (props) => {
                 if(dataSnapshot.exists){
                     setTags([])
                     let dUser = dataSnapshot.data()
-                    console.log('dUser: ',dUser);
+                    console.log('User: ',props);
                     setUser(user)
                     dUser.myTags?.forEach(async doc=>{
                         let dTag = await firestore().doc(doc.path).get()
@@ -57,19 +63,16 @@ const ProfileScreen = (props) => {
     }
 
     const confirmDeleteUser=()=>{
-        Alert.alert("¡Atención!","Tu cuenta se eliminará, esta acción no se puede deshacer, ¿Deseas continuar?",
-        [
-            {
-              text: "Cancel",
-              style: "cancel"
-            },
-            { text: "OK", onPress: () => onUnsubscribeButtonPress() }
-          ]
-        )
+        setModalVisible(!isModalVisible);
     }
-    
+    const confirmLogoutUser=()=>{
+        setLogoutModalVisible(!isLogoutModalVisible);
+    }
+    const confirmEditUserInfo=()=>{
+        setEditModalVisible(!isEditModalVisible);
+    }
+
     const onUnsubscribeButtonPress = async () => {
-        
         try {
             await unsubscribeUser()
             auth().signOut().then(() => console.log('User signed out!'));
@@ -82,14 +85,17 @@ const ProfileScreen = (props) => {
         try {
             //await GoogleSignin.revokeAccess();
             //await GoogleSignin.signOut();
+            //Redux:
+            dispatch(logout())
+            setUserInfo({ name: '', email: '' })
+            setUser(null)
             auth().signOut().then(() => console.log('User signed out!'));
             await unregisterDevice()
-
         } catch (error) {
             console.error(error);
         }
-        
     }
+
     const deleteTag=async(tagId)=>{
         let filter  = tags.filter(tag=>tag.id !== tagId)
         await editMyTags(filter)
@@ -108,7 +114,9 @@ const ProfileScreen = (props) => {
                         <IconDatos width={17} height={17} />
                         <PrimaryText style={styles.title}>Datos</PrimaryText>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => confirmEditUserInfo()}
+                    >
                         <IconEditar width={15} height={15} />
                     </TouchableOpacity>
                 </View>
@@ -147,12 +155,75 @@ const ProfileScreen = (props) => {
             <View style={styles.bar}></View>
             <TouchableOpacity
                 style={styles.btnRow}
-                onPress={() => onLogOutButtonPress()}
+                onPress={() => confirmLogoutUser()}
             >
                 <IconCerrar width={17} height={17} />
                 <PrimaryText style={styles.title}>Cerrar sesión</PrimaryText>
             </TouchableOpacity>
             <View style={styles.bar}></View>
+            <Modal
+                isVisible={isModalVisible}
+                onBackdropPress={() => setModalVisible(false)}
+                swipeDirection="left"
+                >
+                <View style={styles.modal}>
+                    <PrimaryText>¡Atención!</PrimaryText>
+                    <SecondaryText style={styles.modalDetail}>Tu cuenta se eliminará, esta acción no se puede deshacer. ¿Deseas continuar?</SecondaryText>
+                    <TouchableOpacity
+                        onPress={() => onUnsubscribeButtonPress()}
+                        style={styles.btnModal}
+                    >
+                        <PrimaryText color={'#fff'}>SÍ, DARME DE BAJA</PrimaryText>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+            <Modal
+                isVisible={isLogoutModalVisible}
+                onBackdropPress={() => setLogoutModalVisible(false)}
+                swipeDirection="left"
+                >
+                <View style={styles.modal}>
+                    <PrimaryText>¡Atención!</PrimaryText>
+                    <SecondaryText style={styles.modalDetail}>¿Estás seguro que deseas cerrar sesión?</SecondaryText>
+                    <TouchableOpacity
+                        onPress={() => onLogOutButtonPress()}
+                        style={styles.btnModal}
+                    >
+                        <PrimaryText color={'#fff'}>SÍ, CERRAR SESIÓN</PrimaryText>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+            <Modal
+                isVisible={isEditModalVisible}
+                onBackdropPress={() => setEditModalVisible(false)}
+                swipeDirection="left"
+                >
+                <View style={styles.modal}>
+                    <PrimaryText>Editar perfil</PrimaryText>
+                    <View style={styles.input}>
+                        <TextInput
+                            style={styles.loginInput}
+                            placeholder={'Nombre'}
+                            placeholderTextColor="#000"
+                            autoCapitalize={'none'}
+                            //value={user.name}
+                            //onChangeText={text => setUser({...user, name: text})}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        //onPress={() => onLogOutButtonPress()}
+                        style={styles.btnModal}
+                    >
+                        <PrimaryText color={'#fff'}>GUARDAR CAMBIOS</PrimaryText>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        //onPress={() => onLogOutButtonPress()}
+                        style={styles.btnModal}
+                    >
+                        <PrimaryText color={'#fff'}>CANCELAR</PrimaryText>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     )
 }
