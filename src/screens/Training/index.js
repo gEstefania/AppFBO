@@ -80,7 +80,7 @@ const Index = (props) => {
             <View style={styles.row}>
               <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'}  style={styles.infoText}>{item.totalTime} minutos</PrimaryText>
+                <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalTime}</PrimaryText>
               </View>
             </View>
           </View>

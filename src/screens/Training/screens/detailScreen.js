@@ -21,7 +21,7 @@ const DetailScreen = ({route, navigation,course}) => {
                 </View>
                 <View style={styles.nameCard}>
                     <SecondaryText style={styles.speakerText}>Ponente</SecondaryText>
-                    <SecondaryText style={styles.nameSpeakerText}>{course.teacherName}</SecondaryText>
+                    <SecondaryText style={styles.nameSpeakerText}>{course.teacherName} {course.teacherLastname} {course.teacherSecondLastname}</SecondaryText>
                 </View>
             </View>
             <View style={styles.contentView}>
