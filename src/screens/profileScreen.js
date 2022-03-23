@@ -34,7 +34,7 @@ const ProfileScreen = (props) => {
                 if(dataSnapshot.exists){
                     setTags([])
                     let dUser = dataSnapshot.data()
-                    console.log('User: ',props);
+                    //console.log('User: ',props);
                     setUser(user)
                     dUser.myTags?.forEach(async doc=>{
                         let dTag = await firestore().doc(doc.path).get()
@@ -133,7 +133,7 @@ const ProfileScreen = (props) => {
                         <PrimaryText style={styles.title}>Intereses</PrimaryText>
                     </View>
                     <TouchableOpacity
-                    onPress={()=>navigation.navigate("TagsPreferences")}
+                    onPress={()=>navigation.navigate("Preferences", {userSelectedTags: tags})}
                     >
                         <IconMas width={17} height={17} />
                     </TouchableOpacity>

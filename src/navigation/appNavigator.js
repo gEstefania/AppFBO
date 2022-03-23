@@ -23,6 +23,7 @@ import CourseTopMenu from './courseTopMenu';
 import SignIn from '../screens/Auth/login';
 import SignUp from '../screens/Auth/signUp';
 import Tags from '../screens/tags';
+import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
@@ -80,10 +81,12 @@ const AppNavigator = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName={"TagsPreferences"} screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={BottomTabNavigator} />
           <Stack.Screen name="TagsPreferences" component={Tags} />
+          <Stack.Screen name="Preferences" component={Preferences} />
         </Stack.Navigator>
+        <FlashMessage position="top"/>
     </NavigationContainer>
   );
     
