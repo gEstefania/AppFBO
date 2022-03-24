@@ -15,7 +15,6 @@ const Tags = ({navigation,login, route}) => {
     const [tags,setTags]=useState([]);
     const {width} = useWindowDimensions();
     const userSelectedTags = route.params.userSelectedTags
-    //console.log('PARAMS EN PREFERENCES',route.params.userSelectedTags);
     useEffect(()=>{
         getData()
         const newArray = userSelectedTags.map(function(tag) {
@@ -24,7 +23,7 @@ const Tags = ({navigation,login, route}) => {
                 selected: true
             }
         })
-        console.log(newArray);
+        //console.log(newArray);
         setSelectedUserTags(newArray)
     },[])  
     
@@ -33,7 +32,9 @@ const Tags = ({navigation,login, route}) => {
             let res = await getAllTags()
             let tmpArray = []
             res.forEach(doc=>{
-                tmpArray.push({id:doc.id,...doc.data()})
+                if(doc.data().removed==false){
+                    tmpArray.push({id:doc.id,...doc.data()})
+                }
             })
             setTags(tmpArray)
         }catch(e){
@@ -112,7 +113,7 @@ const Tags = ({navigation,login, route}) => {
                 </View>
                 <FlatList
                     data={tags}
-                    contentContainerStyle={{flexGrow: 1}}
+                    //contentContainerStyle={{flexGrow: 1}}
                     numColumns={2}
                     keyExtractor={item => item.id}
                     renderItem={renderList}
