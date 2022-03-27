@@ -75,7 +75,27 @@ export const editMyTags=(categoriesId)=>{
     })
 }
 
+export const updateUserName=(userName)=>{
+    return new Promise(async(resolve,reject)=>{
+        try {
+            let userId = store.getState().users.id
+            await firestore()
+                .collection("Users")
+                .doc(userId)
+                .update({ 
+                    name: userName
+                })
+            let userUpdated = await firestore().collection("Users").doc(userId).get()
+            if(userUpdated){
+                resolve(userUpdated)
+            }
+            
 
+        }catch(e){
+            reject({error:e});
+        }
+    })
+}
 
 export const unsubscribeUser = () => {
     return new Promise(async(resolve,reject)=>{
@@ -100,6 +120,7 @@ export const getUserData = () => {
     return new Promise(async(resolve, reject) => {
         try {
             let userId = store.getState().users.id
+            console.log('userId',userId) // se pierde el id
             let info = await
             firestore()
             .collection('Users')

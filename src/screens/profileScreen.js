@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "rea
 import auth from '@react-native-firebase/auth';
 import Modal from "react-native-modal";
 import { useDispatch } from 'react-redux';
-import {unsubscribeUser, getUserData} from '@firestore/user';
+import {unsubscribeUser, getUserData, updateUserName} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
 import { connect } from 'react-redux';
@@ -12,7 +12,6 @@ import PreferenceTag from '@components/PreferenceTag'
 import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import { logout } from '../redux/actions/userActions';
-import {getAllTags} from '@firestore/tagsPreferences';
 import {unregisterDevice} from '@firestore/user';
 import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses, IconPerfil} from '@icons';
 
@@ -21,7 +20,6 @@ const ProfileScreen = (props) => {
     const [userInfo, setUserInfo] = useState({ name: '', email: '' });
     const [user,setUser]=useState(null)
     const [tags,setTags]=useState([])
-    const [allTags,setAllTags]=useState([])
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEditModalVisible, setEditModalVisible] = useState(false);
     const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
@@ -65,6 +63,16 @@ const ProfileScreen = (props) => {
             let res = await getUserData()
             console.log(res);
             setUserInfo({name: res.name, email: res.email})
+        }catch(e){
+            console.log(e)
+        }
+    }
+    const editUserName=async()=>{
+        try {
+            if (userInfo.name !== '') {
+                await updateUserName(userInfo.name)
+                setEditModalVisible(false)
+            }
         }catch(e){
             console.log(e)
         }
@@ -214,24 +222,22 @@ const ProfileScreen = (props) => {
                 >
                 <View style={styles.modal}>
                     <PrimaryText>Editar perfil</PrimaryText>
-                    <View style={styles.input}>
-                        <TextInput
-                            style={styles.loginInput}
-                            placeholder={'Nombre'}
-                            placeholderTextColor="#000"
-                            autoCapitalize={'none'}
-                            //value={user.name}
-                            //onChangeText={text => setUser({...user, name: text})}
-                        />
-                    </View>
+                    <TextInput
+                        style={styles.nameInput}
+                        placeholder={'Nombre'}
+                        placeholderTextColor="#000"
+                        autoCapitalize={'none'}
+                        value={userInfo.name}
+                        onChangeText={text => setUserInfo({...userInfo, name: text})}
+                    />
                     <TouchableOpacity
-                        //onPress={() => onLogOutButtonPress()}
+                        onPress={() => editUserName()}
                         style={styles.btnModal}
                     >
-                        <PrimaryText color={'#fff'}>GUARDAR CAMBIOS</PrimaryText>
+                        <PrimaryText color={'#fff'}>GUARDAR</PrimaryText>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        //onPress={() => onLogOutButtonPress()}
+                        onPress={() => setEditModalVisible(false)}
                         style={styles.btnModal}
                     >
                         <PrimaryText color={'#fff'}>CANCELAR</PrimaryText>
