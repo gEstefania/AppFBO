@@ -19,6 +19,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   body:{
+    flex: 1,
     margin: 20,
     marginTop: 20,
   },
