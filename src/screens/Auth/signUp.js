@@ -176,7 +176,7 @@ const SignUp = () => {
                     style={styles.loginInput}
                     placeholder={'Nombre*'}
                     placeholderTextColor="#000"
-                    autoCapitalize={'none'}
+                    autoCapitalize={'sentences'}
                     value={user.name}
                     onChangeText={text => setUser({...user, name: text})}
                 />
@@ -187,7 +187,7 @@ const SignUp = () => {
                     placeholder={'Email*'}
                     placeholderTextColor="#000"
                     autoCapitalize={'none'}
-                    value={user.email}
+                    value={user.email.toLowerCase()}
                     onChangeText={text => setUser({...user, email: text})}
                 />
             </View>

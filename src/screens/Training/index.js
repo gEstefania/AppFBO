@@ -36,7 +36,7 @@ const Index = (props) => {
   const onViewAllButtonPress = () => {
     if(user.isAnonymous == true){
       setModalVisible(!isModalVisible);
-    }else {
+    }else{
       navigation.navigate("AllCourses")
     }
   }

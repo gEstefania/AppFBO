@@ -91,6 +91,7 @@ const ProfileScreen = (props) => {
     const onUnsubscribeButtonPress = async () => {
         try {
             await unsubscribeUser()
+            dispatch(logout())
             auth().signOut().then(() => console.log('User signed out!'));
         }catch(e){
             console.log(e)

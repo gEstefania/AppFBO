@@ -9,7 +9,7 @@ export const createUserSocialRegiter = (userData) => {
             let deviceToken = store.getState().config.deviceToken
             if(docsQuery.length === 0) {
                 let registerData={
-                    enable: true,
+                    enabled: true,
                     group: [],
                     email: userData.email,
                     name: userData.name,
@@ -101,14 +101,17 @@ export const unsubscribeUser = () => {
     return new Promise(async(resolve,reject)=>{
         try {
             let userId = store.getState().users.id
-            console.log(userId)
-            firestore()
-            .collection('Users')
-            .doc(userId)
-            .delete()
-            .then(() => {
-                console.log('User deleted!');
-            });
+            await firestore()
+                .collection("Users")
+                .doc(userId)
+                .update({ 
+                    enabled: false,
+                    removed: true,
+                    myTags: [],
+                    tokens: [],
+                }).then(() => {
+                    console.log('User deleted!');
+                });
             resolve({msg:"User deleted"})
         } catch (error) {
             reject({ error: e });
