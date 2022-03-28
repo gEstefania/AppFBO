@@ -3,6 +3,7 @@ import auth from '@react-native-firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LoginManager, AccessToken } from 'react-native-fbsdk-next';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import firestore from '@react-native-firebase/firestore'
 import { View, TouchableOpacity, Image, TextInput, ScrollView, SafeAreaView, Alert, ActivityIndicator, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { PrimaryText, SecondaryText } from '@common';
@@ -24,33 +25,43 @@ const Login = (props) => {
     async function onSignInButtonPress() {
         if (user.email !== '' && user.password !== '') {
             try {
-                auth()
-                .signInWithEmailAndPassword(user.email, user.password)
-                .then(async() => {
-                    console.log('User signed in!');
-                    const userData={
-                        email:user.email
-                    }
-                    let res = await insertUser(userData)
-                    if(res.data()){
-                        if(res.data().myTags){
-                            if(res.data().myTags.length===0){
-                                navigation.navigate("TagsPreferences")
-                            }
+                let getUserEnable = await firestore().collection("Users").where('email','==',user.email).get()
+                let userEnable = getUserEnable.docs[0].data().enabled
+                console.log('userEnable:', userEnable);
+                if (userEnable == true) {
+                    auth()
+                    .signInWithEmailAndPassword(user.email, user.password)
+                    .then(async() => {
+                        console.log('User signed in!');
+                        const userData={
+                            email:user.email,   
                         }
-                    }else{
-                        navigation.navigate("Home")
-                    }
-                })
-                .catch(error => {
-                    if (error.code === 'auth/user-not-found') {
-                        ShowAlertMessage('Usuario inexistente', '', 'warning');
-                    }
-                    if (error.code === 'auth/invalid-email') {
-                        ShowAlertMessage('Email inválido', 'Por favor intentar de nuevo', 'warning');
-                    }
-                    console.error(error);
-                });
+                        let res = await insertUser(userData)
+                        if(res.data()){
+                            if(res.data().myTags){
+                                if(res.data().myTags.length===0){
+                                    navigation.navigate("TagsPreferences")
+                                }
+                            }
+                        }else{
+                            navigation.navigate("Home")
+                        }
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/user-not-found') {
+                            ShowAlertMessage('Usuario inexistente', '', 'warning');
+                        }
+                        if (error.code === 'auth/invalid-email') {
+                            ShowAlertMessage('Email inválido', 'Por favor intentar de nuevo', 'warning');
+                        }
+                        if (error.code === 'auth/wrong-password') {
+                            ShowAlertMessage('Contraseña incorrecta', '', 'warning');
+                        }
+                        console.error(error);
+                    });
+                }else{
+                    ShowAlertMessage('Usuario inexistente', '', 'warning');
+                }
             } catch (e) {
                 console.log('Login Error: ', e);
                 ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');

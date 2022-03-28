@@ -92,4 +92,12 @@ export default StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.CORPORATE_ORANGE,
   },
+  nameInput:{
+    width: '100%',
+    color: '#000',
+    backgroundColor: '#ECF1FE',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+    borderRadius: 100,
+  },
 });

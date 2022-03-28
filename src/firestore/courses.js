@@ -7,7 +7,8 @@ import { setTasks } from '../redux/actions/tasksActions';
 export const getActiveCourses = () => {
     return firestore()
         .collection("Courses")
-        .orderBy('createdAt', 'asc')
+        .where('enabled', '==', true)
+        //.orderBy('createdAt', 'asc')
         .onSnapshot(documentSnapshot => {
             if (documentSnapshot) {
                 store.dispatch(setCourses(documentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data(), users: doc.data()?.users?.length?doc.data().users.length:0 }))))

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, TouchableOpacity, SafeAreaView } from "react-native";
+import { View, TextInput, TouchableOpacity, SafeAreaView, ScrollView } from "react-native";
 import auth from '@react-native-firebase/auth';
 import Modal from "react-native-modal";
 import { useDispatch } from 'react-redux';
-import {unsubscribeUser, getUserData} from '@firestore/user';
+import {unsubscribeUser, getUserData, updateUserName} from '@firestore/user';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/profileScreen';
 import { connect } from 'react-redux';
@@ -37,10 +37,15 @@ const ProfileScreen = (props) => {
                     //console.log('User: ',props);
                     setUser(user)
                     dUser.myTags?.forEach(async doc=>{
+                        console.log('doc', doc);
                         let dTag = await firestore().doc(doc.path).get()
+                        console.log('dtag', dTag);
                         setTags(oldTags=>[...oldTags,{id:dTag.id,...dTag.data()}])
-                    })
-                      
+                        console.log('id', dTag.data().removed);
+                        if(dTag.data().removed==true){
+                            deleteTagRemoved(dTag.id)
+                        }
+                    })  
                 }
             })
             
@@ -52,11 +57,22 @@ const ProfileScreen = (props) => {
     useEffect(() => { 
         getData() 
     }, []);
-    
+
     const getData=async()=>{
         try {
             let res = await getUserData()
+            console.log(res);
             setUserInfo({name: res.name, email: res.email})
+        }catch(e){
+            console.log(e)
+        }
+    }
+    const editUserName=async()=>{
+        try {
+            if (userInfo.name !== '') {
+                await updateUserName(userInfo.name)
+                setEditModalVisible(false)
+            }
         }catch(e){
             console.log(e)
         }
@@ -75,6 +91,7 @@ const ProfileScreen = (props) => {
     const onUnsubscribeButtonPress = async () => {
         try {
             await unsubscribeUser()
+            dispatch(logout())
             auth().signOut().then(() => console.log('User signed out!'));
         }catch(e){
             console.log(e)
@@ -96,12 +113,18 @@ const ProfileScreen = (props) => {
         }
     }
 
+    const deleteTagRemoved =async (tagId)=>{
+        
+        let filter  = tags.filter(tag=>tag.id !== tagId)
+        await editMyTags(filter)
+    }
+
     const deleteTag=async(tagId)=>{
         let filter  = tags.filter(tag=>tag.id !== tagId)
         await editMyTags(filter)
     }
     return (
-        <View style={styles.mainContainer}>
+        <ScrollView showsVerticalScrollIndicator={false}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
                 <IconPerfil width={30} height={30} style={{marginBottom: 10}}/>
@@ -200,31 +223,29 @@ const ProfileScreen = (props) => {
                 >
                 <View style={styles.modal}>
                     <PrimaryText>Editar perfil</PrimaryText>
-                    <View style={styles.input}>
-                        <TextInput
-                            style={styles.loginInput}
-                            placeholder={'Nombre'}
-                            placeholderTextColor="#000"
-                            autoCapitalize={'none'}
-                            //value={user.name}
-                            //onChangeText={text => setUser({...user, name: text})}
-                        />
-                    </View>
+                    <TextInput
+                        style={styles.nameInput}
+                        placeholder={'Nombre'}
+                        placeholderTextColor="#000"
+                        autoCapitalize={'none'}
+                        value={userInfo.name}
+                        onChangeText={text => setUserInfo({...userInfo, name: text})}
+                    />
                     <TouchableOpacity
-                        //onPress={() => onLogOutButtonPress()}
+                        onPress={() => editUserName()}
                         style={styles.btnModal}
                     >
-                        <PrimaryText color={'#fff'}>GUARDAR CAMBIOS</PrimaryText>
+                        <PrimaryText color={'#fff'}>GUARDAR</PrimaryText>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        //onPress={() => onLogOutButtonPress()}
+                        onPress={() => setEditModalVisible(false)}
                         style={styles.btnModal}
                     >
                         <PrimaryText color={'#fff'}>CANCELAR</PrimaryText>
                     </TouchableOpacity>
                 </View>
             </Modal>
-        </View>
+        </ScrollView>
     )
 }
 
