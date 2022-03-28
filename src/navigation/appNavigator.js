@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
 import TrainingScreen from '../screens/Training/index';
+import AllCourses from '../screens/Training/screens/allCourses';
 import ArticleScreen from '../screens/Information/screens/articleScreen';
 import CategoryScreen from '../screens/Information/screens/categoryScreen';
 import SubCategoryScreen from '../screens/Information/screens/subCategoryScreen';
@@ -242,6 +243,7 @@ function TrainingStackScreen() {
     }}
     >
       <TrainingStack.Screen name="Training" component={TrainingScreen} options={{headerShown: false}}/>
+      <TrainingStack.Screen name="AllCourses" component={AllCourses} />
       <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} />
     </TrainingStack.Navigator>
   );
