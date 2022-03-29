@@ -19,7 +19,7 @@ const OverviewScreen = ({route,navigation,course}) => {
                 <View style={styles.row}>
                     <IconRelojNube width={25} height={25} />
                     <View style={styles.columnText}>
-                        <PrimaryText color={'#fff'}>{course.totalTime}</PrimaryText>
+                        <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins} min</PrimaryText>
                     </View>
                 </View>
             </View>
