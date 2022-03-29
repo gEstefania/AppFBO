@@ -3,14 +3,14 @@ import firestore from '@react-native-firebase/firestore';
 export const getAllCategories=()=>{
     return new Promise(async(resolve, reject)=>{
         try{
-            let categories = await
             firestore()
             .collection("Categories")
             .where('enabled', '==', true)
-            .get()
-            if(categories){
-                resolve(categories)
-            }
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve(documentSnapshot.docs)
+                }
+            })
         }catch(e){
             reject({error:"Get data firestore error."})
         }
@@ -21,13 +21,14 @@ export const getDataFromCategory=async(catId)=>{
     //Get subcategories:
     const subcategories = new Promise(async(resolve, reject)=>{
         try{
-            let subCategories = await
             firestore()
             .collection("Categories").doc(catId)
-            .collection("Subcategories").get()
-
-            resolve({type: 'subcategory', data: subCategories.docs})
-
+            .collection("Subcategories")
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve({type: 'subcategory', data: documentSnapshot.docs})
+                }
+            })
         }catch(e){
             reject({error:"Get data firestore error.", e})
         }
@@ -40,14 +41,14 @@ export const getDataFromCategory=async(catId)=>{
             firestore()
             .collection("Categories").doc(catId);
 
-            let articles = await
             firestore()
             .collection("Articles")
             .where('subcategory','==', queryCategory)
-            .get();
-
-            resolve({type: 'article', data: articles.docs})
-
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve({type: 'article', data: documentSnapshot.docs})
+                }
+            })
         }catch(e){
             reject({error:"Get data firestore error.", e})
         }
@@ -66,14 +67,14 @@ export const getDataFromSubCategory=(catId, subCatId)=>{
             .collection("Categories").doc(catId)
             .collection("Subcategories").doc(subCatId);
 
-            let articles = await
             firestore()
             .collection("Articles")
             .where('subcategory','==', querySubCategory)
-            .get();
-
-            resolve({type: 'article', data: articles.docs})
-
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve({type: 'article', data: documentSnapshot.docs})
+                }
+            })            
         }catch(e){
             reject({error:"Get data firestore error."})
         }
@@ -82,15 +83,15 @@ export const getDataFromSubCategory=(catId, subCatId)=>{
     //Get topics
     const topics = new Promise(async(resolve, reject)=>{
         try{
-            let topics = await 
             firestore()
             .collection("Categories").doc(catId)
             .collection("Subcategories").doc(subCatId)
             .collection("Topics")
-            .get()
-
-            resolve({type: 'topic', data: topics.docs})
-
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve({type: 'topic', data: documentSnapshot.docs})
+                }
+            })
         }catch(e){
             reject({error:"Get data firestore error."})
         }

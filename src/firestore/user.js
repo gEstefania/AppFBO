@@ -113,7 +113,7 @@ export const unsubscribeUser = () => {
                     console.log('User deleted!');
                 });
             resolve({msg:"User deleted"})
-        } catch (error) {
+        } catch (e) {
             reject({ error: e });
         }
     })
