@@ -113,13 +113,12 @@ const Tags = ({navigation,login, route}) => {
                 </View>
                 <FlatList
                     data={tags}
-                    //contentContainerStyle={{flexGrow: 1}}
                     numColumns={2}
                     keyExtractor={item => item.id}
                     renderItem={renderList}
                 />
                 <TouchableOpacity
-                    onPress={updateTagsUser}
+                    onPress={() => updateTagsUser()}
                     style={styles.btnSave}
                 >
                     <IconFlechaDark width={17} height={17} />

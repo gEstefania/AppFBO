@@ -41,8 +41,8 @@ const ProfileScreen = (props) => {
                         let dTag = await firestore().doc(doc.path).get()
                         console.log('dtag', dTag);
                         setTags(oldTags=>[...oldTags,{id:dTag.id,...dTag.data()}])
-                        console.log('id', dTag.data().removed);
-                        if(dTag.data().removed==true){
+                        console.log('id', dTag.data().enabled);
+                        if(dTag.data().enabled==false){
                             deleteTagRemoved(dTag.id)
                         }
                     })  
