@@ -10,11 +10,11 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   btnCard: {
-    width: 140,
+    width: 180,
     height: 140,
     marginRight: 15, // las imaganes se van mas separadas porque estan en formato jpg, y tienen espacio blanco extra
     borderRadius: 15,
-    backgroundColor: Colors.PINK,
+    backgroundColor: 'transparent',
   },
   titleContainer: {
     flexDirection: 'row',
@@ -24,6 +24,7 @@ export default StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    borderRadius: 15,
+    resizeMode:'contain',
+    //borderRadius: 15,
   },
 });
