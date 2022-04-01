@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, Pressable, Image, ScrollView, Linking } from "react-native";
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, FlatList, Pressable, Image, ScrollView, Linking, ActivityIndicator } from "react-native";
 import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/videoScreen';
 import Video from 'react-native-video';
 import { getExtensionCapitalFromURI, getVideoId } from '@utils/tools'
-import YouTube from 'react-native-youtube';
+import YoutubePlayer from "react-native-youtube-iframe";
 import { Vimeo } from 'react-native-vimeo-iframe'
 import { connect } from 'react-redux';
 import { setTaskLesson } from '@firestore/courses'
@@ -31,6 +31,13 @@ export const TaskItem = ({item,toggleTask,lesson}) => {
 
 const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
     const { lesson } = route.params
+    const [ isLoadingVideo, setIsLoadingVideo ] = useState(true)
+
+    const onStateChange = useCallback((state) => {
+        if (state === "ready") {
+          setIsLoadingVideo(false);
+        }
+      }, []);
 
     const download = () => {
         if (lesson.archive?.url) {
@@ -46,13 +53,23 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
         <ScrollView style={styles.mainContainer}>
             <View style={styles.videoContainer}>
                 {lesson.url.includes("youtu.be") ? (
-                    <YouTube
-                        videoId={getVideoId(lesson.url)} // The YouTube video ID
-
-                        style={{ alignSelf: 'stretch', height: 300 }}
-                    />
+                    <View style={{ height: 200, backgroundColor: '#ECF1FE', elevation: 4, justifyContent: 'center' }}>
+                        { isLoadingVideo && (
+                            <ActivityIndicator size="large" style={{ position: "absolute", alignSelf: 'center' }} color="#FF9B05" />
+                        )}
+                        <YoutubePlayer
+                            height={200}
+                            onReady={() => onStateChange("ready")}
+                            videoId={getVideoId(lesson.url)} // The YouTube video ID
+                            webViewProps={{
+                                allowsInlineMediaPlayback: false,
+                                allowsFullscreenVideo: true,
+                                androidLayerType: 'hardware',
+                            }}
+                        />
+                    </View>
                 ) : (
-                    <View style={{ height: 300 }}>
+                    <View style={{ height: 200 }}>
                         <Vimeo
                             videoId={getVideoId(lesson.url)}
                             onReady={() => console.log('Video is ready')}
@@ -95,10 +112,18 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
             <View style={styles.taskContainer}>
                 <PrimaryText style={styles.sectionTitle}>Tareas</PrimaryText>
                 <View style={styles.itemContainer}>
-
-                    {tasks.map((item) => (
-                        <TaskItem item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
-                    ))}
+                    { tasks.length === 0 && (
+                        <SecondaryText>No hay tareas disponibles</SecondaryText>
+                    )}
+                    {tasks.map((item, i) => {
+                        // console.log(item, 'item', lesson.id)
+                        if (item.lessonId === lesson.id) {
+                        return (
+                            <View key={i}>
+                                <TaskItem item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
+                            </View>
+                        )}
+                    })}
                 </View>
 
             </View>

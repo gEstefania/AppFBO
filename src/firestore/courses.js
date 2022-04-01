@@ -37,7 +37,7 @@ export const setTaskLesson = (idCourse, idLesson) => {
         .doc(idCourse)
         .collection("Lessons")
         .doc(idLesson)
-        .collection("Tasks")
+        .collection("Task")
         .onSnapshot(documentSnapshot => {
             if (documentSnapshot) {
                 documentSnapshot.forEach(doc => {

@@ -47,12 +47,12 @@ const Category = ({route, navigation}) => {
   return(
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <PrimaryText style={styles.topicTitle}>Ayuda <Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
-      <ImageBackground
+      {/* <ImageBackground
         resizeMode="cover"
         style={styles.imageBackground}
         source={require('../../../assets/img/FBO-bannerSocial.jpg')}>
         <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
-      </ImageBackground>
+      </ImageBackground> */}
       <FlatList
         data={dataArticles.concat(dataSubCategories)}
         renderItem={renderList}
