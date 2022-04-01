@@ -50,8 +50,12 @@ const Index = (props) => {
   }
 
   const navigateToCourseDetails=(item)=>{
-    navigation.navigate("TopMenu")
-    props.setCurrentCourse(item)
+    if(user.isAnonymous == true){
+      setModalVisible(!isModalVisible);
+    }else{
+      navigation.navigate("TopMenu")
+      props.setCurrentCourse(item)
+    }
   }
 
   const renderList = ({item}) => {

@@ -5,6 +5,7 @@ import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/lessonScreen';
 import { connect } from 'react-redux';
 import { getCoursesLessons } from '../../../firestore/courses';
+import {IconPlay} from '@icons';
 //import { useDispatch, useSelector } from 'react-redux';
 //import { fetchLessonDescription, fetchLessons } from '../../../redux/actions/lessonsActions';
 
@@ -23,7 +24,7 @@ const LessonScreen = ({navigation,lessons,currentCourse}) => {
             >
                 {/* <Text>{description}</Text> */}
                 <View style={styles.thumbnailContainer}>
-                    <VideoThumbnail/>
+                    <IconPlay width={25} height={25} />
                 </View>
                 <View style={styles.descContainer}>
                     <PrimaryText style={styles.btnText}>{item.title}</PrimaryText>

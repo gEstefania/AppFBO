@@ -28,7 +28,7 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias} from '@icons';
+import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, LogoApp} from '@icons';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -97,7 +97,7 @@ const AppNavigator = () => {
 
 // Bottom Navigator
 function BottomTabNavigator() {
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   return(
     <BottomTab.Navigator
       initialRouteName={TopTapNavigator}
@@ -170,6 +170,7 @@ function BottomTabNavigator() {
 
 //Home Top Navigator
 function TopTapNavigator() {
+  const { height, width } = useWindowDimensions();
   return(
     <LinearGradient
       colors={['#ff9b04', '#ff000a' ]}
@@ -178,12 +179,12 @@ function TopTapNavigator() {
       end={{ x: 1.4, y: 1.7 }}
       locations={[0.2, 0.4]}
     >
-      <View style={{backgroundColor: 'transparent', height: 125, alignItems: 'center', paddingTop: 40}}>
-        <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+      <View style={{backgroundColor: 'transparent', alignItems: 'center', paddingTop: 20,}}>
+        <LogoApp width={230} height={100} />
       </View>
       <TopTab.Navigator
         screenOptions={{
-          tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: 16},
+          tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: width*0.035},
           tabBarStyle: { backgroundColor: 'transparent', },
           tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50, bottom: -4, width: 55, left: 40,},
         }}

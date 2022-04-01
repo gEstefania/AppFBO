@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useWindowDimensions } from "react-native";
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import detailScreen from '../screens/Training/screens/detailScreen';
@@ -10,11 +11,11 @@ const CourseTopTab = createMaterialTopTabNavigator();
 const LessonStack = createStackNavigator();
 
 const CourseTopMenu = ({route}) => {
-  console.log(route);
+  const { height, width } = useWindowDimensions();
     return(
       <CourseTopTab.Navigator
         screenOptions={{
-            tabBarLabelStyle: { fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#ff9b04', fontSize: 13},
+            tabBarLabelStyle: { fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#ff9b04', fontSize: width*0.03},
             tabBarStyle: { backgroundColor: 'transparent', marginBottom: 15, marginHorizontal: 20},
             tabBarIndicatorStyle: {backgroundColor: '#ff9b04', height: 7, borderRadius: 50},
             tabBarIndicatorContainerStyle: {backgroundColor: '#ECF1FE', borderRadius: 50, height: 7, marginTop: 40},
