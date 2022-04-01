@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { View, TouchableOpacity, ImageBackground } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/index';
@@ -8,11 +8,10 @@ const Index = () => {
     const navigation = useNavigation();
  return(
      <View style={styles.mainContainer}>
-         <View style={styles.imgContainer}>
-             <Image
-                //source={}
-             />
-         </View>
+         <ImageBackground
+                resizeMode="cover"
+                style={styles.imageBackground}
+                source={require('../../assets/img/FBO-signin.png')}>
          <View style={styles.textContainer}>
              <PrimaryText style={styles.title}>Fundación</PrimaryText>
              <PrimaryText style={styles.title}>Bertín Osborne</PrimaryText>
@@ -32,6 +31,7 @@ const Index = () => {
                 </TouchableOpacity>
             </View>
          </View>
+         </ImageBackground>
      </View>
  )
 }
