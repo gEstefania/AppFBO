@@ -3,9 +3,13 @@ import { View, Image } from "react-native";
 import styles from './styles/detailScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
+import RenderHtml from 'react-native-render-html';
 import { connect } from 'react-redux';
 
 const DetailScreen = ({route, navigation,course}) => {
+    const source = {
+        html: `${course.description}`
+    };
     console.log(course?.teacherPicture?.url)
     return (
         <ScrollView style={styles.mainContainer}>
@@ -26,7 +30,9 @@ const DetailScreen = ({route, navigation,course}) => {
                 </View>
             </View>
             <View style={styles.contentView}>
-                <SecondaryText>{course.description}</SecondaryText>
+                <RenderHtml
+                    source={source}
+                />
             </View>
         </ScrollView>
     )

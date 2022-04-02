@@ -4,9 +4,12 @@ import styles from './styles/overviewScreen';
 import {PrimaryText, SecondaryText} from '@common';
 import { connect } from 'react-redux';
 import {IconRelojNube, IconVideoNube} from '@icons';
+import RenderHtml from 'react-native-render-html';
 
 const OverviewScreen = ({route,navigation,course}) => {
-    
+    const source = {
+        html: `${course.summary}`
+      };
     return (
         <View style={styles.mainContainer}>
             <View style={styles.summaryContainer}>
@@ -19,13 +22,19 @@ const OverviewScreen = ({route,navigation,course}) => {
                 <View style={styles.row}>
                     <IconRelojNube width={25} height={25} />
                     <View style={styles.columnText}>
-                        <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins} min</PrimaryText>
+                        { course.totalHours ? ( // verificamos si hay horas o no
+                            <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins}</PrimaryText>
+                        ) : (
+                            <PrimaryText color={'#fff'}>{course.totalMins} min</PrimaryText>
+                        )}
                     </View>
                 </View>
             </View>
             <View style={styles.descContainer}>
                 <PrimaryText>Aprenderemos a</PrimaryText>
-                <SecondaryText>{course.summary}</SecondaryText>
+                <RenderHtml
+                    source={source}
+                />
             </View>
         </View>
     )

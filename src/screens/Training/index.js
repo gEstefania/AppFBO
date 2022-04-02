@@ -50,8 +50,12 @@ const Index = (props) => {
   }
 
   const navigateToCourseDetails=(item)=>{
-    navigation.navigate("TopMenu")
-    props.setCurrentCourse(item)
+    if(user.isAnonymous == true){
+      setModalVisible(!isModalVisible);
+    }else{
+      navigation.navigate("TopMenu")
+      props.setCurrentCourse(item)
+    }
   }
 
   const renderList = ({item}) => {
@@ -82,13 +86,21 @@ const Index = (props) => {
             <View style={styles.row}>
               <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins} min</PrimaryText>
+                { item.totalHours ? ( // verificamos si hay horas o no
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}</PrimaryText>
+                ) : (
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalMins} min</PrimaryText>
+                )}
               </View>
             </View>
           </View>
         </View>
         <View style={styles.descriptionContainer}>
-          <SecondaryText>{item.summary.slice(0,parseInt(item.summary.length/4))} ...</SecondaryText>
+          { item.summary.length < 50 ? (
+              <SecondaryText>{item.summary.slice(0,50)}</SecondaryText>
+            ) : (
+              <SecondaryText>{item.summary.slice(0,50)}...</SecondaryText>
+          )}
         </View>
       </TouchableOpacity>
     );

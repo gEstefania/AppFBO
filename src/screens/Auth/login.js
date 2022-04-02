@@ -116,6 +116,7 @@ const Login = (props) => {
             // Sign-in the user with the credential
             let userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
+            // TODO: console.log('Google User Credentials: ', userCredentials.additionalUserInfo?.isNewUser); 
             if(userProfile){
                 let res = await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
@@ -135,6 +136,34 @@ const Login = (props) => {
             
         } catch (error) {
             console.log('Error login with Google: ', error)
+        }
+    }
+
+    async function mailResetPassword() {
+        if (user.email !== '') { // Checa si hay un correo ingresado
+            try {
+                await auth()
+                    .sendPasswordResetEmail(user.email)
+                    .then(() => {
+                        console.log('Correo enviado');
+                        ShowAlertMessage('Email enviado', 'Revisa tu bandeja de entrada', 'success');
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/user-not-found') {
+                            ShowAlertMessage('Usuario inexistente', '', 'warning');
+                        }
+                        if (error.code === 'auth/invalid-email') {
+                            ShowAlertMessage('Email inválido', 'Por favor intentar de nuevo', 'warning');
+                        }
+                        console.error(error);
+                    });
+            } catch (e) {
+                console.log('Reset Password Error: ', e);
+                ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');
+            }
+        } else {
+            console.log('Campos vacios')
+            ShowAlertMessage('Campos vacíos', 'Por favor ingresa un correo e intenta de nuevo', 'warning');
         }
     }
 
@@ -248,7 +277,9 @@ const Login = (props) => {
                 <SecondaryText color={'#fff'}>ENTRAR</SecondaryText>
             </TouchableOpacity>
             <View style={styles.btnPassword}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => mailResetPassword()}
+                >
                     <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
                 </TouchableOpacity>
             </View>

@@ -9,6 +9,7 @@ import { showMessage } from 'react-native-flash-message';
 import {login} from '../redux/actions/userActions'
 import { connect } from 'react-redux';
 import {IconFlechaDark} from '@icons';
+import { LogoApp } from '@icons';
 
 const Tags = ({navigation,login, route}) => {
     const [selectedUserTags, setSelectedUserTags] = useState([]);
@@ -103,7 +104,7 @@ const Tags = ({navigation,login, route}) => {
                 end={{ x: 3.5, y: 5 }}
                 locations={[0.2, 0.3]}
             >
-                <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+                <LogoApp width={30} height={30} />
             </LinearGradient>
             
             </View>
