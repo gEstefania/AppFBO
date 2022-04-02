@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { setSubcategory } from '../redux/actions/subcategoriesActions';
-import { setCategory } from '../redux/actions/categoriesActions';
+import { setCategory } from '../redux/actions/categoriesActions'; 
+import { setCurrentArticle } from '../redux/actions/selectedArticleActions';
 import { store } from '../redux/store';
 
 export const getAllCategories=()=>{
@@ -72,6 +73,29 @@ export const getCategories = () => {
         })
 }
 
+export const getArticles = (catId) => {
+    console.log('HLAAAA');
+    let queryCategory = 
+        firestore()
+        .collection("Categories").doc(catId);
+    return firestore()
+        .collection("Articles")
+        .where('subcategory','==', queryCategory)
+        .onSnapshot(documentSnapshot => {
+            if (documentSnapshot) {
+                documentSnapshot.forEach(doc => {
+                    console.log('DOCUMENT',doc);
+                    store.dispatch(setCurrentArticle(
+                        {
+                            idCategory: catId,
+                            type: 'article',
+                            //data: doc.data()
+                        }
+                    ))
+                }
+            )}
+        })
+}
 
 export const getDataFromSubCategory=(catId, subCatId)=>{
     //Get articles

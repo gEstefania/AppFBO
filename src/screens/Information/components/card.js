@@ -2,20 +2,29 @@ import { FlatList, TouchableOpacity, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { PrimaryText } from '@common';
-import { getDataFromCategory } from '@firestore/category';
+import { getArticles } from '@firestore/category';
 import { setSubcategory } from '../../../redux/actions/subcategoriesActions';
-import { getTopics } from '@firestore/topic';
+import { setCurrentArticle } from '../../../redux/actions/selectedArticleActions';
+//import { getTopics } from '@firestore/topic';
 import styles from './styles/card';
 
 const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
-  const [subCategory, setSubCategory] = useState([]);
-  const [articles, setArticles] = useState([]);
-  const [topics, setTopics] = useState([]);
-  console.log({ topics });
+  //const [subCategory, setSubCategory] = useState([]);
+  //const [articles, setArticles] = useState([]);
+  //const [topics, setTopics] = useState([]);
+  const articles = useSelector(state => state.currentArticle)
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getData()
+    //getData()
+    console.log('cat id', catId);
+    const subscriberFirebase = getArticles(catId)
+    console.log('ARTICLES: ', articles);
+    return ()=>{
+      subscriberFirebase()
+      
+    } 
+  
   }, []);
 
   const getData = async () => {
@@ -33,7 +42,7 @@ const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
       res[1].data.forEach(doc => {
         articlesList.push({ id: doc.id, ...doc.data(), type: 'article' })
       })
-      dispatch(setSubcategory)
+      //dispatch(setSubcategory)
       setArticles(articlesList)
 
     } catch (e) {
@@ -42,21 +51,21 @@ const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
   }
 
   const onButtonPress = async (item) => {
-    console.log('ITEM', item);
-    if (item.type === 'article') {
-      navigation.navigate("Article", {
-        title: item.title,
-        body: item.body,
-        color: cardColor,
-      }
-      )
-    }
-    if (item.type === 'subcategory') {
-      console.log('FOR EACH', item.id);
-      //Set Topics:
-      let resTopic = await getTopics(catId, item.id);
+    // console.log('ITEM', item);
+    // if (item.type === 'article') {
+    //   navigation.navigate("Article", {
+    //     title: item.title,
+    //     body: item.body,
+    //     color: cardColor,
+    //   }
+    //   )
+    // }
+    // if (item.type === 'subcategory') {
+    //   console.log('FOR EACH', item.id);
+    //   //Set Topics:
+    //   let resTopic = await getTopics(catId, item.id);
       
-      console.log('resTopic', resTopic);
+    //   console.log('resTopic', resTopic);
       // let topicList = []
       // resTopic.forEach(doc => {
       //   topicList.push({ id: doc.id, ...doc.data() })
@@ -71,10 +80,11 @@ const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
       //   topics: topics,
       //   }
       // )
-    }
+    //}
   }
 
   const renderList = ({ item }) => {
+    console.log('ITEM: ', item);
     return (
       <TouchableOpacity
         onPress={() => onButtonPress(item)}
@@ -87,32 +97,31 @@ const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
   };
 
   const navigateTo = () => {
-    const art = articles.map(item => item.type === 'article')
-    console.log(art);
-    if (art.length !== 0) {
-      navigation.navigate("Topic", {
-        title: title,
-        color: cardColor,
-        articles: articles,
-        catId: catId,
-        subCatId: '',
-      }
-      )
-    }
-    const subs = subCategory.map(item => item.type === 'subcategory')
-    console.log('subs', subs);
-    if (subs.length !== 0) {
-      navigation.navigate("Category", {
-        title: title,
-        color: cardColor,
-        subCategories: subCategory,
-        catDesc: catDesc,
-        catId: catId,
-        image: img
-      }
-      )
-    }
-
+    // const art = articles.map(item => item.type === 'article')
+    // console.log(art);
+    // if (art.length !== 0) {
+    //   navigation.navigate("Topic", {
+    //     title: title,
+    //     color: cardColor,
+    //     articles: articles,
+    //     catId: catId,
+    //     subCatId: '',
+    //   }
+    //   )
+    // }
+    // const subs = subCategory.map(item => item.type === 'subcategory')
+    // console.log('subs', subs);
+    // if (subs.length !== 0) {
+    //   navigation.navigate("Category", {
+    //     title: title,
+    //     color: cardColor,
+    //     subCategories: subCategory,
+    //     catDesc: catDesc,
+    //     catId: catId,
+    //     image: img
+    //   }
+    //   )
+    // }
   }
 
   return (
@@ -128,7 +137,7 @@ const Card = ({ title, catId, catDesc, cardColor, img, navigation }) => {
       </View>
       <FlatList
         horizontal
-        data={articles.concat(subCategory)}
+        data={articles}
         renderItem={renderList}
       //keyExtractor={item => item.id}
       />

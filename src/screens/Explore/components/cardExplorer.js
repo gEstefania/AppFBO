@@ -33,7 +33,7 @@ const CardExplorer = () => {
   const getCategories=async()=>{
     try {
       let res = await getAllCategories()
-      console.log('respuesta card explorer', res);
+      //console.log('respuesta card explorer', res);
       let categoryList = []
       res.forEach(doc=>{
         categoryList.push({id:doc.id,...doc.data()})

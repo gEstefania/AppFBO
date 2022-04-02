@@ -29,21 +29,7 @@ const Index = (props) => {
     } 
     //getData() 
   }, []);
-
-    const getData=async()=>{
-      try {
-          let res = await getAllCategories()
-          let categoryList = []
-          res.forEach(doc=>{
-            categoryList.push({id:doc.id,...doc.data()})
-          })
-          setCategory(categoryList)
-          console.log('CATEGORY', category);
-      }catch(e){
-          console.log(e)
-      }
-  }
-
+  
     const renderList = ({item, index}) => {
       return(
         <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} img={item.image.url} navigation={props.navigation}/> 
