@@ -127,7 +127,7 @@ const ProfileScreen = (props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
             <SafeAreaView></SafeAreaView>
             <View style={styles.headerContainer}>
-                <IconPerfil width={30} height={30} style={{marginBottom: 10}}/>
+                <IconPerfil width={30} height={30} style={{marginBottom: 5}}/>
                 <PrimaryText style={styles.titleSize}>Mi perfil</PrimaryText>
             </View>
             <View style={styles.shadow}></View>

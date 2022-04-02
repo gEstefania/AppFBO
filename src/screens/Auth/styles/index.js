@@ -4,6 +4,11 @@ import {Colors} from '@common';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
+  },
+  imageBackground: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
     padding: 20,
   },
   imgContainer: {
@@ -13,7 +18,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   title: {
     fontSize: 26,

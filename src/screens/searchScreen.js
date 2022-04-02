@@ -85,8 +85,8 @@ const SearchScreen = (props) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} style={styles.icon} />
-                <PrimaryText>Buscar</PrimaryText>
+                <Image source={require('../assets/img/icons/home.jpg')} width={30} height={30} style={{marginBottom: 2}} />
+                <PrimaryText style={styles.titleSize}>Buscar</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
             <View style={styles.inputContainer}>

@@ -8,11 +8,10 @@ const Index = () => {
     const navigation = useNavigation();
  return(
      <View style={styles.mainContainer}>
-         <View style={styles.imgContainer}>
-             <Image
-                //source={}
-             />
-         </View>
+         <ImageBackground
+                resizeMode="cover"
+                style={styles.imageBackground}
+                source={require('../../assets/img/APP-FBO-pantallaRegistrate.png')}>
          <View style={styles.textContainer}>
              <PrimaryText style={styles.title}>Fundación</PrimaryText>
              <PrimaryText style={styles.title}>Bertín Osborne</PrimaryText>
@@ -32,6 +31,7 @@ const Index = () => {
                 </TouchableOpacity>
             </View>
          </View>
+         </ImageBackground>
      </View>
  )
 }

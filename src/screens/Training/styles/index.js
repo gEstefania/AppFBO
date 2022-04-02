@@ -5,7 +5,6 @@ export default StyleSheet.create({
   mainContainer: {
     marginLeft: 10,
     paddingLeft: 20,
-    paddingTop: 20,
   },
   titleContainer: {
     flexDirection: 'row',
