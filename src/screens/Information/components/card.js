@@ -36,12 +36,12 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
   }
 
   const onButtonPress= (item) => {
-    console.log('ITEM: ',item)
     if(item.type== 'article'){
       navigation.navigate("Article", {
         title: item.title,
         body: item.body,
         color: cardColor,
+        ...item
         }
       )
     }
@@ -50,7 +50,8 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         title: item.name,
         color: cardColor,
         catId: catId,
-        subCatId: item.id
+        subCatId: item.id,
+        ...item
         }
       )
     }

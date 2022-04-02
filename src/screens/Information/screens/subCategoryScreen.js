@@ -46,6 +46,7 @@ const SubCategory = ({route, navigation}) => {
         title: item.title,
         body: item.body,
         color: color,
+        ...item
         }
       )
     }

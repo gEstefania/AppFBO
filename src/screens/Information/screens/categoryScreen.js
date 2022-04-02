@@ -19,6 +19,7 @@ const Category = ({route, navigation}) => {
         title: item.title,
         body: item.body,
         color: color,
+        ...item
         }
       )
     }
