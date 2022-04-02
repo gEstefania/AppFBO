@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, ImageBackground, Image } from "react-native";
+import { View, TouchableOpacity, ImageBackground, Image, Pressable } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/intro';
@@ -15,7 +15,10 @@ const Intro = () => {
     }, []);
 
     return (
-        <View style={styles.mainContainer}>
+        
+        <Pressable 
+            onPress={()=>navigation.navigate("Index")}
+            style={styles.mainContainer}>
             <ImageBackground
                 resizeMode="cover"
                 style={styles.imageBackground}
@@ -30,7 +33,7 @@ const Intro = () => {
                         <SecondaryText color={'#ff000a'} style={styles.textIntro}>Explora nuestra app y encuentra todo lo que necesitas</SecondaryText>
                     </View>
             </ImageBackground>
-        </View>
+        </Pressable>
     )
 }
 
