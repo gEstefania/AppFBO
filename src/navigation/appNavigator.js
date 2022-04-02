@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import { Image, View, useWindowDimensions, Platform } from 'react-native';
+import { Image, View, useWindowDimensions, Platform, Pressable, Text, Linking } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -141,15 +141,23 @@ function BottomTabNavigator() {
         name="Hablemos"
         component={ContactScreen}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>Linking.openURL('https://fundacionbertinosborne.org/hablamos-app/') }  />
+          ),
           tabBarLabel: 'Hablemos',
           tabBarIcon: ({ focused }) => (
             focused ? <IconHablemos width={30} height={30} /> : <IconHablemosHover width={30} height={30} />)
         }}
+
+        
       />
       <BottomTab.Screen
         name="Sugerencias"
         component={SuggestionScreen}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>Linking.openURL('https://fundacionbertinosborne.org/buzon-sugerencias-app/') }  />
+          ),
           tabBarLabel: 'Sugerencias',
           tabBarIcon: ({ focused }) => (
             focused ? <IconSugerencias width={30} height={30} /> : <IconSugerenciasHover width={30} height={30} />)
