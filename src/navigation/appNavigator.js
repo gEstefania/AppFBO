@@ -177,7 +177,7 @@ function TopTapNavigator() {
       style={{flex: 1}}
       start={{ x: 0, y: 0 }}
       end={{ x: 1.4, y: 1.7 }}
-      locations={[0.2, 0.4]}
+      locations={[0.10, 0.4]}
     >
       <View style={{backgroundColor: 'transparent', alignItems: 'center', paddingTop: 20,}}>
         <LogoApp width={230} height={100} />
@@ -210,7 +210,7 @@ function ExplorerStackScreen() {
     >
       <ExplorerStack.Screen name="Explorar" component={ExplorerScreen} options={{headerShown: false}}/>
       <ExplorerStack.Screen name="Recomendado" component={CompanyScreen} />
-      <ExplorerStack.Screen name="Empresas" component={CompanyScreen} />
+      <ExplorerStack.Screen name="Empresas" component={CompanyScreen} options={{headerTransparent: true}}/>
     </ExplorerStack.Navigator>
   );
 };
@@ -224,7 +224,7 @@ function InformationStackScreen() {
       headerTitle: "",
       headerStatusBarHeight: 0,
       headerBackTitleVisible: false,
-      headerStyle: {shadowColor: 'black'},
+      headerStyle: {shadowColor: '#fff'},
     }}
     >
       <InformationStack.Screen name="Information" component={InfoScreen} options={{headerShown: false}}/>

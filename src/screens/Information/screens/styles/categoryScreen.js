@@ -4,12 +4,14 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     margin: 20,
+    marginBottom: 0,
   },
   titleArticle: {
     marginTop: -12,
     marginLeft:15,
     fontSize: 20,
     textTransform: 'uppercase',
+    marginBottom: -40,
   },
   btnList: {
     marginTop: 40,

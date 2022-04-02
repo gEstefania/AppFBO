@@ -9,7 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 40,
-    padding: 20,
+    padding: 5,
   },
   imgContainer: {
     flex: 1,
@@ -23,6 +23,7 @@ export default StyleSheet.create({
   title: {
     fontSize: 26,
     textAlign: 'center',
+    marginBottom: -8,
   },
   textIntro:{
     textAlign: 'center',
@@ -42,4 +43,7 @@ export default StyleSheet.create({
   btnSingInContainer: {
     flexDirection: 'row',
   },
+  login: {
+    fontWeight: 'bold',
+  }
 });

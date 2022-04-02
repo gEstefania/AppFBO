@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/subcategoryScreen';
 import { ScrollView } from 'react-native-gesture-handler';
+import {getDataFromSubCategory} from '@firestore/category';
+import { countWords } from '../../../utils/tools';
 
 const Category = ({route, navigation}) => {
   const color = route.params.color;
@@ -12,8 +14,45 @@ const Category = ({route, navigation}) => {
   const catId = route.params.catId;
   const subCatId = route.params.subCatId;
 
+  const getSubcategoryData=async(categoryId, subCategoryId, itemName)=>{
+    try {
+      let res = await getDataFromSubCategory(categoryId, subCategoryId)
+      //Set Subcategories:
+      let topicList = []
+      res[0].data.forEach(doc=>{
+        topicList.push({id:doc.id,...doc.data(), type: 'topic'})
+      })
+      // console.log('topics...: ', topicList)
+
+      //Set Articles:
+      let articlesList = []
+      res[1].data.forEach(doc=>{
+        articlesList.push({id:doc.id,...doc.data(), type: 'article'})
+      })
+
+      if (articlesList.length > 0) {
+        navigation.navigate("Article", {
+          title: itemName,
+          body: articlesList[0].body,
+          color: color,
+          }
+        )
+      } else {
+        navigation.navigate("Subcategory", {
+          title: itemName,
+          color: color,
+          catId: catId,
+          subCatId: subCategoryId
+          }
+        )
+      }
+    }catch(e){
+      console.log(e)
+    }
+  }
+
   const onButtonPress= (item) => {
-    console.log('ITEM: ',item)
+    // console.log('ITEM: ',item)
     if(item.type== 'article'){
       navigation.navigate("Article", {
         title: item.title,
@@ -23,13 +62,7 @@ const Category = ({route, navigation}) => {
       )
     }
     if(item.type== 'subcategory'){
-      navigation.navigate("Subcategory", {
-        title: item.name,
-        color: color,
-        catId: catId,
-        subCatId: item.id
-        }
-      )
+      getSubcategoryData(catId, item.id, item.name)
     }
   }
 
@@ -39,7 +72,11 @@ const Category = ({route, navigation}) => {
         onPress={() => onButtonPress(item)}
         style={[styles.btnArticle, {backgroundColor: color}]}
       >
-        <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
+        {countWords(item.name) > 6 ? (
+          <PrimaryText color={'#fff'} style={styles.btnText}>{ item.name.substring(0,25) || item.name.substring(0,25) }...</PrimaryText>
+        ) : (
+          <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
+        )}
       </TouchableOpacity>
     );
   };

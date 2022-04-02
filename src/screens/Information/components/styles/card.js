@@ -4,6 +4,7 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     marginBottom: 20,
+    marginTop: 5,
     marginRight:28,
   },
   titleContainer: {

@@ -28,7 +28,11 @@ const AllCourses = () =>{
                     <IconVideo width={15} height={15} />
                     <PrimaryText style={styles.fontInfo}>{item.item.totalVideos}</PrimaryText>
                     <IconRelojOrange width={15} height={15} />
-                    <PrimaryText style={styles.fontInfo}>{item.item.totalHours} h y {item.item.totalMins} min</PrimaryText>
+                    { item.item.totalHours > 0 ? ( // verificamos si hay horas o no
+                        <PrimaryText type={'Regular'} style={styles.infoText}>{item.item.totalHours} h y {item.totalMins} min</PrimaryText>
+                        ) : (
+                        <PrimaryText type={'Regular'} style={styles.infoText}>{item.item.totalMins} min</PrimaryText>
+                    )}
                 </View>
             </TouchableOpacity>
         )

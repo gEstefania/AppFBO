@@ -4,11 +4,12 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     margin: 20,
+    marginBottom: 0,
   },
   banner: {
     height: 150,
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 3,
     paddingHorizontal: 35,
     borderRadius: 20,
     marginLeft:15,
@@ -22,10 +23,13 @@ export default StyleSheet.create({
     flex: 1,
     padding: 20,
     borderRadius: 20,
+    marginRight: 10,
   },
   btnContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft:-20,
+    marginRight: 17,
   },
   circle: {
     width: 15,
