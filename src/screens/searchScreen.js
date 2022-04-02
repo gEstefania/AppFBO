@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Image, TextInput, FlatList } from "react-native";
+import auth from '@react-native-firebase/auth';
 import { PrimaryText, SecondaryText } from '@common';
+import Modal from "react-native-modal";
 import styles from './styles/searchScreen';
 import firestore from '@react-native-firebase/firestore';
 import { connect } from 'react-redux';
@@ -17,12 +19,24 @@ const SearchScreen = (props) => {
     const [articles, setArticles] = useState([]);
     const [filterCourses,setFilterCourses]=useState([]);
     const [filterArticle,setFilterArticles]=useState([]);
+    const [userAuth, setUserAuth] = useState();
+    const [isAnonymousModalVisible, setAnonymousModalVisible] = useState(false);
 
+    function onAuthStateChanged(userAuth) {
+        setUserAuth(userAuth);
+    }
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return ()=>{
+            subscriber();
+          } ; // unsubscribe on unmount
+    }, [])
 
     useEffect(() => {
         let coursesSubscribe = firestore()
             .collection("Courses")
-            .orderBy('createdAt', 'asc')
+            .where('enabled', '==', true)
+            //.orderBy('createdAt', 'asc')
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {
                     setCourses(documentSnapshot.docs.map(doc => ({ type:0, id: doc.id, ...doc.data(), users: doc.data()?.users?.length ? doc.data().users.length : 0 })))
@@ -31,7 +45,8 @@ const SearchScreen = (props) => {
 
         let articlesSubscribe = firestore()
             .collection("Articles")
-            .orderBy('createdAt', 'asc')
+            .where('enabled', '==', true)
+            //.orderBy('createdAt', 'asc')
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {
                     setArticles(documentSnapshot.docs.map(doc => ({type:1, id: doc.id, ...doc.data()})))
@@ -46,8 +61,8 @@ const SearchScreen = (props) => {
 
     useEffect(() => {
         if(searchText.length>0){
-            setFilterArticles(articles.filter(article=>article.title.includes(searchText)))
-            setFilterCourses(courses.filter(course=>course.title.includes(searchText)))
+            setFilterArticles(articles.filter(article=>article.title.includes(searchText.toLowerCase())))
+            setFilterCourses(courses.filter(course=>course.title.includes(searchText.toLowerCase())))
         }else{
             setFilterArticles([])
             setFilterCourses([])
@@ -83,6 +98,20 @@ const SearchScreen = (props) => {
         )
     }
 
+    const search = () => {
+        if(userAuth.isAnonymous == true){
+            setAnonymousModalVisible(!isAnonymousModalVisible);
+        }
+    }
+    
+    const onSignUpButtonPress = () => {
+        try {
+          auth().signOut()
+        } catch (error) {
+          console.log(error);
+        }
+    }
+
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
@@ -92,6 +121,8 @@ const SearchScreen = (props) => {
             <View style={styles.shadow}></View>
             <View style={styles.inputContainer}>
                 <TextInput
+                onPressIn={() => search()}
+                    //onPress={() => search()}
                     placeholder="Busca un tema"
                     placeholderTextColor='gray'
                     style={styles.input}
@@ -110,6 +141,22 @@ const SearchScreen = (props) => {
                     data={[...filterArticle,...filterCourses]}
                 />
             </View>
+            <Modal
+                isVisible={isAnonymousModalVisible}
+                onBackdropPress={() => setAnonymousModalVisible(false)}
+                swipeDirection="left"
+            >
+                <View style={styles.modal}>
+                    <PrimaryText>¿No tienes cuenta?</PrimaryText>
+                    <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+                    <TouchableOpacity
+                    onPress={() => onSignUpButtonPress()}
+                    style={styles.btnModal}
+                    >
+                    <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
         </View>
     )
 }

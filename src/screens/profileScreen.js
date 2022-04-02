@@ -19,11 +19,23 @@ const ProfileScreen = (props) => {
     const navigation = useNavigation();
     const [userInfo, setUserInfo] = useState({ name: '', email: '' });
     const [user,setUser]=useState(null)
+    const [userAuth, setUserAuth] = useState();
     const [tags,setTags]=useState([])
     const [isModalVisible, setModalVisible] = useState(false);
     const [isEditModalVisible, setEditModalVisible] = useState(false);
     const [isLogoutModalVisible, setLogoutModalVisible] = useState(false);
+    const [isAnonymousModalVisible, setAnonymousModalVisible] = useState(false);
     const dispatch = useDispatch();
+
+    function onAuthStateChanged(userAuth) {
+        setUserAuth(userAuth);
+    }
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return ()=>{
+            subscriber();
+          } ; // unsubscribe on unmount
+    }, [])
 
     useEffect(() => {
         if(props.user){
@@ -79,13 +91,29 @@ const ProfileScreen = (props) => {
     }
 
     const confirmDeleteUser=()=>{
-        setModalVisible(!isModalVisible);
+        if(userAuth.isAnonymous == true){
+            setAnonymousModalVisible(!isAnonymousModalVisible);
+        }else{
+            setModalVisible(!isModalVisible);
+        }
     }
     const confirmLogoutUser=()=>{
         setLogoutModalVisible(!isLogoutModalVisible);
     }
     const confirmEditUserInfo=()=>{
-        setEditModalVisible(!isEditModalVisible);
+        if(userAuth.isAnonymous == true){
+            setAnonymousModalVisible(!isAnonymousModalVisible);
+        }else{
+            setEditModalVisible(!isEditModalVisible);
+        }
+    }
+
+    const addTagsPreferences=()=>{
+        if(userAuth.isAnonymous == true){
+            setAnonymousModalVisible(!isAnonymousModalVisible);
+        }else{
+            navigation.navigate("Preferences", {userSelectedTags: tags})
+        }
     }
 
     const onUnsubscribeButtonPress = async () => {
@@ -110,6 +138,13 @@ const ProfileScreen = (props) => {
             await unregisterDevice()
         } catch (error) {
             console.error(error);
+        }
+    }
+    const onSignUpButtonPress = () => {
+        try {
+          auth().signOut()
+        } catch (error) {
+          console.log(error);
         }
     }
 
@@ -156,7 +191,7 @@ const ProfileScreen = (props) => {
                         <PrimaryText style={styles.title}>Intereses</PrimaryText>
                     </View>
                     <TouchableOpacity
-                    onPress={()=>navigation.navigate("Preferences", {userSelectedTags: tags})}
+                    onPress={()=> addTagsPreferences()}
                     >
                         <IconMas width={17} height={17} />
                     </TouchableOpacity>
@@ -213,6 +248,22 @@ const ProfileScreen = (props) => {
                         style={styles.btnModal}
                     >
                         <PrimaryText color={'#fff'}>SÍ, CERRAR SESIÓN</PrimaryText>
+                    </TouchableOpacity>
+                </View>
+            </Modal>
+            <Modal
+                isVisible={isAnonymousModalVisible}
+                onBackdropPress={() => setAnonymousModalVisible(false)}
+                swipeDirection="left"
+            >
+                <View style={styles.modal}>
+                    <PrimaryText>¿No tienes cuenta?</PrimaryText>
+                    <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+                    <TouchableOpacity
+                    onPress={() => onSignUpButtonPress()}
+                    style={styles.btnModal}
+                    >
+                    <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
                     </TouchableOpacity>
                 </View>
             </Modal>
