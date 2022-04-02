@@ -5,30 +5,14 @@ import {getArticles} from '@firestore/article';
 import styles from './styles/topicScreen';
 
 const Topic = ({route, navigation}) => {
+  const data = route.params.articles;
   const color = route.params.color;
-  const catId = route.params.catId;
-  const subCatId = route.params.subCatId;
-  const topicId = route.params.topicId;
+  const title = route.params.title;
   const [ articles, setArticles ] = useState([]);
 
   useEffect(() => { 
-    getData();
+    setArticles(data)
   }, []);
-
-  const getData=async()=>{
-    try {
-      console.log(catId, subCatId, topicId);
-        let res = await getArticles(catId, subCatId, topicId)
-        console.log('res:', res);
-        let articleList = []
-        res.forEach(doc=>{
-          articleList.push({id:doc.id,...doc.data()})
-        })
-        setArticles(articleList)
-    }catch(e){
-        console.log(e)
-    }
-  }
 
   const renderList = ({item}) => {
     return (
@@ -36,8 +20,7 @@ const Topic = ({route, navigation}) => {
         underlayColor={hexToRGBA(color, .2)}
         style={styles.btnArticle}
         onPress={() => navigation.navigate("Article", {
-          title: item.title,
-          body: item.body,
+          item,
           color,
           }  
         )} 
@@ -51,7 +34,7 @@ const Topic = ({route, navigation}) => {
     );
   };
 
-  empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
+  const empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
     <PrimaryText>Sin Artículos...</PrimaryText>
     </View>
 
@@ -66,7 +49,7 @@ const Topic = ({route, navigation}) => {
   return(
     <View style={styles.mainContainer}>
       <View style={[styles.banner, {backgroundColor: color}]}>
-        <PrimaryText color={'#fff'} style={styles.bannerTitle}>{route.params.title}</PrimaryText>
+        <PrimaryText color={'#fff'} style={styles.bannerTitle}>{title}</PrimaryText>
       </View>
       <FlatList
         data={articles}

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import {getAllCategories} from '@firestore/category';
+import { useDispatch, useSelector } from 'react-redux';
+import {getCategories} from '@firestore/category';
 import styles from './styles/index';
 import Card from './components/card';
 
 const Index = (props) => {
   const [ category, setCategory ] = useState([]);
   const [ colorPalette, setColorPalette ] = useState([]);
+  const categories = useSelector(state => state.category)
 
   useEffect(() => { 
     setColorPalette(
@@ -21,8 +23,11 @@ const Index = (props) => {
         '#11b2d8',
       ]
     )
-
-    getData() 
+    const subscriberFirebase = getCategories()
+    return ()=>{
+      subscriberFirebase()
+    } 
+    //getData() 
   }, []);
 
     const getData=async()=>{
@@ -33,6 +38,7 @@ const Index = (props) => {
             categoryList.push({id:doc.id,...doc.data()})
           })
           setCategory(categoryList)
+          console.log('CATEGORY', category);
       }catch(e){
           console.log(e)
       }
@@ -40,13 +46,13 @@ const Index = (props) => {
 
     const renderList = ({item, index}) => {
       return(
-        <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} navigation={props.navigation}/> 
+        <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} img={item.image.url} navigation={props.navigation}/> 
       )
     }
   return(
     <View style={styles.mainContainer}>
       <FlatList
-        data={category}
+        data={categories}
         //keyExtractor={item => item.id}
         renderItem={renderList}
       />

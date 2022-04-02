@@ -10,64 +10,28 @@ const SubCategory = ({route, navigation}) => {
   const color = route.params?.color || Colors.CORPORATE_ORANGE;
   const catId = route.params?.catId;
   const subCatId = route.params?.subCatId;
+  const dataTopics = route.params?.topics;
   const [ topics, setTopics ] = useState([]);
-  const [ articles, setArticles ] = useState([]);
 
-  useEffect(() => { 
-    getData()
-  }, []);
-
-  const getData=async()=>{
-    try {
-      let res = await getDataFromSubCategory(catId, subCatId)
-      console.log('res: ', res);
-      //Set Subcategories:
-      let topicList = []
-      res[0].data.forEach(doc=>{
-        topicList.push({id:doc.id,...doc.data(), type: 'topic'})
-      })
-      setTopics(topicList)
-
-      //Set Articles:
-      let articlesList = []
-      res[1].data.forEach(doc=>{
-        articlesList.push({id:doc.id,...doc.data(), type: 'article'})
-      })
-      setArticles(articlesList)
-      console.log('ARTICULOS: ', articles)
-    }catch(e){
-      console.log(e)
-    }
-  }
   const onButtonPress= (item) => {
-    console.log('ITEM: ',item)
-    if(item.type== 'article'){
-      navigation.navigate("Article", {
-        title: item.title,
-        body: item.body,
-        color: color,
-        }
-      )
-    }
-    if(item.type== 'topic'){
-      navigation.navigate("Topic", {
-        title: item.name,
-        color,
-        catId,
-        subCatId,
-        topicId: item.id
-        }
-      )
-    }
+    navigation.navigate("Topic", {
+      title: item.name,
+      color,
+      catId,
+      subCatId,
+      topicId: item.id
+      }
+    ) 
   }
 
   const renderList = ({item}) => {
+    console.log('sssss', dataTopics);
     return (
       <TouchableOpacity
         onPress={() => onButtonPress(item)}
         style={[styles.btnSteps, {backgroundColor: color,}]}
       >
-        <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
+        <PrimaryText color={'#fff'} style={styles.btnText}>{item.name}</PrimaryText>
       </TouchableOpacity>
     );
   };
@@ -75,7 +39,7 @@ const SubCategory = ({route, navigation}) => {
     <View style={styles.mainContainer}>
       <PrimaryText color={color} style={styles.titleArticle}>{route.params?.title}</PrimaryText>
       <FlatList
-        data={articles.concat(topics)}
+        data={dataTopics}
         renderItem={renderList}
         //keyExtractor={item => item.id}
         numColumns={2}

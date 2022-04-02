@@ -1,4 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
+import { setSubcategory } from '../redux/actions/subcategoriesActions';
+import { setCategory } from '../redux/actions/categoriesActions';
+import { store } from '../redux/store';
 
 export const getAllCategories=()=>{
     return new Promise(async(resolve, reject)=>{
@@ -13,7 +16,7 @@ export const getAllCategories=()=>{
             })
         }catch(e){
             reject({error:"Get data firestore error."})
-        }
+        } 
     })
 }
 
@@ -26,7 +29,8 @@ export const getDataFromCategory=async(catId)=>{
             .collection("Subcategories")
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {
-                    resolve({type: 'subcategory', data: documentSnapshot.docs})
+                    //dispatch(setSubcategory(documentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data()}))))
+                    //resolve({type: 'subcategory', data: documentSnapshot.docs})
                 }
             })
         }catch(e){
@@ -55,6 +59,17 @@ export const getDataFromCategory=async(catId)=>{
     })
 
     return Promise.all([subcategories, articles])
+}
+
+export const getCategories = () => {
+    return firestore()
+        .collection("Categories")
+        .where('enabled', '==', true)
+        .onSnapshot(documentSnapshot => {
+            if (documentSnapshot) {
+                store.dispatch(setCategory(documentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data()}))))
+            }
+        })
 }
 
 

@@ -5,6 +5,8 @@ import { persistStore, persistReducer, createTransform } from 'redux-persist'
 //import thunk from 'redux-thunk';
 import JSOG from './JSOG'
 import UserReducer from "../reducers/userReducer"
+import subcategoryReducer from "../reducers/subcategoryReducer"
+import categoryReducer from "../reducers/subcategoryReducer"
 import LessonsReducer from "../reducers/lessonsReducer"
 import CoursesReducer from "../reducers/coursesReducer"
 import SelectedCourseReducer from "../reducers/selectedCourseReducer"
@@ -29,6 +31,8 @@ const reducers = combineReducers({
     courses:CoursesReducer,
     currentCourse:SelectedCourseReducer,
     currentArticle: SelectedArticleReducer,
+    category: categoryReducer,
+    subcategory: subcategoryReducer,
     tasks:taskReducer,
     config:configReducer
 })
