@@ -28,7 +28,7 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias} from '@icons';
+import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconFlechaAtras} from '@icons';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -122,9 +122,9 @@ function BottomTabNavigator() {
         name="TopTapNavigator"
         component={TopTapNavigator}
         options={{
-          tabBarLabel: 'Inicio',
+          tabBarLabel: 'Volver',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
+          focused ? <IconFlechaAtras width={30} height={30} /> : <IconFlechaAtras width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
