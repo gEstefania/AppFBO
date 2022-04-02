@@ -37,7 +37,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
     }
   }
 
-  const getSubcategoryData=async(categoryId, subCategoryId, itemName)=>{
+  const getSubcategoryData=async(categoryId, subCategoryId, itemName,item)=>{
     try {
       let res = await getDataFromSubCategory(categoryId, subCategoryId)
       //Set Subcategories:
@@ -58,6 +58,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
           title: itemName,
           body: articlesList[0].body,
           color: cardColor,
+          ...item
           }
         )
       } else {
@@ -65,7 +66,8 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
           title: itemName,
           color: cardColor,
           catId: catId,
-          subCatId: subCategoryId
+          subCatId: subCategoryId,
+          ...item
           }
         )
       }
@@ -81,11 +83,13 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         title: item.title,
         body: item.body,
         color: cardColor,
+        ...item
         }
       )
     }
     if(item.type== 'subcategory'){
-      getSubcategoryData(catId, item.id, item.name)
+
+      getSubcategoryData(catId, item.id, item.name,item)
     }
   }
 
