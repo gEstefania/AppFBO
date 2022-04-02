@@ -22,8 +22,8 @@ const OverviewScreen = ({route,navigation,course}) => {
                 <View style={styles.row}>
                     <IconRelojNube width={25} height={25} />
                     <View style={styles.columnText}>
-                        { course.totalHours ? ( // verificamos si hay horas o no
-                            <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins}</PrimaryText>
+                        { course.totalHours > 0 ? ( // verificamos si hay horas o no
+                            <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins} min</PrimaryText>
                         ) : (
                             <PrimaryText color={'#fff'}>{course.totalMins} min</PrimaryText>
                         )}

@@ -90,8 +90,8 @@ const Index = (props) => {
             <View style={styles.row}>
               <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
-                { item.totalHours ? ( // verificamos si hay horas o no
-                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}</PrimaryText>
+                { item.totalHours > 0 ? ( // verificamos si hay horas o no
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}min </PrimaryText>
                 ) : (
                   <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalMins} min</PrimaryText>
                 )}
