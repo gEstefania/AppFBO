@@ -3,14 +3,28 @@ import { View, TouchableOpacity } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
-import {getAllCategories} from '@firestore/category';
+import { getAllCategories, getDataFromCategory } from '@firestore/category';
 import styles from './styles/cardExplorer';
+import ShowAlertMessage from '@components/showAlertMessage';
 
 const CardExplorer = () => {
   const [ category, setCategory ] = useState([]);
+  const [ colorPalette, setColorPalette ] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => { 
+    setColorPalette(
+      [
+        '#e55773',
+        '#5f40d5',
+        '#ff5f00',
+        '#11b2d8',
+        '#e55773',
+        '#5f40d5',
+        '#ff5f00',
+        '#11b2d8',
+      ]
+    )
     getData() 
   }, []);
 
@@ -28,12 +42,55 @@ const CardExplorer = () => {
     }
   }
 
-  const renderList = ({item}) => {
+  const getDataSubArticles=async(data)=>{
+    try {
+      let res = await getDataFromCategory(data.catId)
+      //Set Subcategories:
+      let subcategoryList = []
+      res[0].data.forEach(doc=>{
+        subcategoryList.push({id:doc.id,...doc.data(), type: 'subcategory'})
+      })
+      
+      //Set Articles:
+      let articlesList = []
+      res[1].data.forEach(doc=>{
+        articlesList.push({id:doc.id,...doc.data(), type: 'article'})
+      })
+
+      navigation.navigate("Category", {
+        title: data.title,
+        color: data.color,
+        subCategories: subcategoryList,
+        articles: articlesList,
+        catDesc: data.catDesc,
+        catId: data.catId,
+        subCatId: '',
+        })
+      
+    }catch(e){
+        console.log('error en get data en card',e)
+        ShowAlertMessage('Error', 'Error al cargar la información')
+    }
+  }
+
+  const renderList = ({item, index}) => {
     return (
-      <TouchableOpacity style={styles.btnCard}>
+      <TouchableOpacity 
+        style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
+        onPress={() => {
+          const data = {
+            title: item.name,
+            color: colorPalette[index],
+            catId: item.id,
+            catDesc: item.description,
+          }
+          getDataSubArticles(data)
+        }}
+        >
         <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.name}</PrimaryText>
       </TouchableOpacity>
     );
+    
   };
   return(
     <View style={styles.mainContainer}>

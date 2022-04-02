@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '@common';
 
 export default StyleSheet.create({
   mainContainer: {
@@ -27,5 +28,26 @@ export default StyleSheet.create({
   },
   activeDotStyle: {
     backgroundColor: '#fff', width: 15, height: 15, borderRadius: 50
+  },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30,
+    paddingHorizontal: 10,
+    marginHorizontal: 30,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+  },
+  modalDetail: {
+    marginTop: 20,
+  },
+  btnModal:{
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginTop: 30,
+    borderRadius: 100,
+    backgroundColor: Colors.CORPORATE_ORANGE,
   },
 });

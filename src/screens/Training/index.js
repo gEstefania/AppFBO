@@ -10,6 +10,7 @@ import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
 import {IconRelojOrange, IconVideo} from '@icons';
+import ShowModalForRegister from '../../components/showModalForRegister';
 
 const Index = (props) => {
   const [user, setUser] = useState();
@@ -32,6 +33,9 @@ const Index = (props) => {
   }, []);
 
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  }
 
   const onViewAllButtonPress = () => {
     if(user.isAnonymous == true){
@@ -116,22 +120,7 @@ const Index = (props) => {
         >
           <SecondaryText>Ver todo</SecondaryText>
         </TouchableOpacity>
-        <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          swipeDirection="left"
-        >
-          <View style={styles.modal}>
-            <PrimaryText>¿No tienes cuenta?</PrimaryText>
-            <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
-            <TouchableOpacity
-              onPress={() => onSignUpButtonPress()}
-              style={styles.btnModal}
-            >
-              <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
-            </TouchableOpacity>
-          </View>
-      </Modal>
+        <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
       </View>
       <FlatList
         horizontal
