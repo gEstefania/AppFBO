@@ -32,6 +32,11 @@ export const TaskItem = ({item,toggleTask,lesson}) => {
 const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
     const { lesson } = route.params
 
+    const download = () => {
+        if (lesson.archive?.url) {
+            Linking.openURL(lesson.archive?.url)
+        }
+    }
     useEffect(() => {
         let subscriber = setTaskLesson(currentCourse.id, lesson.id)
         return subscriber
@@ -74,13 +79,11 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
                 <View style={styles.resourceContainer}>
                     <PrimaryText style={styles.sectionTitle}>Recursos</PrimaryText>
                     <Pressable
-                        onPress={() => {
-                            Linking.openURL(lesson.archive.url)
-                        }}
+                        onPress={() => download()}
                         style={styles.downloadCard}>
                         <View style={styles.textContainer}>
-                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive.fileName}</SecondaryText>
-                            <SecondaryText color={'#fff'} type={'Bold'}>{getExtensionCapitalFromURI(lesson.archive.url)}</SecondaryText>
+                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive?.fileName || 'Sin Recursos'}</SecondaryText>
+                            
                         </View>
                         <View>
                             <IconDescarga width={45} height={45} />

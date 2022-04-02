@@ -25,6 +25,7 @@ import _FBO_icon_reloj_orange from './FBO_reloj_orange.svg';
 import _FBO_icon_video_nube from './FBO_video_nube.svg';
 import _FBO_icon_video from './FBO_video.svg';
 import _FBO_ICON_ATRAS from './FBO-ICON-ATRAS.svg';
+import _logo_app from './logo_+family_blanco.svg';
 
 export const IconBuscar = _buscar;
 export const IconBuscarHover = _buscar_hover;
@@ -53,3 +54,4 @@ export const IconRelojNube = _FBO_icon_reloj_nube;
 export const IconRelojOrange = _FBO_icon_reloj_orange;
 export const IconVideoNube = _FBO_icon_video_nube;
 export const IconVideo = _FBO_icon_video;
+export const LogoApp = _logo_app;

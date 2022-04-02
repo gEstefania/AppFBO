@@ -18,6 +18,11 @@ export default StyleSheet.create({
   },
   thumbnailContainer:{
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#ECF1FE',
+    borderRadius: 10,
+    height: '100%',
   },
   descContainer:{
     flex: 3,

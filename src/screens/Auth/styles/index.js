@@ -4,7 +4,10 @@ import {Colors} from '@common';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 20,
+  },
+  imageBackground: {
+    flex: 1,
+    paddingHorizontal: 20,
   },
   imgContainer: {
     flex: 1,
@@ -22,7 +25,7 @@ export default StyleSheet.create({
   textIntro:{
     textAlign: 'center',
     maxWidth: '70%',
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
   },
   btnSignUp: {

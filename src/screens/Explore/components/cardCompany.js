@@ -8,35 +8,29 @@ const CardCompanies = () => {
   const navigation = useNavigation();
   const dataList = [
     {
-      name: 'Destacados',
+      image: require('../../../assets/img/company_logos/logo_fundacion_once.jpeg'),
     },
     {
-      name: 'Etiquetas',
+      image: require('../../../assets/img/company_logos/logo_fundacion_mapfre.jpeg'),
     },
     {
-      name: 'Lorem ipsum',
+      image: require('../../../assets/img/company_logos/fcaser-logo-new.png'),
     },
     {
-      name: 'Lorem ipsum',
+      image: require('../../../assets/img/company_logos/logo_AC_Hotels.png'),
     },
     {
-      name: 'Lorem ipsum',
+      image: require('../../../assets/img/company_logos/logo_OZEIN.jpeg'),
     },
     {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
-    },
-    {
-      name: 'Lorem ipsum',
+      image: require('../../../assets/img/company_logos/logo_academia_talent_heart.png'),
     },
   ];
 
   const renderList = ({item}) => {
     return (
       <TouchableOpacity style={styles.btnCard}>
-        <Image source={require('../../../assets/img/icons/icono-app.jpg')} style={styles.image}/>
+        <Image source={item.image} style={styles.image}/>
       </TouchableOpacity>
     );
   };

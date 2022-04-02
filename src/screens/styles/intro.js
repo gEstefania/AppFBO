@@ -5,16 +5,10 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  logo: {
-    width: 250,
-    height: 70,
-    marginBottom: 40,
-  },
   imageBackground: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 50,
-    padding: 20,
+    paddingTop: 100,
   },
   header: {
     flex: 1,
