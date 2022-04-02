@@ -49,8 +49,7 @@ const Category = ({route, navigation}) => {
       <PrimaryText style={styles.topicTitle}>Ayuda <Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
       <ImageBackground
         resizeMode="cover"
-        style={styles.imageBackground}
-        source={require('../../../assets/img/FBO-bannerSocial.jpg')}>
+        style={styles.imageBackground}>
         <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
       </ImageBackground>
       <FlatList
