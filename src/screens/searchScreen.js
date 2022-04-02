@@ -8,6 +8,7 @@ import { setCurrentCourse } from '../redux/actions/selectedCourseActions';
 import { setCurrentArticle } from '../redux/actions/selectedArticleActions';
 import { useNavigation } from '@react-navigation/core';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import {IconBuscar} from '@icons';
 
 const SearchScreen = (props) => {
     const navigation = useNavigation()
@@ -85,7 +86,7 @@ const SearchScreen = (props) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <Image source={require('../assets/img/icons/home.jpg')} width={30} height={30} style={{marginBottom: 2}} />
+                <IconBuscar width={28} height={28}/>
                 <PrimaryText style={styles.titleSize}>Buscar</PrimaryText>
             </View>
             <View style={styles.shadow}></View>

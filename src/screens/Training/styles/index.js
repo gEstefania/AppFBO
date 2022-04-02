@@ -78,6 +78,7 @@ export default StyleSheet.create({
     height: 25,
   },
   infoText:{
+    fontWeight: 'bold',
     fontSize: 12,
   },
   row: {

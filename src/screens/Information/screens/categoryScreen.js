@@ -46,7 +46,7 @@ const Category = ({route, navigation}) => {
 
   return(
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
-      <PrimaryText style={styles.topicTitle}>Ayuda <Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
+      <PrimaryText style={styles.topicTitle}><Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
       {/* <ImageBackground
         resizeMode="cover"
         style={styles.imageBackground}>

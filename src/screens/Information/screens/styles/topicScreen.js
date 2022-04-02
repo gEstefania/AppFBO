@@ -11,6 +11,8 @@ export default StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 35,
     borderRadius: 20,
+    marginLeft:15,
+    marginRight:15,
   },
   bannerTitle: {
     maxWidth: 150,

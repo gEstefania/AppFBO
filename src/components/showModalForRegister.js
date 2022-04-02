@@ -4,6 +4,7 @@ import { View, TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal";
 import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
+import styles from './styles/modal';
 
 export const ShowModalForRegister = ({isVisible, setModalVisible, style} ) => {
 
@@ -24,7 +25,7 @@ export const ShowModalForRegister = ({isVisible, setModalVisible, style} ) => {
         swipeDirection="left"
       >
         <View style={style.modal}>
-          <PrimaryText>¿No tienes cuenta?</PrimaryText>
+          <PrimaryText style={styles.title}>¿No tienes cuenta?</PrimaryText>
           <SecondaryText style={style.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
           <TouchableOpacity
             onPress={() => onSignUpButtonPress()}

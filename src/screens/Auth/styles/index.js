@@ -7,13 +7,9 @@ export default StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-<<<<<<< HEAD
     alignItems: 'center',
     paddingTop: 40,
     padding: 20,
-=======
-    paddingHorizontal: 20,
->>>>>>> 5796a333fb6848e209d3c843de17e5b133efa5e6
   },
   imgContainer: {
     flex: 1,
