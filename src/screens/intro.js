@@ -24,7 +24,7 @@ const Intro = () => {
                     <View style={styles.header}>
                         <PrimaryText color={'#fff'} type={'Regular'} style={styles.title}>Hola,</PrimaryText>
                         <PrimaryText color={'#fff'} type={'Regular'} style={styles.title}>Bienvenido a <PrimaryText color={'#fff'}>App FBO</PrimaryText></PrimaryText>
-                        <SecondaryText color={'#ff000a'} style={styles.textIntro}>Explora nuestra app y encuentra todo lo que necesitas</SecondaryText>
+                        <SecondaryText color={'#ff5f00'} style={styles.textIntro}>Explora nuestra app y encuentra todo lo que necesitas</SecondaryText>
                     </View>
             </ImageBackground>
         </View>

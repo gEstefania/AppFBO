@@ -11,7 +11,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    //marginTop: 20,
+    marginTop: 20,
+    marginBottom: -20,
   },
   shadow: {
     height: 1,

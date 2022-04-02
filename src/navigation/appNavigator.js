@@ -103,7 +103,7 @@ function BottomTabNavigator() {
       initialRouteName={TopTapNavigator}
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: {color: '#ff5f00', marginBottom: 20},
+        tabBarLabelStyle: {color: '#ff5f00', marginBottom: 15},
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 115 : height*0.10,
           paddingHorizontal: 20,
@@ -220,10 +220,11 @@ function InformationStackScreen() {
   return (
     <InformationStack.Navigator
     screenOptions={{
+      headerTransparent: true,
       headerTitle: "",
       headerStatusBarHeight: 0,
       headerBackTitleVisible: false,
-      headerStyle: {shadowColor: '#fff'},
+      headerStyle: {shadowColor: 'black'},
     }}
     >
       <InformationStack.Screen name="Information" component={InfoScreen} options={{headerShown: false}}/>

@@ -4,6 +4,7 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     marginBottom: 20,
+    marginRight:28,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -24,6 +25,7 @@ export default StyleSheet.create({
     fontSize: 22,
   },
   cardText: {
+    marginTop: 5,
     fontSize: 14,
   },
   cardTitle: {

@@ -11,7 +11,8 @@ const Index = () => {
          <ImageBackground
                 resizeMode="cover"
                 style={styles.imageBackground}
-                source={require('../../assets/img/FBO-signin.png')}>
+                source={require('../../assets/img/APP-FBO-pantallaRegistrate.png')}>
+
          <View style={styles.textContainer}>
              <PrimaryText style={styles.title}>Fundación</PrimaryText>
              <PrimaryText style={styles.title}>Bertín Osborne</PrimaryText>

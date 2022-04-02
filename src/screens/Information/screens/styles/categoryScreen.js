@@ -6,6 +6,8 @@ export default StyleSheet.create({
     margin: 20,
   },
   titleArticle: {
+    marginTop: -12,
+    marginLeft:15,
     fontSize: 20,
     textTransform: 'uppercase',
   },

@@ -7,7 +7,9 @@ export default StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    paddingHorizontal: 20,
+    alignItems: 'center',
+    paddingTop: 40,
+    padding: 20,
   },
   imgContainer: {
     flex: 1,
@@ -16,7 +18,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 40,
   },
   title: {
     fontSize: 26,

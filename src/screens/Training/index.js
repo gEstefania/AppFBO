@@ -10,6 +10,7 @@ import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
 import {IconRelojOrange, IconVideo} from '@icons';
+import ShowModalForRegister from '../../components/showModalForRegister';
 
 const Index = (props) => {
   const [user, setUser] = useState();
@@ -32,6 +33,9 @@ const Index = (props) => {
   }, []);
 
 
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  }
 
   const onViewAllButtonPress = () => {
     if(user.isAnonymous == true){
@@ -86,8 +90,8 @@ const Index = (props) => {
             <View style={styles.row}>
               <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
-                { item.totalHours ? ( // verificamos si hay horas o no
-                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}</PrimaryText>
+                { item.totalHours > 0 ? ( // verificamos si hay horas o no
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}min </PrimaryText>
                 ) : (
                   <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalMins} min</PrimaryText>
                 )}
@@ -97,9 +101,9 @@ const Index = (props) => {
         </View>
         <View style={styles.descriptionContainer}>
           { item.summary.length < 50 ? (
-              <SecondaryText>{item.summary.slice(0,50)}</SecondaryText>
+              <SecondaryText color={'#828282'}>{item.summary.slice(0,50)}</SecondaryText>
             ) : (
-              <SecondaryText>{item.summary.slice(0,50)}...</SecondaryText>
+              <SecondaryText color={'#828282'}>{item.summary.slice(0,50)}...</SecondaryText>
           )}
         </View>
       </TouchableOpacity>
@@ -116,22 +120,7 @@ const Index = (props) => {
         >
           <SecondaryText>Ver todo</SecondaryText>
         </TouchableOpacity>
-        <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          swipeDirection="left"
-        >
-          <View style={styles.modal}>
-            <PrimaryText>¿No tienes cuenta?</PrimaryText>
-            <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
-            <TouchableOpacity
-              onPress={() => onSignUpButtonPress()}
-              style={styles.btnModal}
-            >
-              <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
-            </TouchableOpacity>
-          </View>
-      </Modal>
+        <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
       </View>
       <FlatList
         horizontal
