@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, TextInput, FlatList } from "react-native";
+import { View, TextInput, FlatList, TouchableOpacity } from "react-native";
 import auth from '@react-native-firebase/auth';
 import { PrimaryText, SecondaryText } from '@common';
 import Modal from "react-native-modal";
@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { setCurrentCourse } from '../redux/actions/selectedCourseActions';
 import { setCurrentArticle } from '../redux/actions/selectedArticleActions';
 import { useNavigation } from '@react-navigation/core';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import {IconBuscar} from '@icons';
 
 const SearchScreen = (props) => {
@@ -149,12 +148,14 @@ const SearchScreen = (props) => {
                 <View style={styles.modal}>
                     <PrimaryText>¿No tienes cuenta?</PrimaryText>
                     <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
-                    <TouchableOpacity
-                    onPress={() => onSignUpButtonPress()}
-                    style={styles.btnModal}
-                    >
-                    <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
-                    </TouchableOpacity>
+                    <View style={{width: '100%',}}>
+                        <TouchableOpacity
+                            onPress={() => onSignUpButtonPress()}
+                            style={styles.btnModal}
+                        >
+                        <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </Modal>
         </View>

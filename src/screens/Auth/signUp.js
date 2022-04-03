@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import {createUserSocialRegiter} from '@firestore/user' 
-import { login } from '../../redux/actions/userActions';
+import { login, IsNewUser } from '../../redux/actions/userActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
 import {IconFacebook, IconGoogle} from '@icons';
@@ -46,6 +46,7 @@ const SignUp = () => {
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
                         insertUser(user)
+                        dispatch(IsNewUser({newUser: true}))
                         navigation.navigate("TagsPreferences")
                         console.log('User account created & signed in!');
                     })
@@ -88,7 +89,7 @@ const SignUp = () => {
             let userProfile = userCredentials.additionalUserInfo?.profile
             if(userProfile){
                 let res = await insertUser(userProfile)
-
+                dispatch(IsNewUser({newUser: true}))
                 if(res.data()){
                     if(res.data().myTags){
                         if(res.data().myTags.length===0){
@@ -128,6 +129,7 @@ const SignUp = () => {
             if(authFacebook){
                 let userProfile = authFacebook.additionalUserInfo?.profile
                 let res = await insertUser(userProfile)
+                dispatch(IsNewUser({newUser: true}))
                 if(res.data()){
                     if(res.data().myTags){
                         if(res.data().myTags.length===0){

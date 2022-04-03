@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, useWindowDimensions } from "react-native";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { useSelector } from 'react-redux';
+import Modal from "react-native-modal";
 import {PrimaryText, SecondaryText} from '@common';
 import auth from '@react-native-firebase/auth';
 import {getActiveCourses} from '@firestore/courses'
@@ -16,15 +17,20 @@ import { connect } from 'react-redux'
 
 const ExploreScreen = (props) => {
   const [isModalVisible, setModalVisible] = useState(false);
+  const [isSignUpModalVisible, setSignUpModalVisible] = useState(false);
   const [user, setUser] = useState();
-
   const courses = useSelector(state => state.courses)
+  const userAuth = useSelector(state => state.users)
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
 
   useEffect(() => {
+    console.log('NUEVO USUARIO DESDE REDUX:', userAuth.newUser);
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     const subscriberFirebase = getActiveCourses()
+    if(userAuth.newUser){
+      setSignUpModalVisible(true)
+    }
     return ()=>{
       subscriber();
       subscriberFirebase()
@@ -76,6 +82,16 @@ const ExploreScreen = (props) => {
       </View>
       <CardExplorer/>
       <CardCompanies/>
+      <Modal
+        isVisible={isSignUpModalVisible}
+        onBackdropPress={() => setSignUpModalVisible(false)}
+        swipeDirection="left"
+      >
+        <View style={styles.modal}>
+          <PrimaryText>¡Bienvenido!</PrimaryText>
+          <SecondaryText style={styles.modalDetail}>Te has registrado con éxito, ahora puedes disfrutar del contenido de nuestra aplicación</SecondaryText>
+        </View>
+      </Modal>
     </ScrollView>
   )
 }

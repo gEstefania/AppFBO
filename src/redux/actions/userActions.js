@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT } from "../types/actionTypes"
+import { LOG_IN, LOG_OUT, SET_IS_NEW_USER } from "../types/actionTypes"
 
 export const login=(payload)=>{ 
     return{
@@ -13,3 +13,9 @@ export const logout=()=>{
     }
 }
 
+export const IsNewUser=(payload)=>{
+    return {
+        type: SET_IS_NEW_USER,
+        payload
+    }
+}
