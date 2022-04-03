@@ -8,7 +8,7 @@ export default StyleSheet.create({
   imageBackground: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 100,
+    paddingTop: 40,
   },
   header: {
     marginTop: 100,

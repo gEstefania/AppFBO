@@ -6,13 +6,14 @@ export default StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flex: 1,
+    //flex: 1,
     height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: 0,
     marginBottom: -20,
+    padding: 30,
   },
   shadow: {
     height: 1,
@@ -52,7 +53,7 @@ export default StyleSheet.create({
   },
   titleSize:{
     fontSize: 30,
-    marginLeft: 10,
+    marginLeft: 0,
   },
   modal: {
     justifyContent: 'center',

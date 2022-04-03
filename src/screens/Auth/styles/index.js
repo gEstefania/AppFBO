@@ -9,7 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: 40,
-    padding: 5,
+    padding: 0,
   },
   imgContainer: {
     flex: 1,
@@ -18,12 +18,12 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   title: {
     fontSize: 26,
     textAlign: 'center',
-    marginBottom: -8,
+    marginBottom: -13,
   },
   textIntro:{
     textAlign: 'center',
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   btnSignUp: {
-    width: '100%',
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
