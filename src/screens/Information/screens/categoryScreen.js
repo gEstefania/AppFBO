@@ -14,7 +14,7 @@ const Category = ({route, navigation}) => {
   const catId = route.params.catId;
   const subCatId = route.params.subCatId;
 
-  const getSubcategoryData=async(categoryId, subCategoryId, itemName)=>{
+  const getSubcategoryData=async(categoryId, subCategoryId, itemName,item)=>{
     try {
       let res = await getDataFromSubCategory(categoryId, subCategoryId)
       //Set Subcategories:
@@ -38,7 +38,8 @@ const Category = ({route, navigation}) => {
           catId: catId,
           subCatId: subCategoryId,
           isArticle: true,
-          articles: articlesList
+          articles: articlesList,
+          ...item
           }
         )
       } else {
@@ -48,6 +49,7 @@ const Category = ({route, navigation}) => {
           catId: catId,
           subCatId: subCategoryId,
           isArticle: false,
+          ...item
           }
         )
       }
@@ -63,11 +65,12 @@ const Category = ({route, navigation}) => {
         title: item.title,
         body: item.body,
         color: color,
+        ...item
         }
       )
     }
     if(item.type== 'subcategory'){
-      getSubcategoryData(catId, item.id, item.name)
+      getSubcategoryData(catId, item.id, item.name,item)
     }
   }
 

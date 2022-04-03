@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, TextInput, FlatList, TouchableOpacity } from "react-native";
+import { View, Image, TextInput, FlatList,Keyboard } from "react-native";
 import auth from '@react-native-firebase/auth';
 import { PrimaryText, SecondaryText } from '@common';
 import Modal from "react-native-modal";
@@ -60,8 +61,23 @@ const SearchScreen = (props) => {
 
     useEffect(() => {
         if(searchText.length>0){
-            setFilterArticles(articles.filter(article=>article.title.includes(searchText.toLowerCase())))
-            setFilterCourses(courses.filter(course=>course.title.includes(searchText.toLowerCase())))
+            
+            setFilterArticles(articles.filter(article=>{
+                let nTitle = article.title.toLowerCase()
+                nTitle = nTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                
+                let nSearch = searchText.toLowerCase()
+                nSearch=nSearch.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                return nTitle.includes(nSearch)
+                
+            }))
+            setFilterCourses(courses.filter(course=>{
+                let nTitle = course.title.toLowerCase()
+                nTitle= nTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                let nSearch = searchText.toLowerCase()
+                nSearch=nSearch.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                return nTitle.includes(nSearch)
+            }))
         }else{
             setFilterArticles([])
             setFilterCourses([])
@@ -128,6 +144,7 @@ const SearchScreen = (props) => {
                     onChangeText={text => setSearchText(text)}
                     autoCapitalize={'sentences'}
                     value={searchText}
+                    onSubmitEditing={()=>{Keyboard.dismiss}}
                 />
             </View>
             <View style={styles.resultContainer}>

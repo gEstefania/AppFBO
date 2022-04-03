@@ -1,5 +1,7 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet,Dimensions} from 'react-native';
 
+const widthScreen = Dimensions.get("screen").width
+const heightScreen = Dimensions.get("screen").height
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -29,4 +31,8 @@ export default StyleSheet.create({
     color: '#ff9b04',
     textTransform: 'uppercase',
   },
+  imagePost:{
+    width: widthScreen,
+    height:300
+  }
 });

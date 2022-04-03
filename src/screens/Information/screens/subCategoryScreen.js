@@ -47,6 +47,7 @@ const SubCategory = ({route, navigation}) => {
         title: item.title,
         body: item.body,
         color: color,
+        ...item
         }
       )
     }
@@ -56,7 +57,8 @@ const SubCategory = ({route, navigation}) => {
         color,
         catId,
         subCatId,
-        topicId: item.id
+        topicId: item.id,
+        ...item
         }
       )
     }

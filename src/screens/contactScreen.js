@@ -3,9 +3,10 @@ import { Linking } from "react-native";
 
 const ContactScreen = ({navigation}) => {
     useEffect(() => {
+
         const unsubscribe = navigation.addListener('tabPress', (e) => {
-          // Prevent default behavior
-            e.preventDefault();
+            console.log("Entro aqui")
+
             const open=()=>{
                 let url = 'https://fundacionbertinosborne.org/hablamos-app/';
                 Linking.openURL(url) 

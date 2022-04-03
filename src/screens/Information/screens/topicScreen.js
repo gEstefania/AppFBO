@@ -44,6 +44,7 @@ const Topic = ({route, navigation}) => {
           title: item.title,
           body: item.body,
           color,
+          ...item
           }  
         )} 
       >
