@@ -10,7 +10,7 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 3,
+    marginRight: 6,
     marginLeft:3,
   },
   cardView: {
