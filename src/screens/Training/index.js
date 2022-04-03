@@ -9,7 +9,7 @@ import {PrimaryText, SecondaryText} from '@common';
 import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
-import {IconRelojOrange, IconVideo} from '@icons';
+import {IconRelojOrange, IconVideo, LogoAppColor} from '@icons';
 import ShowModalForRegister from '../../components/showModalForRegister';
 
 const Index = (props) => {
@@ -112,7 +112,9 @@ const Index = (props) => {
 
   return(
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
-      <Image source={require('../../assets/img/formacion_index.png')} style={styles.imgIndex}/>
+      <View style={{justifyContent: 'center', alignItems: 'center', marginRight: 30,}}>
+        <LogoAppColor width={230} height={150}/>
+      </View>
       <View style={styles.titleContainer}>
         <PrimaryText style={styles.title}>#Construcciones</PrimaryText>
         <TouchableOpacity
