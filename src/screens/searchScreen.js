@@ -186,7 +186,7 @@ const SearchScreen = (props) => {
             >
                 <View style={styles.modal}>
                     <PrimaryText style={styles.modalTitle}>¿No tienes cuenta?</PrimaryText>
-                    <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
                     <View style={{width: '100%',}}>
                         <TouchableOpacity
                             onPress={() => onSignUpButtonPress()}

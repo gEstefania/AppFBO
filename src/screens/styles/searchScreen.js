@@ -11,9 +11,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 0,
-    marginBottom: -20,
-    padding: 30,
   },
   shadow: {
     height: 1,
@@ -47,8 +44,8 @@ export default StyleSheet.create({
     flex: 3,
     borderTopColor: Colors.CORPORATE_ORANGE,
     borderTopWidth: 1,
-    paddingLeft: 30,
-    paddingRight: 20,
+    paddingLeft: 40,
+    //paddingRight: 20,
     paddingTop: 30,
   },
   titleSize:{
