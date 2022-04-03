@@ -4,6 +4,7 @@ import {PrimaryText} from '@common';
 import {getArticles} from '@firestore/article';
 import styles from './styles/topicScreen';
 import { countWords } from '../../../utils/tools';
+import { IconFlechaOrange } from '@icons';
 
 const Topic = ({route, navigation}) => {
   const color = route.params.color;
@@ -49,9 +50,19 @@ const Topic = ({route, navigation}) => {
         )} 
       >
         <View style={styles.btnContainer}>
-          <View style={[styles.circle, {backgroundColor: color}]}></View>
+          <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
+            <View style={[styles.circle, {backgroundColor: color}]}></View>
+            {countWords(item.title) > 2 ? (
+              <PrimaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,25)}...</PrimaryText>
+          ) : (
             <PrimaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</PrimaryText>
-          <Image/>
+          )}
+            
+          </View>
+          <View style={{alignContent: 'flex-end'}}>
+            <IconFlechaOrange width={30} height={30}/>
+          </View>
+          
         </View>
       </TouchableHighlight>
     );

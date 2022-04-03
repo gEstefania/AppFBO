@@ -4,14 +4,11 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     marginBottom: 20,
-    marginTop: 5,
-    marginRight:0,
   },
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 3,
-    marginLeft:3,
+    marginRight: 50,
   },
   cardView: {
     width: 140,

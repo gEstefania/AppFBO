@@ -89,7 +89,7 @@ const ExploreScreen = (props) => {
       >
         <View style={styles.modal}>
           <PrimaryText style={styles.modalTitle}>¡Bienvenido!</PrimaryText>
-          <SecondaryText style={styles.modalDetail}>Te has registrado con éxito, ahora puedes disfrutar del contenido de nuestra aplicación</SecondaryText>
+          <SecondaryText color={'gray'} style={styles.modalDetail}>Te has registrado con éxito, ahora puedes disfrutar del contenido de nuestra aplicación</SecondaryText>
         </View>
       </Modal>
     </ScrollView>

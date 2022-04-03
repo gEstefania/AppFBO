@@ -146,7 +146,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         <TouchableOpacity
           onPress={() => whereToGo(articles)}
         >
-          <PrimaryText color={cardColor} style={styles.cardText}>Ver todo</PrimaryText>
+          <PrimaryText color={'gray'} style={styles.cardText}>Ver todo</PrimaryText>
         </TouchableOpacity>
       </View>
         <FlatList
