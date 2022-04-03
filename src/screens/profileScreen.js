@@ -13,7 +13,9 @@ import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import { logout } from '../redux/actions/userActions';
 import {unregisterDevice} from '@firestore/user';
+import functions from '@react-native-firebase/functions';
 import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses, IconPerfil} from '@icons';
+import { unsuscribeMail } from '../utils/emailTemplate';
 
 const ProfileScreen = (props) => {
     const navigation = useNavigation();
@@ -31,6 +33,8 @@ const ProfileScreen = (props) => {
         setUserAuth(userAuth);
     }
     useEffect(() => {
+        const user = auth().currentUser
+        console.log('usuario actual',user)
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return ()=>{
             subscriber();
@@ -46,7 +50,7 @@ const ProfileScreen = (props) => {
                 if(dataSnapshot.exists){
                     setTags([])
                     let dUser = dataSnapshot.data()
-                    //console.log('User: ',props);
+                    console.log('User: ',user);
                     setUser(user)
                     dUser.myTags?.forEach(async doc=>{
                         console.log('doc', doc);
@@ -73,7 +77,7 @@ const ProfileScreen = (props) => {
     const getData=async()=>{
         try {
             let res = await getUserData()
-            console.log(res);
+            console.log('getUser response',res);
             setUserInfo({name: res.name, email: res.email})
         }catch(e){
             console.log(e)
@@ -121,6 +125,15 @@ const ProfileScreen = (props) => {
             await unsubscribeUser()
             dispatch(logout())
             auth().signOut().then(() => console.log('User signed out!'));
+            functions().httpsCallable('customEmail')(
+                {
+                    from: 'Fundacion Bertin Osborne <bertin09osborne@gmail.com>',
+                    to: userInfo.email, 
+                    subject: '¡Hasta la proxima!',
+                    html: unsuscribeMail(userInfo.name)
+                }
+            )
+            .then((response) => {console.log('Unsuscribe email send!', response)});
         }catch(e){
             console.log(e)
         }

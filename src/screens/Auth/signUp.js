@@ -12,6 +12,7 @@ import { login, IsNewUser } from '../../redux/actions/userActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
 import {IconFacebook, IconGoogle} from '@icons';
+import functions from '@react-native-firebase/functions';
 
 const SignUp = () => {
     const [user, setUser] = useState({email: '', password: '', name: ''});
@@ -47,6 +48,8 @@ const SignUp = () => {
                     .then(() => {
                         insertUser(user)
                         navigation.navigate("TagsPreferences")
+                        functions().httpsCallable('welcomeEmail')({to: user.email, subject: '¡Bienvenido a +Family!'})
+                        .then((response) => {console.log('Welcome email send!', response)});
                         dispatch(IsNewUser({newUser: true}))
                         console.log('User account created & signed in!');
                     })
@@ -87,6 +90,10 @@ const SignUp = () => {
             // Sign-in the user with the credential
             userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
+            if (userCredentials.additionalUserInfo?.isNewUser) { // si es usuario nuevo adelante, manda el correo
+                functions().httpsCallable('welcomeEmail')({to: userProfile.email, subject: '¡Bienvenido a +Family!'})
+                .then((response) => {console.log('Welcome email send!', response)});
+            }
             if(userProfile){
                 let res = await insertUser(userProfile)
                 dispatch(IsNewUser({newUser: true}))
@@ -128,6 +135,10 @@ const SignUp = () => {
             const authFacebook = await auth().signInWithCredential(facebookCredential);
             if(authFacebook){
                 let userProfile = authFacebook.additionalUserInfo?.profile
+                if (authFacebook.additionalUserInfo?.isNewUser) { // si es usuario nuevo adelante, manda el correo
+                    functions().httpsCallable('welcomeEmail')({to: userProfile.email, subject: '¡Bienvenido a +Family!'})
+                    .then((response) => {console.log('Welcome email send!', response)});
+                }
                 let res = await insertUser(userProfile)
                 dispatch(IsNewUser({newUser: true}))
                 if(res.data()){
