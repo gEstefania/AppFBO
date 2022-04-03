@@ -55,7 +55,7 @@ const Tags = ({navigation,login, route}) => {
             })
             console.log("UPDATED USER", {id:res.id,...res.data()})
             login({id:res.id,...res.data()})
-            navigation.navigate("Home")
+            navigation.navigate("UserPerfil")
         }catch(e){
             console.log(e)
         }

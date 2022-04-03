@@ -95,7 +95,7 @@ const Tags = ({navigation,login}) => {
                 end={{ x: 3.5, y: 5 }}
                 locations={[0.2, 0.3]}
             >
-                <LogoApp width={30} height={30} />
+                <LogoApp width={230} height={230} />
             </LinearGradient>
             
             </View>

@@ -116,7 +116,7 @@ const ProfileScreen = (props) => {
         if(userAuth.isAnonymous == true){
             setAnonymousModalVisible(!isAnonymousModalVisible);
         }else{
-            navigation.navigate("Preferences", {userSelectedTags: tags})
+            navigation.navigate("UserPreferences", {userSelectedTags: tags})
         }
     }
 
@@ -239,7 +239,7 @@ const ProfileScreen = (props) => {
                 >
                 <View style={styles.modal}>
                     <PrimaryText style={styles.modalTitle}>¡Atención!</PrimaryText>
-                    <SecondaryText style={styles.modalDetail}>Tu cuenta se eliminará, esta acción no se puede deshacer. ¿Deseas continuar?</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.modalDetail}>Tu cuenta se eliminará, esta acción no se puede deshacer. ¿Deseas continuar?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => onUnsubscribeButtonPress()}
                         style={styles.btnModal}
@@ -255,7 +255,7 @@ const ProfileScreen = (props) => {
                 >
                 <View style={styles.modal}>
                     <PrimaryText style={styles.modalTitle}>¡Atención!</PrimaryText>
-                    <SecondaryText style={styles.modalDetail}>¿Estás seguro que deseas cerrar sesión?</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.modalDetail}>¿Estás seguro que deseas cerrar sesión?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => onLogOutButtonPress()}
                         style={styles.btnModal}
@@ -271,7 +271,7 @@ const ProfileScreen = (props) => {
             >
                 <View style={styles.modal}>
                     <PrimaryText style={styles.modalTitle}>¿No tienes cuenta?</PrimaryText>
-                    <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
                     <TouchableOpacity
                     onPress={() => onSignUpButtonPress()}
                     style={styles.btnModal}

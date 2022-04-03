@@ -38,6 +38,7 @@ const Stack = createStackNavigator();
 const ExplorerStack = createStackNavigator();
 const InformationStack = createStackNavigator();
 const TrainingStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -85,7 +86,6 @@ const AppNavigator = () => {
       <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={BottomTabNavigator} />
           <Stack.Screen name="TagsPreferences" component={Tags} />
-          <Stack.Screen name="Preferences" component={Preferences} />
         </Stack.Navigator>
         <FlashMessage position="top"/>
     </NavigationContainer>
@@ -102,6 +102,7 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName={TopTapNavigator}
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         headerShown: false,
         tabBarLabelStyle: {color: '#ff5f00', marginBottom: 15},
         tabBarStyle: {
@@ -125,14 +126,14 @@ function BottomTabNavigator() {
           tabBarButton:(props)=>(
             <Pressable {...props} onPress={()=>navigationRef.navigate("Explorar")} />
           ),
-          tabBarLabel: 'Volver',
+          tabBarLabel: 'Inicio',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconFlechaAtras width={30} height={30} /> : <IconFlechaAtras width={30} height={30} />)
+          focused ? <Image source={require('../assets/img/icons/home.jpg')} /> : <Image source={require('../assets/img/icons/home.jpg')} /> )
         }}
       />
       <BottomTab.Screen
         name="Perfil"
-        component={ProfileScreen}
+        component={ProfileStackScreen}
         options={{
           lazy:true,
           tabBarLabel: 'Perfil',
@@ -219,7 +220,7 @@ function ExplorerStackScreen() {
       headerStyle: {shadowColor: '#fff'},
     }}
     >
-      <ExplorerStack.Screen name="Explorar" component={ExplorerScreen} options={{headerShown: false}}/>
+      <ExplorerStack.Screen name="Explorer" component={ExplorerScreen} options={{headerShown: false}}/>
       <ExplorerStack.Screen name="Recomendado" component={CompanyScreen} />
       <ExplorerStack.Screen name="Empresas" component={CompanyScreen} options={{headerTransparent: true}}/>
     </ExplorerStack.Navigator>
@@ -262,4 +263,21 @@ function TrainingStackScreen() {
   );
 };
 
+// Profile Stack Navigator
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator
+    screenOptions={{
+      headerTitle: "",
+      headerBackTitleVisible: false,
+      headerStatusBarHeight: 0,
+      headerStyle: {shadowColor: '#fff'},
+      headerShown: false
+    }}
+    >
+      <ProfileStack.Screen name="UserPerfil" component={ProfileScreen} options={{headerShown: false}}/>
+      <ProfileStack.Screen name="UserPreferences" component={Preferences} />
+    </ProfileStack.Navigator>
+  );
+};
 export default AppNavigator;
