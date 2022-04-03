@@ -42,6 +42,30 @@ const CardExplorer = () => {
     }
   }
 
+  const whereToGo = () => {
+    if (articles.length > 0) {
+      navigation.navigate("Topic", {
+        title: title,
+        color: cardColor,
+        catId: catId,
+        subCatId: subCategory,
+        isArticle: true,
+        articles: articles
+        }
+      )
+    } else {
+      navigation.navigate("Category", {
+        title: title,
+        color: cardColor,
+        subCategories: subCategory,
+        articles: articles,
+        catDesc: catDesc,
+        catId: catId,
+        subCatId: '',
+        })
+    }
+  }
+
   const getDataSubArticles=async(data)=>{
     try {
       let res = await getDataFromCategory(data.catId)
@@ -57,15 +81,27 @@ const CardExplorer = () => {
         articlesList.push({id:doc.id,...doc.data(), type: 'article'})
       })
 
-      navigation.navigate("Category", {
-        title: data.title,
-        color: data.color,
-        subCategories: subcategoryList,
-        articles: articlesList,
-        catDesc: data.catDesc,
-        catId: data.catId,
-        subCatId: '',
-        })
+        if (articlesList.length > 0) {
+          navigation.navigate("Topic", {
+            title: data.title,
+            color: data.color,
+            catId: data.catId, // realmente no necesario pero lo dejo por si acaso
+            subCatId: '', // realmente no necesario ya que envio abajo la lista de articulos
+            isArticle: true,
+            articles: articlesList,
+            }
+          )
+        } else {
+          navigation.navigate("Category", {
+            title: data.title,
+            color: data.color,
+            subCategories: subcategoryList,
+            articles: articlesList,
+            catDesc: data.catDesc,
+            catId: data.catId,
+            subCatId: '',
+            })
+        }
       
     }catch(e){
         console.log('error en get data en card',e)

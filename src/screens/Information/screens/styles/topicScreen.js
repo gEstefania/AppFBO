@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    margin: 20,
+    marginHorizontal: 30,
     marginBottom: 0,
   },
   banner: {
@@ -15,9 +15,15 @@ export default StyleSheet.create({
     marginLeft:15,
     marginRight:15,
   },
+  topicTitle: {
+    fontSize: 30,
+  },
   bannerTitle: {
     maxWidth: 150,
     fontSize: 20,
+  },
+  bannerTitleMini: {
+    maxWidth: 260
   },
   btnArticle: {
     flex: 1,
