@@ -24,12 +24,12 @@ export const ShowModalForRegister = ({isVisible, setModalVisible, style} ) => {
         onBackdropPress={setModalVisible}
         swipeDirection="left"
       >
-        <View style={style.modal}>
-          <PrimaryText style={styles.title}>¿No tienes cuenta?</PrimaryText>
-          <SecondaryText style={style.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
+        <View style={styles.modal}>
+          <PrimaryText style={styles.modalTitle}>¿No tienes cuenta?</PrimaryText>
+          <SecondaryText style={styles.modalDetail} color={'gray'}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
           <TouchableOpacity
             onPress={() => onSignUpButtonPress()}
-            style={style.btnModal}
+            style={styles.btnModal}
           >
             <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
           </TouchableOpacity>

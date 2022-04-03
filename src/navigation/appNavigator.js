@@ -233,7 +233,7 @@ function InformationStackScreen() {
     screenOptions={{
       headerTransparent: true,
       headerTitle: "",
-      headerStatusBarHeight: 0,
+      headerStatusBarHeight: -2,
       headerBackTitleVisible: false,
       headerStyle: {shadowColor: '#fff'},
     }}

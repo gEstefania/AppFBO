@@ -5,12 +5,13 @@ export default StyleSheet.create({
     flex: 1,
     marginBottom: 20,
     marginTop: 5,
-    marginRight:28,
+    marginRight:0,
   },
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 50,
+    marginRight: 3,
+    marginLeft:3,
   },
   cardView: {
     width: 140,

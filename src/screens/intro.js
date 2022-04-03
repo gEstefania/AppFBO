@@ -21,7 +21,7 @@ const Intro = () => {
             style={styles.mainContainer}>
             <ImageBackground
                 resizeMode="cover"
-                style={[styles.imageBackground, {paddingTop: width*0.25}]}
+                style={[styles.imageBackground]}
                 source={require('../assets/img/FBO-intro.png')}>
                     <View style={styles.header}>
                         <PrimaryText color={'#fff'} type={'Regular'} style={styles.title}>Hola,</PrimaryText>

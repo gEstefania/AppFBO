@@ -28,7 +28,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding: 20,
-    borderRadius: 25,
+    borderRadius: 75,
   },
   btnText: {
     fontSize: 16,

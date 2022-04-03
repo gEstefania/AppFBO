@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingTop: 40,
   },
   header: {
-    marginTop: 100,
+    marginTop: 135,
     flex: 1,
     alignItems: 'center'
   },
@@ -22,7 +22,7 @@ export default StyleSheet.create({
   textIntro:{
     textAlign: 'center',
     maxWidth: '75%',
-    marginTop: 30,
+    marginTop: 10,
   },
   btnContainer: {
     flex: 2,

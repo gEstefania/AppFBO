@@ -41,6 +41,7 @@ export default StyleSheet.create({
     width: 300,
     height: 400,
     padding: 20,
+    marginTop:3,
     marginHorizontal: 10,
     marginBottom: 40,
     borderRadius: 20,
@@ -48,7 +49,7 @@ export default StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 30,
-      height: 3,
+      height: 2,
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
@@ -103,5 +104,8 @@ export default StyleSheet.create({
    width: 280,
    marginLeft: 20,
    resizeMode: 'contain'
+  },
+  description:{
+    fontWeight: 'bold',
   },
 });
