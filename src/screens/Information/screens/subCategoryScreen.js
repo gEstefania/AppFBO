@@ -11,6 +11,7 @@ const SubCategory = ({route, navigation}) => {
   const color = route.params?.color || Colors.CORPORATE_ORANGE;
   const catId = route.params?.catId;
   const subCatId = route.params?.subCatId;
+  const isArticle = route.params?.isArticle;
   const [ topics, setTopics ] = useState([]);
   const [ articles, setArticles ] = useState([]);
 
@@ -67,11 +68,7 @@ const SubCategory = ({route, navigation}) => {
         onPress={() => onButtonPress(item)}
         style={[styles.btnSteps, {backgroundColor: color,}]}
       >
-        {countWords(item.name) > 6 ? (
-          <PrimaryText color={'#fff'} style={styles.btnText}>{ item.name.substring(0,25) || item.name.substring(0,25) }...</PrimaryText>
-        ) : (
-          <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
-        )}
+        <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
       </TouchableOpacity>
     );
   };

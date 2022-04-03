@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
 import {getArticles} from '@firestore/article';
 import styles from './styles/topicScreen';
+import { countWords } from '../../../utils/tools';
 
 const Topic = ({route, navigation}) => {
   const color = route.params.color;
@@ -12,14 +13,18 @@ const Topic = ({route, navigation}) => {
   const [ articles, setArticles ] = useState([]);
 
   useEffect(() => { 
-    getData();
+    if (!route.params.articles){
+      getData();
+    } else {
+      setArticles(route.params.articles);
+    }
   }, []);
 
   const getData=async()=>{
     try {
       console.log(catId, subCatId, topicId);
         let res = await getArticles(catId, subCatId, topicId)
-        console.log('res:', res);
+        // console.log('res:', res);
         let articleList = []
         res.forEach(doc=>{
           articleList.push({id:doc.id,...doc.data()})
@@ -44,7 +49,7 @@ const Topic = ({route, navigation}) => {
       >
         <View style={styles.btnContainer}>
           <View style={[styles.circle, {backgroundColor: color}]}></View>
-          <PrimaryText color={'#000'}>{item.title}</PrimaryText>
+            <PrimaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</PrimaryText>
           <Image/>
         </View>
       </TouchableHighlight>
@@ -66,7 +71,11 @@ const Topic = ({route, navigation}) => {
   return(
     <View style={styles.mainContainer}>
       <View style={[styles.banner, {backgroundColor: color}]}>
-        <PrimaryText color={'#fff'} style={styles.bannerTitle}>{route.params.title}</PrimaryText>
+        { countWords(route.params.title) > 6 ? (
+            <PrimaryText color={'#fff'} style={{ maxWidth: 260 }}>{route.params.title}</PrimaryText>
+          ) : (
+            <PrimaryText color={'#fff'} style={styles.bannerTitle}>{route.params.title}</PrimaryText>
+        )}
       </View>
       <FlatList
         data={articles}
