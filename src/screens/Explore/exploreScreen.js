@@ -88,7 +88,7 @@ const ExploreScreen = (props) => {
         swipeDirection="left"
       >
         <View style={styles.modal}>
-          <PrimaryText>¡Bienvenido!</PrimaryText>
+          <PrimaryText style={styles.modalTitle}>¡Bienvenido!</PrimaryText>
           <SecondaryText style={styles.modalDetail}>Te has registrado con éxito, ahora puedes disfrutar del contenido de nuestra aplicación</SecondaryText>
         </View>
       </Modal>

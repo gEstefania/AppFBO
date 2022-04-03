@@ -46,8 +46,8 @@ const SignUp = () => {
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
                         insertUser(user)
-                        dispatch(IsNewUser({newUser: true}))
                         navigation.navigate("TagsPreferences")
+                        dispatch(IsNewUser({newUser: true}))
                         console.log('User account created & signed in!');
                     })
                     .catch(error => {

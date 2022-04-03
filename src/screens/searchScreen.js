@@ -162,7 +162,7 @@ const SearchScreen = (props) => {
                 swipeDirection="left"
             >
                 <View style={styles.modal}>
-                    <PrimaryText>¿No tienes cuenta?</PrimaryText>
+                    <PrimaryText style={styles.modalTitle}>¿No tienes cuenta?</PrimaryText>
                     <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
                     <View style={{width: '100%',}}>
                         <TouchableOpacity

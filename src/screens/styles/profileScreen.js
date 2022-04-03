@@ -93,6 +93,10 @@ export default StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.CORPORATE_ORANGE,
   },
+  modalTitle:{
+    fontSize: 28,
+    textAlign: 'center',
+  },
   nameInput:{
     width: '100%',
     color: '#000',

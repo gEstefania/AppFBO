@@ -29,7 +29,7 @@ const PreferenceTag=(props)=>{
             swipeDirection="left"
             >
             <View style={styles.modal}>
-                <PrimaryText>¡Atención!</PrimaryText>
+                <PrimaryText style={styles.modalTitle}>¡Atención!</PrimaryText>
                 <SecondaryText style={styles.modalDetail}>¿Estás seguro de eliminar la preferencia: <PrimaryText color={'#000'}>{props.name}</PrimaryText>?</SecondaryText>
                 <TouchableOpacity
                     onPress={() => props.onDeleteTag(props.id)}

@@ -225,7 +225,7 @@ const ProfileScreen = (props) => {
                 swipeDirection="left"
                 >
                 <View style={styles.modal}>
-                    <PrimaryText>¡Atención!</PrimaryText>
+                    <PrimaryText style={styles.modalTitle}>¡Atención!</PrimaryText>
                     <SecondaryText style={styles.modalDetail}>Tu cuenta se eliminará, esta acción no se puede deshacer. ¿Deseas continuar?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => onUnsubscribeButtonPress()}
@@ -241,7 +241,7 @@ const ProfileScreen = (props) => {
                 swipeDirection="left"
                 >
                 <View style={styles.modal}>
-                    <PrimaryText>¡Atención!</PrimaryText>
+                    <PrimaryText style={styles.modalTitle}>¡Atención!</PrimaryText>
                     <SecondaryText style={styles.modalDetail}>¿Estás seguro que deseas cerrar sesión?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => onLogOutButtonPress()}
@@ -257,7 +257,7 @@ const ProfileScreen = (props) => {
                 swipeDirection="left"
             >
                 <View style={styles.modal}>
-                    <PrimaryText>¿No tienes cuenta?</PrimaryText>
+                    <PrimaryText style={styles.modalTitle}>¿No tienes cuenta?</PrimaryText>
                     <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
                     <TouchableOpacity
                     onPress={() => onSignUpButtonPress()}
@@ -273,7 +273,7 @@ const ProfileScreen = (props) => {
                 swipeDirection="left"
                 >
                 <View style={styles.modal}>
-                    <PrimaryText>Editar perfil</PrimaryText>
+                    <PrimaryText tyle={styles.modalTitle}>Editar perfil</PrimaryText>
                     <TextInput
                         style={styles.nameInput}
                         placeholder={'Nombre'}

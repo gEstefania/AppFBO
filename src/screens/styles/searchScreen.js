@@ -47,6 +47,7 @@ export default StyleSheet.create({
     borderTopColor: Colors.CORPORATE_ORANGE,
     borderTopWidth: 1,
     paddingLeft: 40,
+    paddingRight: 30,
     paddingTop: 30,
   },
   titleSize:{
@@ -64,6 +65,10 @@ export default StyleSheet.create({
   },
   modalDetail: {
     marginTop: 20,
+  },
+  modalTitle:{
+    fontSize: 28,
+    textAlign: 'center',
   },
   btnModal:{
     width: '100%',

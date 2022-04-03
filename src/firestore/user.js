@@ -149,7 +149,7 @@ export const unregisterDevice=()=>{
         .collection("Users")
         .doc(user.id)
         .update({
-            tokens:user.tokens.filter(t=>t!==tokenDevice)
+            tokens:user.tokens?.filter(t=>t!==tokenDevice)
         })
         .then(()=>{
             resolve("unregister device")

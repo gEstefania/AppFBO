@@ -41,6 +41,10 @@ export default StyleSheet.create({
   modalDetail: {
     marginTop: 20,
   },
+  modalTitle:{
+    fontSize: 28,
+    textAlign: 'center',
+  },
   btnModal:{
     width: '100%',
     justifyContent: 'center',
