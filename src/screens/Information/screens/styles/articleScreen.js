@@ -33,6 +33,9 @@ export default StyleSheet.create({
   },
   imagePost:{
     width: widthScreen,
-    height:300
+    height:300,
+    backgroundColor:"#000",
+    justifyContent:"center",
+    alignItems:"center",
   }
 });
