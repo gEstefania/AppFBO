@@ -24,6 +24,7 @@ export const getDataFromCategory=async(catId)=>{
             firestore()
             .collection("Categories").doc(catId)
             .collection("Subcategories")
+            .where('enabled', '==', true)
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {
                     resolve({type: 'subcategory', data: documentSnapshot.docs})
@@ -43,6 +44,7 @@ export const getDataFromCategory=async(catId)=>{
 
             firestore()
             .collection("Articles")
+            .where('enabled', '==', true)
             .where('subcategory','==', queryCategory)
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {
@@ -69,6 +71,7 @@ export const getDataFromSubCategory=(catId, subCatId)=>{
 
             firestore()
             .collection("Articles")
+            .where('enabled', '==', true)
             .where('subcategory','==', querySubCategory)
             .onSnapshot(documentSnapshot => {
                 if (documentSnapshot) {

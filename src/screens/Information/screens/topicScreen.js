@@ -57,7 +57,7 @@ const Topic = ({route, navigation}) => {
     );
   };
 
-  empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
+  const empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
     <PrimaryText>Sin Artículos...</PrimaryText>
     </View>
 

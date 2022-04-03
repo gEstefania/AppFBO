@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, TouchableOpacity } from "react-native";
-import { View, Image, TextInput, FlatList,Keyboard } from "react-native";
+import { View, TextInput, FlatList, TouchableOpacity, Keyboard } from "react-native";
 import auth from '@react-native-firebase/auth';
 import { PrimaryText, SecondaryText } from '@common';
 import Modal from "react-native-modal";

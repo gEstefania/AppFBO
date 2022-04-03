@@ -20,7 +20,7 @@ export const ShowModalForRegister = ({isVisible, setModalVisible, style} ) => {
 
   return (
       <Modal
-        visible={isVisible}
+        isVisible={isVisible}
         onBackdropPress={setModalVisible}
         swipeDirection="left"
       >
