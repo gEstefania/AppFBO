@@ -20,7 +20,7 @@ const Intro = () => {
             onPress={()=>navigation.navigate("Index")}
             style={styles.mainContainer}>
             <ImageBackground
-                resizeMode="cover"
+                resizeMode="stretch"
                 style={[styles.imageBackground]}
                 source={require('../assets/img/FBO-intro.png')}>
                     <View style={styles.header}>
