@@ -129,7 +129,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         style={[styles.cardView, {backgroundColor: cardColor}]}
       >
          {countWords(item.name || item.title) > 3 ? (
-          <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{ item.name.substring(0,25) || item.name.substring(0,25) }...</PrimaryText>
+          <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{ item.name?.substring(0,25) || item.title?.substring(0,25) }...</PrimaryText>
           ) : (
             <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{item.title || item.name}</PrimaryText>
           )}

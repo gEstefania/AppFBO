@@ -80,8 +80,8 @@ const Category = ({route, navigation}) => {
         onPress={() => onButtonPress(item)}
         style={[styles.btnArticle, {backgroundColor: color}]}
       >
-        {countWords(item.name || item.title) > 6 ? (
-          <PrimaryText color={'#fff'} style={styles.btnText}>{ item.name.substring(0,25) || item.name.substring(0,25) }...</PrimaryText>
+        {countWords(item.name ?? item.title) > 6 ? (
+          <PrimaryText color={'#fff'} style={styles.btnText}>{ item?.name.substring(0,25) ?? item?.title.substring(0,25) }...</PrimaryText>
         ) : (
           <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
         )}
