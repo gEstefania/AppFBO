@@ -7,6 +7,7 @@ export default StyleSheet.create({
     //marginHorizontal: '10%',
   },
   title:{
+    marginLeft: 45,
     marginBottom: 20,
     marginHorizontal: '10%',
   },

@@ -9,6 +9,8 @@ export default StyleSheet.create({
   },
   titleContainer:{
     marginBottom: 20,
+    marginTop:10,
+    marginLeft:7,
   },
   postTitle: {
     fontSize: 18,
