@@ -36,7 +36,7 @@ const Post = ({route, article}) => {
                                 flexDirection: "column",
                                 flex: 1
                             }}>
-                                <Image resizeMode='contain' style={styles.imagePost} source={{ uri: image[0].url }} />
+                                <Image resizeMode='contain' style={styles.imagePost} source={{ uri: image[0]?.url }} />
                             </View>
                         )}
                         {video && (

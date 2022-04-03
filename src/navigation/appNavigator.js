@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
 import { Image, View, useWindowDimensions, Platform, Pressable, Text, Linking } from 'react-native';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,6 +29,7 @@ import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
 import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconFlechaAtras, LogoApp} from '@icons';
+import { navigationRef } from './RootNavigation';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
@@ -52,7 +53,6 @@ const AppNavigator = () => {
   // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
-
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
@@ -68,7 +68,7 @@ const AppNavigator = () => {
 
   if (!user) {
     return (
-      <NavigationContainer theme={MyTheme}>
+      <NavigationContainer ref={navigationRef} theme={MyTheme}>
         <Stack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Intro" component={Intro} />
           <Stack.Screen name="Index" component={Index} />
@@ -81,7 +81,7 @@ const AppNavigator = () => {
   }
 
   return (
-    <NavigationContainer theme={MyTheme}>
+    <NavigationContainer ref={navigationRef} theme={MyTheme}>
       <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Home" component={BottomTabNavigator} />
           <Stack.Screen name="TagsPreferences" component={Tags} />
@@ -122,6 +122,9 @@ function BottomTabNavigator() {
         name="TopTapNavigator"
         component={TopTapNavigator}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>navigationRef.navigate("Explorar")} />
+          ),
           tabBarLabel: 'Volver',
           tabBarIcon: ({ focused }) => (
           focused ? <IconFlechaAtras width={30} height={30} /> : <IconFlechaAtras width={30} height={30} />)
