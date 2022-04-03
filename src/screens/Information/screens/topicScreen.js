@@ -1,4 +1,4 @@
-import { FlatList, TouchableHighlight, View, Image} from 'react-native';
+import { FlatList, TouchableHighlight, View, Image, Text} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
 import {getArticles} from '@firestore/article';
@@ -71,13 +71,17 @@ const Topic = ({route, navigation}) => {
 
   return(
     <View style={styles.mainContainer}>
-      <View style={[styles.banner, {backgroundColor: color}]}>
+      { route.params.articles ? ( // si viene un parametro articles mostrame el texto simple
+        <PrimaryText style={styles.topicTitle}><Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
+      ) : (// sino pues dale con el texto completo en el banner
+      <View style={[styles.banner, {backgroundColor: color}]}> 
         { countWords(route.params.title) > 6 ? (
-            <PrimaryText color={'#fff'} style={{ maxWidth: 260 }}>{route.params.title}</PrimaryText>
+            <PrimaryText color={'#fff'} style={styles.bannerTitleMini}>{route.params.title}</PrimaryText>
           ) : (
             <PrimaryText color={'#fff'} style={styles.bannerTitle}>{route.params.title}</PrimaryText>
         )}
       </View>
+      )}
       <FlatList
         data={articles}
         ListEmptyComponent={empty}
