@@ -65,17 +65,39 @@ const SearchScreen = (props) => {
                 let nTitle = article.title.toLowerCase()
                 nTitle = nTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                 
+                let nBody = article.body.toLowerCase()
+                nBody = nBody.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
                 let nSearch = searchText.toLowerCase()
                 nSearch=nSearch.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                return nTitle.includes(nSearch)
+                
+                return nTitle.includes(nSearch) || nBody.includes(nSearch)
                 
             }))
             setFilterCourses(courses.filter(course=>{
+
+                
                 let nTitle = course.title.toLowerCase()
                 nTitle= nTitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let subtitle = course.subtitle.toLowerCase()
+                subtitle= subtitle.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let summary = course.subtitle.toLowerCase()
+                summary= summary.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let teacherLastname = course.teacherLastname.toLowerCase()
+                teacherLastname= teacherLastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let teacherName = course.teacherName.toLowerCase()
+                teacherName= teacherName.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
+                let nDesc = course.description.toLowerCase()
+                nDesc= nDesc.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+
                 let nSearch = searchText.toLowerCase()
                 nSearch=nSearch.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                return nTitle.includes(nSearch)
+                return nTitle.includes(nSearch) || nDesc.includes(nSearch) || subtitle.includes(nSearch) || summary.includes(nSearch) || teacherLastname.includes(nSearch) || teacherName.includes(nSearch)
             }))
         }else{
             setFilterArticles([])
@@ -101,9 +123,10 @@ const SearchScreen = (props) => {
                 <View style={{width: 10, height: 10, backgroundColor:'gray', borderRadius: 50,}}></View>
                 <SecondaryText
                     style={{
-                        marginStart:32,
+                        marginStart:16,
                         paddingVertical:16,
                         fontSize:16,
+                        
                     }} 
                     color={"#A9A9A9"}>
                     {item.title}
