@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
-import {getDataFromCategory, getDataFromSubCategory} from '@firestore/category';
+import { getDataFromCategory, getDataFromSubCategory } from '@firestore/category';
 import styles from './styles/card';
 import { countWords } from '../../../utils/tools';
 
@@ -30,7 +30,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         })
         setArticles(articlesList)
         // console.log('ARTICULOS: ', articles)
-        console.log('Datos veeeeeer: ', res[0].data);
+        // console.log('Datos veeeeeer: ', res[0].data);
         
     }catch(e){
         console.log('error en get data en card',e)
@@ -53,11 +53,15 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         articlesList.push({id:doc.id,...doc.data(), type: 'article'})
       })
 
+      // que me haga la navegacion tal cual a la categoria pero enviando un parametro extra
       if (articlesList.length > 0) {
-        navigation.navigate("Article", {
+        navigation.navigate("Topic", {
           title: itemName,
-          body: articlesList[0].body,
           color: cardColor,
+          catId: catId,
+          subCatId: subCategoryId,
+          isArticle: true,
+          articles: articlesList
           }
         )
       } else {
@@ -65,12 +69,37 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
           title: itemName,
           color: cardColor,
           catId: catId,
-          subCatId: subCategoryId
+          subCatId: subCategoryId,
+          isArticle: false,
           }
         )
       }
     }catch(e){
       console.log(e)
+    }
+  }
+
+  const whereToGo = () => {
+    if (articles.length > 0) {
+      navigation.navigate("Topic", {
+        title: title,
+        color: cardColor,
+        catId: catId,
+        subCatId: subCategory,
+        isArticle: true,
+        articles: articles
+        }
+      )
+    } else {
+      navigation.navigate("Category", {
+        title: title,
+        color: cardColor,
+        subCategories: subCategory,
+        articles: articles,
+        catDesc: catDesc,
+        catId: catId,
+        subCatId: '',
+        })
     }
   }
 
@@ -95,11 +124,11 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         onPress={() => onButtonPress(item)}
         style={[styles.cardView, {backgroundColor: cardColor}]}
       >
-         {countWords(item.name) > 3 ? (
+         {countWords(item.name || item.title) > 3 ? (
           <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{ item.name.substring(0,25) || item.name.substring(0,25) }...</PrimaryText>
-        ) : (
-          <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{item.title || item.name}</PrimaryText>
-        )}
+          ) : (
+            <PrimaryText type={'Regular'} color={'#fff'} style={styles.cardTitle}>{item.title || item.name}</PrimaryText>
+          )}
       </TouchableOpacity>
         
     );
@@ -111,16 +140,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
       <View style={styles.titleContainer}>
       <PrimaryText color={cardColor} style={styles.titleSection}>{title}</PrimaryText>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Category", {
-            title: title,
-            color: cardColor,
-            subCategories: subCategory,
-            articles: articles,
-            catDesc: catDesc,
-            catId: catId,
-            subCatId: '',
-            })
-            }
+          onPress={() => whereToGo(articles)}
         >
           <PrimaryText color={cardColor} style={styles.cardText}>Ver todo</PrimaryText>
         </TouchableOpacity>
