@@ -491,7 +491,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleSignIn (6.0.2):
+  - GoogleSignIn (6.1.0):
     - AppAuth (~> 1.4)
     - GTMAppAuth (~> 1.0)
     - GTMSessionFetcher/Core (~> 1.1)
@@ -767,7 +767,7 @@ PODS:
     - React-Core
   - react-native-notifications (4.2.4):
     - React-Core
-  - react-native-pager-view (5.4.9):
+  - react-native-pager-view (5.4.15):
     - React-Core
   - react-native-safe-area-context (3.4.1):
     - React-Core
@@ -776,7 +776,7 @@ PODS:
     - react-native-video/Video (= 5.2.0)
   - react-native-video/Video (5.2.0):
     - React-Core
-  - react-native-webview (11.17.2):
+  - react-native-webview (11.18.1):
     - React-Core
   - React-perflogger (0.67.1)
   - React-RCTActionSheet (0.67.1):
@@ -843,27 +843,27 @@ PODS:
     - React-jsi (= 0.67.1)
     - React-logger (= 0.67.1)
     - React-perflogger (= 0.67.1)
-  - RNCAsyncStorage (1.15.17):
+  - RNCAsyncStorage (1.17.3):
     - React-Core
-  - RNFBApp (14.5.1):
+  - RNFBApp (14.7.0):
     - Firebase/CoreOnly (= 8.11.0)
     - React-Core
-  - RNFBAuth (14.5.1):
+  - RNFBAuth (14.7.0):
     - Firebase/Auth (= 8.11.0)
     - React-Core
     - RNFBApp
-  - RNFBFirestore (14.5.1):
+  - RNFBFirestore (14.7.0):
     - Firebase/Firestore (= 8.11.0)
     - React-Core
     - RNFBApp
-  - RNFBMessaging (14.5.1):
+  - RNFBMessaging (14.7.0):
     - Firebase/Messaging (= 8.11.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.3.1):
+  - RNGestureHandler (2.3.2):
     - React-Core
-  - RNGoogleSignin (7.0.4):
-    - GoogleSignIn (~> 6.0.0)
+  - RNGoogleSignin (7.2.2):
+    - GoogleSignIn (~> 6.1.0)
     - React-Core
   - RNScreens (3.13.1):
     - React-Core
@@ -1125,7 +1125,7 @@ SPEC CHECKSUMS:
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 85ecdd10ee8d8ec362ef519a6a45ff9aa27b2e85
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
-  GoogleSignIn: fd381840dbe7c1137aa6dc30849a5c3e070c034a
+  GoogleSignIn: c90b5bec45e780f54c6a8e1e3c182a86e3dda69d
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   "gRPC-C++": 13d8ccef97d5c3c441b7e3c529ef28ebee86fad2
   gRPC-Core: 4afa11bfbedf7cdecd04de535a9e046893404ed5
@@ -1151,10 +1151,10 @@ SPEC CHECKSUMS:
   react-native-config: 6502b1879f97ed5ac570a029961fc35ea606cd14
   react-native-fbsdk-next: 6d497a06fc5c33360f5794b4428a0236789a60e6
   react-native-notifications: 3de8ef9cd800e5db0225d9aa46b228d2b94ce51e
-  react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
+  react-native-pager-view: b1914469643f40042e65d78cbf3d3dfebd6fb0d9
   react-native-safe-area-context: 9e40fb181dac02619414ba1294d6c2a807056ab9
   react-native-video: a4c2635d0802f983594b7057e1bce8f442f0ad28
-  react-native-webview: 380c1a03ec94b7ed764dac8db1e7c9952d08c93a
+  react-native-webview: 0b7bd2bffced115aefd393e1841babd9b9a557b1
   React-perflogger: 9a6172711d9c4c8c7ac0a426717317c3c6ecf85c
   React-RCTActionSheet: ed408b54b08278e6af8a75e08679675041da61ae
   React-RCTAnimation: 0163b497a423a9576a776685c6e3fe276f934758
@@ -1167,13 +1167,13 @@ SPEC CHECKSUMS:
   React-RCTVibration: 19c012d1202df46bafbe49268a346f6b3edadfdd
   React-runtimeexecutor: 2c92a8bddd1a3e72c7513d1e74235c2d9c84875c
   ReactCommon: 2e816fad39f65f2a94a5999d5be463a6b620dcf6
-  RNCAsyncStorage: 6bd5a7ba3dde1c3facba418aa273f449bdc5437a
-  RNFBApp: 7b01112fbed2330da144ef2224ace1ffb849c9fc
-  RNFBAuth: 67c72909af283a2354fb416ca0addf86000e77e1
-  RNFBFirestore: 73041b1871c39505da056a2ddd4dfb84c177862c
-  RNFBMessaging: 8dd3b6cf358c56c928ef7c16466b170667aa3925
-  RNGestureHandler: 68f660f1080d3300936a67ce5c6879bd8f26ecc2
-  RNGoogleSignin: c4381751eefd73c552b923ba347a9bfc6f18771c
+  RNCAsyncStorage: 005c0e2f09575360f142d0d1f1f15e4ec575b1af
+  RNFBApp: 6d808201a555c0e12aea4c0b07c50272979cd476
+  RNFBAuth: eb5cdfb5dced53da494b1b2893bb3a223e719932
+  RNFBFirestore: 8aeb980435e6a623239e981ce77fa8706a693f72
+  RNFBMessaging: bc7cb33f669b5e72715750a54a2d5cfb2d6ee5dd
+  RNGestureHandler: 6e757e487a4834e7280e98e9bac66d2d9c575e9c
+  RNGoogleSignin: d7f8368b82d94f1dec964785d496387ca7f19092
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   RNVectorIcons: 7923e585eaeb139b9f4531d25a125a1500162a0b

@@ -56,7 +56,7 @@ export default StyleSheet.create({
   },
   titleSize:{
     fontSize: 30,
-    marginLeft: 10,
+    marginLeft: 0,
   },
   icon:{
     width: 15,

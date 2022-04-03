@@ -129,7 +129,7 @@ const SearchScreen = (props) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
-                <IconBuscar width={28} height={28}/>
+                <IconBuscar width={30} height={30}/>
                 <PrimaryText style={styles.titleSize}>Buscar</PrimaryText>
             </View>
             <View style={styles.shadow}></View>
