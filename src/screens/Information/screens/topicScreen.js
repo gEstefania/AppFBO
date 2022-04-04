@@ -52,10 +52,10 @@ const Topic = ({route, navigation}) => {
         <View style={styles.btnContainer}>
           <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
             <View style={[styles.circle, {backgroundColor: color}]}></View>
-            {countWords(item.title) > 2 ? (
-              <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,15)}...</SecondaryText>
+            {countWords(item.title) > 6 ? (
+              <SecondaryText style={{maxWidth: 200}} color={'#000'}>{item.title?.substring(0,30)}...</SecondaryText>
           ) : (
-            <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</SecondaryText>
+            <SecondaryText style={{maxWidth: 200}} color={'#000'}>{item.title}</SecondaryText>
           )}
             
           </View>

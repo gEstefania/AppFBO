@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Image, Pressable } from 'react-native';
+import { TouchableOpacity, View, Image, Pressable, useWindowDimensions } from 'react-native';
 import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import RenderHtml from 'react-native-render-html';
@@ -13,6 +13,7 @@ const Post = ({ route, article }) => {
     const title = route.params?.title;
     const body = route.params?.body;
     const color = route.params?.color || '#000';
+    const { width } = useWindowDimensions();
     const source = {
         html: `${body || article.body}`
     };
@@ -38,6 +39,7 @@ const Post = ({ route, article }) => {
             </View>
             <View style={styles.postContainer}>
                 <RenderHtml
+                    contentWidth={width}
                     source={source}
                 />
             </View>

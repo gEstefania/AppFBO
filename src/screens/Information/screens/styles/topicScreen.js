@@ -4,12 +4,13 @@ export default StyleSheet.create({
   mainContainer: {
     flex: 1,
     marginHorizontal: 50,
-    marginTop: 20,
+    marginTop: 5,
   },
   banner: {
     height: 150,
     justifyContent: 'center',
     marginBottom: 20,
+    marginTop: 10,
     paddingHorizontal: 35,
     borderRadius: 20,
     //marginLeft:15,
