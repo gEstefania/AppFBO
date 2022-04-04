@@ -5,6 +5,7 @@ import {getDataFromSubCategory} from '@firestore/category';
 import styles from './styles/categoryScreen';
 import Colors from '@common';
 import { countWords } from '../../../utils/tools';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 
 const SubCategory = ({route, navigation}) => {
   //const dataList = route.params?.data;
@@ -70,7 +71,13 @@ const SubCategory = ({route, navigation}) => {
         onPress={() => onButtonPress(item)}
         style={[styles.btnSteps, {backgroundColor: color,}]}
       >
-        <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
+        <BackgroundImage
+          source={{ uri: item.coverImage?.url ?? 'https://picsum.photos/200/300'}}
+          style={styles.imageCover}
+          imageStyle={{ borderRadius: 20 }}
+        >
+          <PrimaryText color={'#fff'} style={styles.btnText}>{item.name || item.title}</PrimaryText>
+        </BackgroundImage>
       </TouchableOpacity>
     );
   };
