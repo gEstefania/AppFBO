@@ -63,20 +63,18 @@ const Index = (props) => {
   }
 
   const renderList = ({item}) => {
+    console.log(item.coverImage.url)
     return (
       <TouchableOpacity
-        onPress={()=>navigateToCourseDetails(item) }
+        onPress={()=>navigateToCourseDetails(item.item) }
         style={styles.btnCard}
       >
         <View style={styles.container}>
-          {item?.images?.url&&(
-            <ImageBackground
-              resizeMode="cover"
-              source={{uri:item.images.url}}
-              style={styles.backgorundImage}
+            <ImageBackground imageStyle={{ borderRadius: 6}}
+            resizeMode="cover"
+            source={{uri: item?.coverImage?.url}}
+            style={styles.btnCourse}
              />
-          )}
-          <ImageBackground /> 
           <View style={{flex: 1}}>
             <PrimaryText style={styles.cardTitle}>{item.title}</PrimaryText>
           </View>
@@ -99,6 +97,7 @@ const Index = (props) => {
             </View>
           </View>
         </View>
+        <ImageBackground /> 
         <View style={styles.descriptionContainer}>
           { item.summary.length < 50 ? (
               <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,50)}</SecondaryText>
