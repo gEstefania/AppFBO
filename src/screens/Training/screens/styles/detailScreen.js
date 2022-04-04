@@ -37,10 +37,12 @@ export default StyleSheet.create({
     paddingLeft: 20,
   },
   speakerText:{
+    fontWeight:'bold',
     fontSize: 10,
     fontFamily: 'Poppins-Bold',
   },
   nameSpeakerText:{
+    fontWeight: 'bold',
     fontSize: 14,
     fontFamily: 'Poppins-Regular',
   },

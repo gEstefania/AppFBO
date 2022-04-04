@@ -71,7 +71,7 @@ const Tags = ({navigation,login, route}) => {
                 style={{
                 marginBottom: 10,
                 marginRight: index % 2 !== 0 ? 0 : 10,
-                flexGrow: 1,
+                flexGrow: 0.5,
                 backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
                 paddingHorizontal: 20,
                 paddingVertical: 10,
@@ -110,7 +110,7 @@ const Tags = ({navigation,login, route}) => {
             </View>
             <View style={styles.body}>
                 <View style={styles.row}>
-                    <SecondaryText>¿Qué te interesa?</SecondaryText>
+                    <SecondaryText color={'gray'}>¿Qué te interesa?</SecondaryText>
                 </View>
                 <FlatList
                     data={tags}
