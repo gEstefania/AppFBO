@@ -19,14 +19,13 @@ const AllCourses = () =>{
     }
 
     const renderList = (item) => {
-        console.log('cover image', item.item.coverImage);
         return(
             <TouchableOpacity
                 onPress={()=>navigateToCourseDetails(item.item)}
                 style={styles.btn}>
                     <ImageBackground
                         resizeMode="cover"
-                        source={{uri: item.item.coverImage.url}}
+                        source={{uri: item.item.coverImage?.url}}
                         style={styles.btnCourse}
                     >
                     <PrimaryText color={'gray'} style={styles.fontTitle}>{item.item.title}</PrimaryText>
