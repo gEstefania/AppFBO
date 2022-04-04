@@ -56,23 +56,28 @@ export default StyleSheet.create({
     elevation: 6,
   },
   cardTitle: {
+    marginTop:30,
+    marginLeft:10,
     fontSize: 18,
   },
   container: {
     flex: 1,
-    padding: 20,
+    //padding: 20,
     borderRadius: 20,
     backgroundColor: '#ECF1FE',
-    position:"relative"
+    position:"relative",
+    width: '100%',
+    height:'100%'
   },
   descriptionContainer: {
     paddingHorizontal: 20,
     paddingVertical: 25,
   },
   infoContainer:{
+    marginLeft:10,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   icon: {
     width: 25,
@@ -110,5 +115,12 @@ export default StyleSheet.create({
   },
   td:{
     fontWeight:'bold'
+  },
+  btnCourse:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 30,
+    borderRadius: 20,
+    height: 290,
   }
 });
