@@ -8,10 +8,9 @@ export default StyleSheet.create({
   },
   btnCourse:{
     flex: 0.47,
-    height: 150,
+    height: 160,
     justifyContent: 'flex-end',
     padding: 20,
-    marginBottom: 20,
     borderRadius: 20,
     backgroundColor: '#ECF1FD'
   },
@@ -22,7 +21,11 @@ export default StyleSheet.create({
     fontSize: 10,
   },
   fontInfo: {
-    fontSize: 10,
+    marginTop:2,
+    fontSize: 12,
     paddingHorizontal: 5,
   },
+  tittleText:{
+    marginLeft: 20,
+  }
 });

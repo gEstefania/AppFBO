@@ -120,7 +120,7 @@ const Index = (props) => {
         <TouchableOpacity
           onPress={() => onViewAllButtonPress()}
         >
-          <SecondaryText color={'gray'}>Ver todo</SecondaryText>
+          <SecondaryText style={styles.td} color={'gray'}>Ver todo</SecondaryText>
         </TouchableOpacity>
         <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
       </View>

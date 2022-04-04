@@ -253,12 +253,16 @@ function TrainingStackScreen() {
   return (
     <TrainingStack.Navigator
     screenOptions={{
-      headerShown: false
+      headerTransparent: true,
+      headerTitle: "",
+      headerStatusBarHeight: -2,
+      headerBackTitleVisible: false,
+      headerStyle: {shadowColor: '#fff'},
     }}
     >
       <TrainingStack.Screen name="Training" component={TrainingScreen} options={{headerShown: false}}/>
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
-      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} />
+      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={{headerShown:false}}/>
     </TrainingStack.Navigator>
   );
 };

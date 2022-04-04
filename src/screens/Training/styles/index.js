@@ -48,8 +48,8 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
-      width: -5,
-      height: 0,
+      width: -10,
+      height: -10,
     },
     shadowOpacity: 0.10,
     shadowRadius: 4.65,
@@ -108,4 +108,7 @@ export default StyleSheet.create({
   description:{
     fontWeight: 'bold',
   },
+  td:{
+    fontWeight:'bold'
+  }
 });
