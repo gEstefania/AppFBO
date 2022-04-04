@@ -40,7 +40,7 @@ const AllCourses = () =>{
 
     return(
         <View style={styles.mainContainer}>
-            <PrimaryText>TODOS LOS CURSOS</PrimaryText>
+            <PrimaryText style={styles.tittleText}>TODOS LOS CURSOS</PrimaryText>
             <FlatList
                 data={courses}
                 renderItem={renderList}
