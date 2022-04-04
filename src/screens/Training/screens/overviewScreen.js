@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, ImageBackground } from "react-native";
 import styles from './styles/overviewScreen';
 import {PrimaryText, SecondaryText} from '@common';
 import { connect } from 'react-redux';
@@ -13,6 +13,7 @@ const OverviewScreen = ({route,navigation,course}) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.summaryContainer}>
+            <ImageBackground style={styles.summaryContainer} source={require('../../../assets/img/FBO-banner-nube.png')}/>
                 <View style={styles.row}>
                 <IconVideoNube width={25} height={25} />
                     <View style={styles.columnText}>

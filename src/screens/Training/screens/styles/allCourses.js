@@ -22,7 +22,8 @@ export default StyleSheet.create({
     fontSize: 10,
   },
   fontInfo: {
-    fontSize: 10,
+    marginTop:2,
+    fontSize: 12,
     paddingHorizontal: 5,
   },
 });
