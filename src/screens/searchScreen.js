@@ -143,7 +143,9 @@ const SearchScreen = (props) => {
     
     const onSignUpButtonPress = () => {
         try {
-          auth().signOut()
+          if(auth().signOut()){
+              navigation.navigate("SignUp")
+          }
         } catch (error) {
           console.log(error);
         }

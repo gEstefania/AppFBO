@@ -53,7 +53,7 @@ const Topic = ({route, navigation}) => {
           <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
             <View style={[styles.circle, {backgroundColor: color}]}></View>
             {countWords(item.title) > 2 ? (
-              <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,25)}...</SecondaryText>
+              <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,15)}...</SecondaryText>
           ) : (
             <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</SecondaryText>
           )}
