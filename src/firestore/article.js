@@ -41,6 +41,32 @@ export const getArticle = (articleId) => {
     })
 }
 
+export const getTopGeneralArticles = () => {
+    const allArticles = new Promise (async(resolve, reject)=>{
+        try {
+            let articles = await
+            firestore()
+            .collection("FeaturedGeneralArticles")
+            .get();
+
+            resolve(articles.docs)
+
+        } catch (e) {
+            reject({error:"Get data firestore error.", e})
+        }
+    })
+
+    let generalArticles = allArticles.then(res=>{
+        let articlesData = res.map(async(doc)=>{
+            let getDataArticle = await getArticle(doc._data.articleId);
+            return {...getDataArticle, ...doc};
+        })
+        return Promise.all(articlesData)
+    })
+
+    return generalArticles
+}
+
 export const getTopArticles = () => {
     return new Promise(async (resolve, reject) => {
         try {
