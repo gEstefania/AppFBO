@@ -8,7 +8,8 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 50,
+    alignItems: 'center',
+    marginRight: 40,
   },
   cardView: {
     width: 140,
@@ -24,7 +25,6 @@ export default StyleSheet.create({
     fontSize: 22,
   },
   cardText: {
-    marginTop: 5,
     fontSize: 14,
   },
   cardTitle: {
