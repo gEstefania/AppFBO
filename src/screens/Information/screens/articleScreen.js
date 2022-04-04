@@ -46,7 +46,6 @@ const Post = ({ route, article }) => {
             {(image) && (
                 (image.length > 0 || video.url) && (
                     <View>
-                        <PrimaryText color={color}>Multimedia:</PrimaryText>
                         {image && (
                             <View style={{
                                 flexDirection: "column",
