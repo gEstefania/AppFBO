@@ -4,12 +4,14 @@ import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
 import { getAllCategories, getDataFromCategory } from '@firestore/category';
+import { getTopArticles } from '../../../firestore/article';
 import styles from './styles/cardExplorer';
 import ShowAlertMessage from '@components/showAlertMessage';
 
 const CardExplorer = () => {
-  const [ category, setCategory ] = useState([]);
+  // const [ category, setCategory ] = useState([]);
   const [ colorPalette, setColorPalette ] = useState([]);
+  const [ topArticles, setTopArticles ] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => { 
@@ -25,105 +27,49 @@ const CardExplorer = () => {
         '#11b2d8',
       ]
     )
-    getData() 
+    // getData() 
+    getArticles()
   }, []);
 
-  const getData=async()=>{
+  const getArticles = async() => {
     try {
-      let res = await getAllCategories()
-      console.log('respuesta card', res);
-      let categoryList = []
-      res.forEach(doc=>{
-        categoryList.push({id:doc.id,...doc.data()})
-      })
-      setCategory(categoryList)
-    }catch(e){
-        console.log(e)
+      let articles = await getTopArticles();
+      // console.log('Los articulos>',articles)
+      setTopArticles(articles);
+    } catch (e) {
+      console.log('Error al traer los articulos: ',e)
     }
   }
 
-  const whereToGo = () => {
-    if (articles.length > 0) {
-      navigation.navigate("Topic", {
-        title: title,
-        color: cardColor,
-        catId: catId,
-        subCatId: subCategory,
-        isArticle: true,
-        articles: articles
-        }
-      )
-    } else {
-      navigation.navigate("Category", {
-        title: title,
-        color: cardColor,
-        subCategories: subCategory,
-        articles: articles,
-        catDesc: catDesc,
-        catId: catId,
-        subCatId: '',
-        })
-    }
-  }
-
-  const getDataSubArticles=async(data)=>{
-    try {
-      let res = await getDataFromCategory(data.catId)
-      //Set Subcategories:
-      let subcategoryList = []
-      res[0].data.forEach(doc=>{
-        subcategoryList.push({id:doc.id,...doc.data(), type: 'subcategory'})
-      })
-      
-      //Set Articles:
-      let articlesList = []
-      res[1].data.forEach(doc=>{
-        articlesList.push({id:doc.id,...doc.data(), type: 'article'})
-      })
-
-        if (articlesList.length > 0) {
-          navigation.navigate("Topic", {
-            title: data.title,
-            color: data.color,
-            catId: data.catId, // realmente no necesario pero lo dejo por si acaso
-            subCatId: '', // realmente no necesario ya que envio abajo la lista de articulos
-            isArticle: true,
-            articles: articlesList,
-            }
-          )
-        } else {
-          navigation.navigate("Category", {
-            title: data.title,
-            color: data.color,
-            subCategories: subcategoryList,
-            articles: articlesList,
-            catDesc: data.catDesc,
-            catId: data.catId,
-            subCatId: '',
-            })
-        }
-      
-    }catch(e){
-        console.log('error en get data en card',e)
-        ShowAlertMessage('Error', 'Error al cargar la información')
-    }
-  }
+  // const getData=async()=>{
+  //   try {
+  //     let res = await getAllCategories()
+  //     console.log('respuesta card', res);
+  //     let categoryList = []
+  //     res.forEach(doc=>{
+  //       categoryList.push({id:doc.id,...doc.data()})
+  //     })
+  //     setCategory(categoryList)
+  //   }catch(e){
+  //       console.log(e)
+  //   }
+  // }
 
   const renderList = ({item, index}) => {
+    console.log('item>>>', item._data)
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
-        onPress={() => {
-          const data = {
-            title: item.name,
+        onPress={() => 
+          navigation.navigate("Article", {
+            title: item._data.title,
+            body: item.body,
             color: colorPalette[index],
-            catId: item.id,
-            catDesc: item.description,
-          }
-          getDataSubArticles(data)
-        }}
+            ...item._data
+            }) 
+          } 
         >
-        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.name}</PrimaryText>
+        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item._data.title}</PrimaryText>
       </TouchableOpacity>
     );
     
@@ -140,7 +86,7 @@ const CardExplorer = () => {
       </View>
       <FlatList
         horizontal
-        data={category}
+        data={topArticles}
         renderItem={renderList}
         //keyExtractor={item => item.id}
         style={styles.cardsList}
