@@ -6,13 +6,18 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     paddingTop: 20,
   },
-  btnCourse:{
+  btn:{
     flex: 0.47,
     height: 160,
     justifyContent: 'flex-end',
-    padding: 20,
     borderRadius: 20,
     backgroundColor: '#ECF1FD'
+  },
+  btnCourse:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 20,
+    borderRadius: 20,
   },
   courseInfo:{
     flexDirection: 'row'

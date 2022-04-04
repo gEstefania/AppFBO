@@ -27,6 +27,7 @@ import _FBO_icon_video from './FBO_video.svg';
 import _FBO_ICON_ATRAS from './FBO-ICON-ATRAS.svg';
 import _logo_app from './logo_+family_blanco.svg';
 import _logo_app_color from './logo_+family_color.svg';
+import _logo_escuela_family from './APP-FBO-escuela+family.svg';
 
 export const IconBuscar = _buscar;
 export const IconBuscarHover = _buscar_hover;
@@ -57,3 +58,4 @@ export const IconVideoNube = _FBO_icon_video_nube;
 export const IconVideo = _FBO_icon_video;
 export const LogoApp = _logo_app;
 export const LogoAppColor = _logo_app_color;
+export const LogoEscuelaFamily = _logo_escuela_family;
