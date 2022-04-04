@@ -62,7 +62,7 @@ const Tags = ({navigation,login}) => {
                     style={{
                     marginBottom: 10,
                     marginRight: index % 2 !== 0 ? 0 : 10,
-                    flexGrow: 1,
+                    flexGrow: 0.5,
                     backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
                     paddingHorizontal: 20,
                     paddingVertical: 10,
@@ -95,17 +95,17 @@ const Tags = ({navigation,login}) => {
                 end={{ x: 3.5, y: 5 }}
                 locations={[0.2, 0.3]}
             >
-                <LogoApp width={230} height={230} />
+                <LogoApp width={300} height={150} />
             </LinearGradient>
             
             </View>
             <View style={styles.body}>
                 <View style={styles.row}>
-                    <SecondaryText>¿Qué te interesa?</SecondaryText>
+                    <SecondaryText color={'gray'}>¿Qué te interesa?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("Home")}
                     >
-                        <SecondaryText>Saltar</SecondaryText>
+                        <SecondaryText color={'gray'}>Saltar</SecondaryText>
                     </TouchableOpacity>
                 </View>
                 <FlatList

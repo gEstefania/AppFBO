@@ -26,6 +26,7 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
   },
   tittleText:{
+    marginTop: -5,
     marginLeft: 20,
   }
 });

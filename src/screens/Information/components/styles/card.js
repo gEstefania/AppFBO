@@ -28,6 +28,6 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   cardTitle: {
-    maxWidth: 80,
+    maxWidth: 100,
   },
 });

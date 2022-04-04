@@ -48,11 +48,11 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
-      width: -10,
-      height: -10,
+      height: 0,
+      width: 0
     },
-    shadowOpacity: 0.10,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.16,
+    shadowRadius: 8.50,
     elevation: 6,
   },
   cardTitle: {
