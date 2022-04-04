@@ -218,7 +218,7 @@ const SignUp = () => {
             <View style={styles.btnPolicyContainer}>
                 <SecondaryText>Acepto la </SecondaryText>
                 <TouchableOpacity>
-                    <SecondaryText color={'blue'}>Política de Privacidad*</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>Política de Privacidad*</SecondaryText>
                 </TouchableOpacity>
                 <CheckBox
                     containerStyle={{padding: 0}}
@@ -233,11 +233,11 @@ const SignUp = () => {
                 <SecondaryText color={'#fff'}>REGISTRARME</SecondaryText>
             </TouchableOpacity>
             <View style={styles.btnSingInContainer}>
-                <SecondaryText>¿YA TIENES CUENTA? </SecondaryText>
+                <SecondaryText color={'gray'}>¿YA TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignIn")}
                 >
-                    <SecondaryText color={'blue'}>ENTRA</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>ENTRA</SecondaryText>
                 </TouchableOpacity>
             </View>
         </ScrollView>

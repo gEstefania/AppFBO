@@ -7,6 +7,8 @@ export default StyleSheet.create({
   },
   topicTitle: {
     fontSize: 30,
+    marginLeft: 10,
+    marginTop: 5,
   },
   imageBackground: {
     width: '100%',

@@ -43,7 +43,4 @@ export default StyleSheet.create({
   btnSingInContainer: {
     flexDirection: 'row',
   },
-  login: {
-    fontWeight: 'bold',
-  }
 });

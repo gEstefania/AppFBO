@@ -48,10 +48,10 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
-      width: 30,
-      height: 2,
+      width: -5,
+      height: 0,
     },
-    shadowOpacity: 0.27,
+    shadowOpacity: 0.10,
     shadowRadius: 4.65,
     elevation: 6,
   },

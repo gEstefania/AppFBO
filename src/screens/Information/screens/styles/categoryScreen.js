@@ -7,8 +7,8 @@ export default StyleSheet.create({
     marginBottom: 0,
   },
   titleArticle: {
-    marginTop: -12,
-    marginLeft:15,
+    marginTop: -8,
+    marginLeft:18,
     fontSize: 20,
     textTransform: 'uppercase',
     marginBottom: -40,

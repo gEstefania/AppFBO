@@ -284,11 +284,11 @@ const Login = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.btnSingInContainer}>
-                <SecondaryText>¿NO TIENES CUENTA? </SecondaryText>
+                <SecondaryText color={'gray'}>¿NO TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignUp")}
                 >
-                    <SecondaryText color={'blue'}>REGÍSTRATE</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>REGÍSTRATE</SecondaryText>
                 </TouchableOpacity>
             </View>
         </ScrollView>
