@@ -57,7 +57,8 @@ export const getTopGeneralArticles = () => {
     })
 
     let generalArticles = allArticles.then(res=>{
-        let articlesData = res.map(async(doc)=>{
+        let articlesSort = res.sort((a,b)=>{ return a.data().priority - b.data().priority})
+        let articlesData = articlesSort.map(async(doc)=>{
             let getDataArticle = await getArticle(doc._data.articleId);
             return {...getDataArticle, ...doc};
         })
