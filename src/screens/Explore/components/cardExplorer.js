@@ -3,10 +3,9 @@ import { View, TouchableOpacity } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
-import { getAllCategories, getDataFromCategory } from '@firestore/category';
-import { getTopArticles } from '../../../firestore/article';
+import { getTopGeneralArticles } from '../../../firestore/article';
 import styles from './styles/cardExplorer';
-import ShowAlertMessage from '@components/showAlertMessage';
+// import ShowAlertMessage from '@components/showAlertMessage';
 
 const CardExplorer = () => {
   // const [ category, setCategory ] = useState([]);
@@ -33,9 +32,9 @@ const CardExplorer = () => {
 
   const getArticles = async() => {
     try {
-      let articles = await getTopArticles();
+      let getTopGeneral = await getTopGeneralArticles();
       // console.log('Los articulos>',articles)
-      setTopArticles(articles);
+      setTopArticles(getTopGeneral);
     } catch (e) {
       console.log('Error al traer los articulos: ',e)
     }
@@ -56,7 +55,7 @@ const CardExplorer = () => {
   // }
 
   const renderList = ({item, index}) => {
-    console.log('item>>>', item._data)
+    //console.log('item>>>', item._data)
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
@@ -69,7 +68,7 @@ const CardExplorer = () => {
             }) 
           } 
         >
-        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item._data.title}</PrimaryText>
+        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.title}</PrimaryText>
       </TouchableOpacity>
     );
     

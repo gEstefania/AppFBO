@@ -1,4 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
+import { getArticle } from './article';
 
 export const getAllCategories=()=>{
     return new Promise(async(resolve, reject)=>{
@@ -15,6 +16,35 @@ export const getAllCategories=()=>{
             reject({error:"Get data firestore error."})
         }
     })
+}
+
+export const getTopCategoryArticles = (catId) => {
+    const articles = new Promise(async(resolve, reject)=>{
+        try{
+            firestore()
+            .collection(`FeauturedGeneralArticlesByCategory/${catId}/Articles`)
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    let articlesList = documentSnapshot.docs.map(async(doc)=>{
+                        return {id:doc.id,...doc.data(), type: 'article'}
+                    })
+                    resolve({type: 'article', data: documentSnapshot.docs})
+                }
+            })
+        }catch(e){
+            reject({error:"Get data firestore error.", e})
+        }
+    })
+    let dataArticles = articles.then(res=>{
+        let articlesData = res.data.map(async(doc) => {
+            // console.log('document', doc)
+            let getDataArticle = await getArticle(doc._data.articleId);
+            return {...getDataArticle, ...doc};
+        })
+        return Promise.all(articlesData)
+    })
+
+    return dataArticles
 }
 
 export const getDataFromCategory=async(catId)=>{
