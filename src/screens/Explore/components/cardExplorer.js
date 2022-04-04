@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity } from "react-native"
+import { View, TouchableOpacity, ImageBackground } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
@@ -55,7 +55,7 @@ const CardExplorer = () => {
   // }
 
   const renderList = ({item, index}) => {
-    //console.log('item>>>', item._data)
+    //console.log('item>>>', item.coverImage.url)
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
@@ -68,7 +68,14 @@ const CardExplorer = () => {
             }) 
           } 
         >
-        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.title}</PrimaryText>
+          <ImageBackground
+            resizeMode="cover"
+            source={{uri:item.coverImage?.url}}
+            imageStyle={{ borderRadius: 14}}
+            style={styles.backgroundImage}>
+            <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.title}</PrimaryText>
+          </ImageBackground>
+        
       </TouchableOpacity>
     );
     

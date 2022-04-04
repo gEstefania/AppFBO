@@ -12,12 +12,11 @@ export default StyleSheet.create({
   swiper: {
     height: '100%',
     width: 350,
-    alignItems:"flex-start",
-    justifyContent:"flex-end",
+    
     backgroundColor:"#ff9b04",
     borderRadius: 20,
-    paddingVertical: 40,
-    paddingHorizontal: 20,
+    //paddingVertical: 40,
+    //paddingHorizontal: 20,
   },
   titleSlide: {
     fontSize: 20,
@@ -54,4 +53,10 @@ export default StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.CORPORATE_ORANGE,
   },
+  backgroundImage:{
+    flex: 1,
+    padding: 20,
+    alignItems:"flex-start",
+    justifyContent:"flex-end",
+  }
 });

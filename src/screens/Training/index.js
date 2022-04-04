@@ -63,6 +63,7 @@ const Index = (props) => {
   }
 
   const renderList = ({item}) => {
+    console.log('ITEMM', item.coverImage.url);
     return (
       <TouchableOpacity
         onPress={()=>navigateToCourseDetails(item) }

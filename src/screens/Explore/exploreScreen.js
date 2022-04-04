@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, useWindowDimensions } from "react-native";
+import { View, TouchableOpacity, useWindowDimensions, ImageBackground } from "react-native";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
 import { useSelector } from 'react-redux';
 import Modal from "react-native-modal";
@@ -55,12 +55,19 @@ const ExploreScreen = (props) => {
   }
 
   const renderList = ({item}) => {
+    console.log('KITEMMMSMMSM IS',item.coverImage.url);
     return(
       <TouchableOpacity 
         style={[styles.swiper, {width: width*0.90}]}
         onPress={()=>navigateToCourseDetails(item) }
         >
-        <PrimaryText color={'#fff'} style={styles.titleSlide}>{item.title}</PrimaryText>
+          <ImageBackground
+          resizeMode="cover"
+          source={{uri:item.coverImage?.url}}
+          imageStyle={{ borderRadius: 14}}
+          style={styles.backgroundImage}>
+            <PrimaryText color={'#fff'} style={styles.titleSlide}>{item.title}</PrimaryText>
+          </ImageBackground>
       </TouchableOpacity>
     )
   }
