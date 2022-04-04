@@ -13,7 +13,7 @@ export default StyleSheet.create({
     paddingTop: 40,
   },
   header: {
-    marginTop: 135,
+    marginTop: width * 0.26,
     flex: 1,
     alignItems: 'center'
   },

@@ -1,6 +1,6 @@
 import { FlatList, TouchableHighlight, View, Image, Text} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import {PrimaryText} from '@common';
+import {PrimaryText, SecondaryText} from '@common';
 import {getArticles} from '@firestore/article';
 import styles from './styles/topicScreen';
 import { countWords } from '../../../utils/tools';
@@ -53,14 +53,14 @@ const Topic = ({route, navigation}) => {
           <View style={{flexDirection: 'row', flex: 1, alignItems: 'center'}}>
             <View style={[styles.circle, {backgroundColor: color}]}></View>
             {countWords(item.title) > 2 ? (
-              <PrimaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,25)}...</PrimaryText>
+              <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title?.substring(0,15)}...</SecondaryText>
           ) : (
-            <PrimaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</PrimaryText>
+            <SecondaryText style={{maxWidth: 280}} color={'#000'}>{item.title}</SecondaryText>
           )}
             
           </View>
           <View style={{alignContent: 'flex-end'}}>
-            <IconFlechaOrange width={30} height={30}/>
+            <IconFlechaOrange width={20} height={20}/>
           </View>
           
         </View>

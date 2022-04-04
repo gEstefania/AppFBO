@@ -28,7 +28,7 @@ const Index = () => {
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignIn")}
                 >
-                    <SecondaryText style={styles.login} color={'skyblue'}>INICIAR SESIÓN</SecondaryText>
+                    <SecondaryText style={styles.login} color={'#00aae4'}>INICIAR SESIÓN</SecondaryText>
                 </TouchableOpacity>
             </View>
          </View>

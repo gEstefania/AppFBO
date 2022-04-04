@@ -13,6 +13,7 @@ const Category = ({route, navigation}) => {
   const description = route.params.catDesc;
   const catId = route.params.catId;
   const subCatId = route.params.subCatId;
+  const img = route.params.img
 
   const getSubcategoryData=async(categoryId, subCategoryId, itemName,item)=>{
     try {
@@ -75,6 +76,7 @@ const Category = ({route, navigation}) => {
   }
 
   const renderList = ({item}) => {
+    console.log('IMAGE', img);
     return (
       <TouchableOpacity
         onPress={() => onButtonPress(item)}
@@ -89,17 +91,24 @@ const Category = ({route, navigation}) => {
     );
   };
 
+
+  const empty = () => <View style={{flex:1, justifyContent:'center', alignItems: 'center'}}>
+    <PrimaryText color={'gray'}>No hay nada que mostrar.</PrimaryText>
+    </View>
+
   return(
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <PrimaryText style={styles.topicTitle}><Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
-      {/* <ImageBackground
+      <ImageBackground
         resizeMode="cover"
+        source={{uri: img.url}}
         style={styles.imageBackground}>
         <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
-      </ImageBackground> */}
+      </ImageBackground> 
       <FlatList
         data={dataSubCategories}
         renderItem={renderList}
+        ListEmptyComponent={empty}
         //keyExtractor={item => item.id}
         style={styles.bntList}
       />

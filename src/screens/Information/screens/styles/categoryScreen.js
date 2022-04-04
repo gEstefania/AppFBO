@@ -3,15 +3,15 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    margin: 20,
-    marginBottom: 0,
+    marginHorizontal: 50,
+    marginTop: 10,
   },
   titleArticle: {
-    marginTop: -12,
-    marginLeft:15,
+    //marginTop: -12,
+    //marginLeft:15,
     fontSize: 20,
     textTransform: 'uppercase',
-    marginBottom: -40,
+    //marginBottom: -40,
   },
   btnList: {
     marginTop: 40,

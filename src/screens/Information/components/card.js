@@ -5,7 +5,7 @@ import { getDataFromCategory, getDataFromSubCategory, getTopCategoryArticles } f
 import styles from './styles/card';
 import { countWords } from '../../../utils/tools';
 
-const Card = ({title, catId, catDesc, cardColor, navigation}) => {
+const Card = ({title, catId, catDesc, cardColor, navigation, img}) => {
   const [ subCategory, setSubCategory ] = useState([]);
   const [ articles, setArticles ] = useState([]);
 
@@ -82,6 +82,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         catDesc: catDesc,
         catId: catId,
         subCatId: '',
+        img: img,
         })
   }
 

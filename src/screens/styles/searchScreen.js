@@ -36,6 +36,7 @@ export default StyleSheet.create({
   },
   input:{
     width: '100%',
+    color: '#000',
     padding: 20,
     borderRadius: 30,
     backgroundColor: '#ECF1FE',

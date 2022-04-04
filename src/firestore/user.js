@@ -159,3 +159,29 @@ export const unregisterDevice=()=>{
         })
     })
 }
+
+export const showArticlesByGroup=()=>{
+    return new Promise(async(resolve,reject)=>{
+        let user = store.getState().users
+        console.log('USER GROUP', user.group);
+        try {
+           const groups = firestore()
+            .collection("Groups")
+            .get()
+            console.log('COLECCION GRUPOS', groups);
+            
+            //let userId = store.getState().users.id
+            firestore()
+                .collection("Articles")
+                .where('group', 'array-contains', `${user.group}`)
+                .onSnapshot(documentSnapshot => {
+                    if (documentSnapshot) {
+                        console.log('GROUPS', documentSnapshot);
+                        //resolve(documentSnapshot.docs)
+                    }
+                })
+        }catch(e){
+            reject({error:e});
+        }
+    })
+}

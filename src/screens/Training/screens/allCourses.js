@@ -25,9 +25,9 @@ const AllCourses = () =>{
                 style={styles.btnCourse}>
                 <PrimaryText color={'gray'} style={styles.fontTitle}>{item.item.title}</PrimaryText>
                 <View style={styles.courseInfo}>
-                    <IconVideo width={15} height={15} />
+                    <IconVideo marginTop={4} width={15} height={15} />
                     <PrimaryText style={styles.fontInfo}>{item.item.totalVideos}</PrimaryText>
-                    <IconRelojOrange width={15} height={15} />
+                    <IconRelojOrange marginTop={3} width={15} height={15} />
                     { item.item.totalHours > 0 ? ( // verificamos si hay horas o no
                         <PrimaryText type={'Regular'} style={styles.infoText}>{item.item.totalHours} h y {item.totalMins} min</PrimaryText>
                         ) : (

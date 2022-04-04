@@ -40,7 +40,7 @@ const Index = (props) => {
 
     const renderList = ({item, index}) => {
       return(
-        <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} navigation={props.navigation}/> 
+        <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} navigation={props.navigation} img={item.image}/> 
       )
     }
   return(
