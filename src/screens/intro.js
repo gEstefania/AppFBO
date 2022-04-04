@@ -10,7 +10,7 @@ const Intro = () => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate("Index")
-        }, 1500);
+        }, 4500);
 
         //time()
     }, []);
@@ -20,7 +20,7 @@ const Intro = () => {
             onPress={()=>navigation.navigate("Index")}
             style={styles.mainContainer}>
             <ImageBackground
-                resizeMode="stretch"
+                resizeMode="cover"
                 style={[styles.imageBackground]}
                 source={require('../assets/img/FBO-intro.png')}>
                     <View style={styles.header}>

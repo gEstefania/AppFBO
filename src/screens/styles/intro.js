@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {Colors} from '@common';
 
-const {width} = Dimensions.get('window');
+const {width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
   mainContainer: {
@@ -10,15 +10,15 @@ export default StyleSheet.create({
   imageBackground: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 40,
+    //paddingTop: 40,
   },
   header: {
-    marginTop: width * 0.26,
+    marginTop: height * 0.22,
     flex: 1,
     alignItems: 'center'
   },
   title: {
-    fontSize: 26,
+    fontSize: 24,
     textAlign: 'center',
   },
   textIntro:{
