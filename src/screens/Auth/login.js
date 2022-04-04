@@ -36,16 +36,17 @@ const Login = (props) => {
                         const userData={
                             email:user.email,   
                         }
-                        let res = await insertUser(userData)
-                        if(res.data()){
-                            if(res.data().myTags){
-                                if(res.data().myTags.length===0){
-                                    navigation.navigate("TagsPreferences")
-                                }
-                            }
-                        }else{
+                        await insertUser(userData)
+                        // if(res.data()){
+                        //     if(res.data().myTags){
+                        //         if(res.data().myTags.length===0){
+                        //             console.log('No tiene tags asignados')
+                        //             navigation.navigate("TagsPreferences");
+                        //         }
+                        //     }
+                        // }else{
                             navigation.navigate("Home")
-                        }
+                        // }
                     })
                     .catch(error => {
                         if (error.code === 'auth/user-not-found') {
@@ -60,7 +61,7 @@ const Login = (props) => {
                         console.error(error);
                     });
                 }else{
-                    ShowAlertMessage('Usuario inexistente', '', 'warning');
+                    ShowAlertMessage('Usuario deshabilitado', 'Consulta con soporte para acceder nuevamente', 'warning');
                 }
             } catch (e) {
                 console.log('Login Error: ', e);
@@ -118,17 +119,18 @@ const Login = (props) => {
             let userProfile = userCredentials.additionalUserInfo?.profile
             // TODO: console.log('Google User Credentials: ', userCredentials.additionalUserInfo?.isNewUser); 
             if(userProfile){
-                let res = await insertUser(userProfile)
+                await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
-                if(res.data()){
-                    if(res.data().myTags){
-                        if(res.data().myTags.length===0){
-                            navigation.navigate("TagsPreferences")
-                        }
-                    }
-                }else{
+                // if(res.data()){
+                //     if(res.data().myTags){
+                //         if(res.data().myTags.length===0){
+                //             console.log('No tiene tags asignados')
+                //             navigation.navigate("TagsPreferences")
+                //         }
+                //     }
+                // }else{
                     navigation.navigate("Home")
-                }
+                // }
                 
                 
                 
@@ -193,18 +195,19 @@ const Login = (props) => {
                 console.log("FACEBOOK ", authFacebook)
                 let userProfile = authFacebook.additionalUserInfo?.profile
 
-                let res = await insertUser(userProfile)
+                await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
                 
-                if(res.data()){
-                    if(res.data().myTags){
-                        if(res.data().myTags.length===0){
-                            navigation.navigate("TagsPreferences")
-                        }
-                    }
-                }else{
+                // if(res.data()){
+                //     if(res.data().myTags){
+                //         if(res.data().myTags.length===0){
+                //             console.log('No tiene tags asignados')
+                //             navigation.navigate("TagsPreferences")
+                //         }
+                //     }
+                // }else{
                     navigation.navigate("Home")
-                }
+                // }
                 
             }
         } catch (error) {

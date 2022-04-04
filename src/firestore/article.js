@@ -22,3 +22,21 @@ export const getArticles=(catId, subCatId, topicId)=>{
         }
     })
 }
+
+export const getTopArticles = () => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let articles = await
+            firestore()
+            .collection("Articles")
+            .orderBy('priority', 'asc')
+            .limit(5)
+            .get();
+
+            resolve(articles.docs)
+
+        } catch (e) {
+            reject({ error: "Get data firestore error.", e })
+        }
+    })
+}
