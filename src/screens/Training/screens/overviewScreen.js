@@ -12,8 +12,9 @@ const OverviewScreen = ({route,navigation,course}) => {
       };
     return (
         <View style={styles.mainContainer}>
-            <View style={styles.summaryContainer}>
-            <ImageBackground style={styles.summaryContainer} source={require('../../../assets/img/FBO-banner-nube.png')}/>
+           
+            <ImageBackground style={styles.summaryContainer} source={require('../../../assets/img/FBO-banner-nube.png')}>
+                <View style={{padding: 20, width: '100%', height: '100%', justifyContent: 'space-around'}}>
                 <View style={styles.row}>
                 <IconVideoNube width={25} height={25} />
                     <View style={styles.columnText}>
@@ -30,7 +31,9 @@ const OverviewScreen = ({route,navigation,course}) => {
                         )}
                     </View>
                 </View>
-            </View>
+                </View>
+                </ImageBackground>
+            
             <View style={styles.descContainer}>
                 <PrimaryText>Aprenderemos a</PrimaryText>
                 <RenderHtml
