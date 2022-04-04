@@ -56,7 +56,7 @@ const CardExplorer = () => {
   // }
 
   const renderList = ({item, index}) => {
-    console.log('item>>>', item._data)
+    // console.log('item>>>', item._data)
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}

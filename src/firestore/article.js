@@ -23,6 +23,24 @@ export const getArticles=(catId, subCatId, topicId)=>{
     })
 }
 
+export const getArticle = (articleId) => {
+    return new Promise(async(resolve, reject)=>{
+        try{
+            let article = await
+            firestore()
+            .collection("Articles")
+            .doc(articleId)
+            .onSnapshot(documentSnapshot => {
+                if (documentSnapshot) {
+                    resolve(documentSnapshot.data())
+                }
+            });
+        }catch(e){
+            reject({error:"Get data firestore error."})
+        }
+    })
+}
+
 export const getTopArticles = () => {
     return new Promise(async (resolve, reject) => {
         try {

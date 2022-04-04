@@ -1,7 +1,7 @@
 import { FlatList, TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
-import { getDataFromCategory, getDataFromSubCategory } from '@firestore/category';
+import { getDataFromCategory, getDataFromSubCategory, getTopCategoryArticles } from '@firestore/category';
 import styles from './styles/card';
 import { countWords } from '../../../utils/tools';
 
@@ -15,6 +15,8 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
 
   const getData=async()=>{
     try {
+        let response = await getTopCategoryArticles(catId)
+        setArticles(response)
         let res = await getDataFromCategory(catId)
         //Set Subcategories:
         let subcategoryList = []
@@ -22,15 +24,6 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
           subcategoryList.push({id:doc.id,...doc.data(), type: 'subcategory'})
         })
         setSubCategory(subcategoryList)
-        
-        //Set Articles:
-        let articlesList = []
-        res[1].data.forEach(doc=>{
-          articlesList.push({id:doc.id,...doc.data(), type: 'article'})
-        })
-        setArticles(articlesList)
-        // console.log('ARTICULOS: ', articles)
-        // console.log('Datos veeeeeer: ', res[0].data);
         
     }catch(e){
         console.log('error en get data en card',e)
@@ -82,32 +75,17 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
   }
 
   const whereToGo = () => {
-    if (articles.length > 0) {
-      navigation.navigate("Topic", {
-        title: title,
-        color: cardColor,
-        catId: catId,
-        subCatId: subCategory,
-        isArticle: true,
-        articles: articles
-        }
-      )
-    } else {
       navigation.navigate("Category", {
         title: title,
         color: cardColor,
         subCategories: subCategory,
-        articles: articles,
         catDesc: catDesc,
         catId: catId,
         subCatId: '',
         })
-    }
   }
 
   const onButtonPress= (item) => {
-    // console.log('ITEM component article: ',item)
-    if(item.type== 'article'){
       navigation.navigate("Article", {
         title: item.title,
         body: item.body,
@@ -115,11 +93,6 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
         ...item
         }
       )
-    }
-    if(item.type== 'subcategory'){
-
-      getSubcategoryData(catId, item.id, item.name,item)
-    }
   }
 
   const renderList = ({item}) => {
@@ -151,7 +124,7 @@ const Card = ({title, catId, catDesc, cardColor, navigation}) => {
       </View>
         <FlatList
           horizontal
-          data={articles.concat(subCategory)}
+          data={articles}
           renderItem={renderList}
           //keyExtractor={item => item.id}
         />

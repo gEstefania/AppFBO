@@ -98,7 +98,7 @@ const Category = ({route, navigation}) => {
         <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
       </ImageBackground> */}
       <FlatList
-        data={dataArticles.concat(dataSubCategories)}
+        data={dataSubCategories}
         renderItem={renderList}
         //keyExtractor={item => item.id}
         style={styles.bntList}
