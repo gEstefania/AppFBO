@@ -60,6 +60,20 @@ const Post = ({ route, article }) => {
                     source={source}
                 />
             </View>
+            { archive.url ? (
+                <Pressable
+                    onPress={() => download()}
+                    style={styles.downloadCard}>
+                    <View style={styles.textContainer}>
+                        <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{archive.fileName}</SecondaryText>
+                    </View>
+                    <View>
+                        <IconDescarga width={45} height={45} />
+                    </View>
+                </Pressable>
+            ) : (
+                null
+            )}
             { video && typeof video !== 'object' && (
                 (video.includes('youtu.be')) ? (
                 <YoutubePlayer
@@ -87,20 +101,6 @@ const Post = ({ route, article }) => {
                 />
             </View>
             )) }
-            { archive.url ? (
-                <Pressable
-                    onPress={() => download()}
-                    style={styles.downloadCard}>
-                    <View style={styles.textContainer}>
-                        <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{archive.fileName}</SecondaryText>
-                    </View>
-                    <View>
-                        <IconDescarga width={45} height={45} />
-                    </View>
-                </Pressable>
-            ) : (
-                null
-            )}
             {/* Compartir boton */}
             <TouchableOpacity style={styles.shareButton}>
                 <View style={styles.shareContainer}>

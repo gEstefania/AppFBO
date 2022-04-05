@@ -49,7 +49,7 @@ export default StyleSheet.create({
     paddingHorizontal: 35,
     paddingVertical: 25,
     backgroundColor: Colors.CORPORATE_ORANGE,
-    marginBottom: 20,
+    marginVertical: 30,
   },
   textContainer:{
     flex: 1,
@@ -74,6 +74,6 @@ export default StyleSheet.create({
     paddingHorizontal: 35,
     paddingVertical: 15,
     borderRadius: 50,
-    marginBottom: 20,
+    marginVertical: 20,
   }
 });

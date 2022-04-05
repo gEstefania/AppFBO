@@ -23,6 +23,16 @@ const Login = (props) => {
     const navigation = useNavigation();
 
     async function onSignInButtonPress() {
+        // si la contraseña es menor a 6 caracteres
+        // if (user.password.length < 6) {
+        //     ShowAlertMessage('Error', 'La contraseña debe tener al menos 6 caracteres');
+        //     return;
+        // }
+        // validar si es un correo valido
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
+            ShowAlertMessage('Error', 'El correo no es valido');
+            return;
+        }
         if (user.email !== '' && user.password !== '') {
             try {
                 let getUserEnable = await firestore().collection("Users").where('email','==',user.email).get()
