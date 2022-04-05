@@ -1,23 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/allCourses';
 import { setCurrentCourse } from '../../../redux/actions/selectedCourseActions';
 import {IconRelojOrange, IconVideo} from '@icons';
+import ShowModalForRegister from '../../../components/showModalForRegister';
 
 const AllCourses = () =>{
+    const [user, setUser] = useState();
+    const [isModalVisible, setModalVisible] = useState(false);
     const courses = useSelector(state => state.courses)
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const navigateToCourseDetails=(item)=>{
-        navigation.navigate("TopMenu")
-        dispatch(setCurrentCourse(item))
-        //props.setCurrentCourse(item)
+    function onAuthStateChanged(user) {
+        setUser(user);
     }
+    
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return ()=>{
+            subscriber();
+        } ; // unsubscribe on unmount
+    }, []);    
 
+    const navigateToCourseDetails=(item)=>{
+        if(user.isAnonymous === true){
+            setModalVisible(!isModalVisible);
+          }else{
+            navigation.navigate("TopMenu")
+            dispatch(setCurrentCourse(item))
+          }
+    }
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    }
+    
     const renderList = (item) => {
         return(
             <TouchableOpacity
@@ -55,6 +76,7 @@ const AllCourses = () =>{
                 style={{marginTop: 20,}}
                 columnWrapperStyle={{justifyContent: 'space-between'}}
             />
+            <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
         </View>
     )
 }

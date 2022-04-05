@@ -105,6 +105,14 @@ const SearchScreen = (props) => {
         }
     },[searchText])
 
+    const navigateToCourseDetails=(item)=>{
+        if(userAuth.isAnonymous === true){
+            setAnonymousModalVisible(!isAnonymousModalVisible);
+          }else{
+            navigation.navigate("TopMenu")
+            dispatch(setCurrentCourse(item))
+          }
+    }
 
     const renderItem = ({item})=>{
         return(
@@ -112,8 +120,7 @@ const SearchScreen = (props) => {
                 style={{alignItems:'center', flexDirection: 'row'}}
                 onPress={()=>{
                     if(item.type===0){
-                        navigation.navigate("TopMenu")
-                        props.setCurrentCourse(item)
+                        navigateToCourseDetails()
                     }else{
                         navigation.navigate('Article')
                         props.setCurrentArticle(item)
@@ -135,22 +142,6 @@ const SearchScreen = (props) => {
         )
     }
 
-    const search = () => {
-        if(userAuth.isAnonymous == true){
-            setAnonymousModalVisible(!isAnonymousModalVisible);
-        }
-    }
-    
-    const onSignUpButtonPress = () => {
-        try {
-          if(auth().signOut()){
-              navigation.navigate("SignUp")
-          }
-        } catch (error) {
-          console.log(error);
-        }
-    }
-
     return (
         <View style={styles.mainContainer}>
             <View style={styles.headerContainer}>
@@ -160,8 +151,6 @@ const SearchScreen = (props) => {
             <View style={styles.shadow}></View>
             <View style={styles.inputContainer}>
                 <TextInput
-                onPressIn={() => search()}
-                    //onPress={() => search()}
                     placeholder="Busca un tema"
                     placeholderTextColor='gray'
                     style={styles.input}
