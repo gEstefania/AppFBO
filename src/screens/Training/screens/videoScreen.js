@@ -92,15 +92,14 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
                 <PrimaryText style={styles.sectionTitle}>Descripción</PrimaryText>
                 <SecondaryText>{lesson.description}</SecondaryText>
             </View>
-            {lesson?.archive?.url !== "" && lesson?.archive?.url !== null && (
+            {lesson?.archive?.url && (
                 <View style={styles.resourceContainer}>
                     <PrimaryText style={styles.sectionTitle}>Recursos</PrimaryText>
                     <Pressable
                         onPress={() => download()}
                         style={styles.downloadCard}>
                         <View style={styles.textContainer}>
-                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive?.fileName || 'Sin Recursos'}</SecondaryText>
-                            
+                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive?.fileName}</SecondaryText>
                         </View>
                         <View>
                             <IconDescarga width={45} height={45} />

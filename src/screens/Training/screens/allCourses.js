@@ -27,6 +27,7 @@ const AllCourses = () =>{
                         resizeMode="cover"
                         source={{uri: item.item.coverImage?.url}}
                         style={styles.btnCourse}
+                        imageStyle={{ borderRadius: 14}}
                     >
                     <PrimaryText color={'gray'} style={styles.fontTitle}>{item.item.title}</PrimaryText>
                     <View style={styles.courseInfo}>
