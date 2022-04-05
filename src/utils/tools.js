@@ -16,6 +16,9 @@ export const getVideoId=(url)=>{
 }
 
 export const countWords = (str) => {
+    if (str === null || str === undefined || str === '') {
+        return 0
+    }
     const arr = str.split(' ');
     return arr.filter(word => word !== '').length;
 

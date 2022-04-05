@@ -17,6 +17,7 @@ import functions from '@react-native-firebase/functions';
 const SignUp = () => {
     const [user, setUser] = useState({email: '', password: '', name: ''});
     const [checkPolicy, setCheckPolicy] = useState(false);
+    const [isTypingPass, setIsTypingPass] = useState(false);
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
@@ -40,6 +41,16 @@ const SignUp = () => {
     }
 
     async function onSignUpButtonPress() {
+        // si la contraseña es menor a 6 caracteres
+        if (user.password.length < 6) {
+            ShowAlertMessage('Error', 'La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+        // validar si es un correo valido
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
+            ShowAlertMessage('Error', 'El correo no es valido');
+            return;
+        }
         if (user.email !== '' && user.password !== '') {
             if(checkPolicy){
                 try {
@@ -212,8 +223,23 @@ const SignUp = () => {
                     autoCapitalize={'none'}
                     value={user.password}
                     secureTextEntry={true}
-                    onChangeText={text => setUser({...user, password: text})}
+                    onChangeText={text => {
+                        setUser({...user, password: text})
+                        if (text.length > 0) {
+                            setIsTypingPass(true)
+                        } else {
+                            setIsTypingPass(false)
+                        }
+                    }}
                 />
+                { isTypingPass && (
+                    user.password.length < 6 ? (
+                        <SecondaryText color={'red'} style={{fontSize: 12, textAlign: 'center'}}>Tu contraseña debe de tener al menos 6 caracteres</SecondaryText>
+                    ) : (
+                        <SecondaryText color={'green'} style={{fontSize: 12, textAlign: 'center', color: 'green'}}>Tu contraseña debe de tener al menos 6 caracteres</SecondaryText>
+                    )
+                )
+                }
             </View>
             <View style={styles.btnPolicyContainer}>
                 <SecondaryText>Acepto la </SecondaryText>
