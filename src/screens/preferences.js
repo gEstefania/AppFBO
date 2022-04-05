@@ -73,11 +73,11 @@ const Tags = ({navigation,login, route}) => {
                 marginRight: index % 2 !== 0 ? 0 : 10,
                 flexGrow: 0.5,
                 backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
-                paddingHorizontal: 20,
+                paddingHorizontal: 10,
                 paddingVertical: 10,
                 borderRadius: 25,
                 //maxWidth: width / 2 - 20,
-                width: item.name?.length <= 5 ? width / 2 - 100 : width / 2 - 30,
+                width: item.name?.length <= 10 ? width / 2 - 100 : width / 2 - 30,
                 }}>
                 <PrimaryText color={'#fff'} style={{textAlign: 'center'}}>{item.name}</PrimaryText>
             </TouchableOpacity>
