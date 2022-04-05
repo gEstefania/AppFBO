@@ -1,4 +1,5 @@
 import firestore,{ Timestamp} from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 import {store} from '../redux/store'
 
 export const createUserSocialRegiter = (userData) => {
@@ -101,19 +102,19 @@ export const unsubscribeUser = () => {
     return new Promise(async(resolve,reject)=>{
         try {
             let userId = store.getState().users.id
-            await firestore()
-                .collection("Users")
-                .doc(userId)
-                .update({ 
-                    enabled: false,
-                    removed: true,
-                    myTags: [],
-                    tokens: [],
-                }).then(() => {
-                    console.log('User deleted!');
-                });
+            console.log(userId)
+            firestore()
+            .collection('Users')
+            .doc(userId)
+            .delete()
+            .then(() => {
+                console.log('User deleted from Firestore');
+            });
+            auth().currentUser.delete().then(() => {
+                console.log('User deleted from authentication');
+            })
             resolve({msg:"User deleted"})
-        } catch (e) {
+        } catch (error) {
             reject({ error: e });
         }
     })

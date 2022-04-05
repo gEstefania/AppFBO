@@ -122,9 +122,18 @@ const ProfileScreen = (props) => {
 
     const onUnsubscribeButtonPress = async () => {
         try {
+            // Eliminar de Firestore:
             await unsubscribeUser()
+            // Eliminar de Redux:
             dispatch(logout())
+            // Eliminar de Auth:
+            auth().currentUser.delete().then(() => {
+                console.log('User deleted from authentication');
+            })
+            // Log out:
             auth().signOut().then(() => console.log('User signed out!'));
+            
+            // Envio de correo:
             functions().httpsCallable('customEmail')(
                 {
                     from: 'Fundacion Bertin Osborne <bertin09osborne@gmail.com>',
