@@ -29,7 +29,7 @@ const LessonScreen = ({navigation,lessons,currentCourse}) => {
                     </View>
                     <View style={styles.descContainer}>
                         <PrimaryText style={styles.btnText}>{item.title}</PrimaryText>
-                        <SecondaryText style={styles.btnText}>{item.subtitle}</SecondaryText>
+                        <SecondaryText color={'gray'} style={styles.btnText}>{item.subtitle}</SecondaryText>
                     </View>
                 </TouchableOpacity>
             );

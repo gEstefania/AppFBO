@@ -39,6 +39,7 @@ const Index = (props) => {
   }
 
     const renderList = ({item, index}) => {
+      console.log(item.id, item.name)
       return(
         <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} navigation={props.navigation} img={item.image}/> 
       )

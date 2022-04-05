@@ -24,7 +24,7 @@ export const TaskItem = ({item,toggleTask,lesson}) => {
                     taskId:item.taskId,
                 })}
             />
-            <SecondaryText>{item.task}</SecondaryText>
+            <SecondaryText color={'gray'}>{item.task}</SecondaryText>
         </View>
     )
 }
@@ -90,7 +90,7 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
             </View>
             <View style={styles.descContainer}>
                 <PrimaryText style={styles.sectionTitle}>Descripción</PrimaryText>
-                <SecondaryText>{lesson.description}</SecondaryText>
+                <SecondaryText color={'gray'}>{lesson.description}</SecondaryText>
             </View>
             {lesson?.archive?.url && (
                 <View style={styles.resourceContainer}>
@@ -112,14 +112,14 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
                 <PrimaryText style={styles.sectionTitle}>Tareas</PrimaryText>
                 <View style={styles.itemContainer}>
                     { tasks.length === 0 && (
-                        <SecondaryText>No hay tareas disponibles</SecondaryText>
+                        <SecondaryText color={'gray'}>No hay tareas disponibles</SecondaryText>
                     )}
                     {tasks.map((item, i) => {
                         // console.log(item, 'item', lesson.id)
                         if (item.lessonId === lesson.id) {
                         return (
                             <View key={i}>
-                                <TaskItem item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
+                                <TaskItem  item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
                             </View>
                         )}
                     })}

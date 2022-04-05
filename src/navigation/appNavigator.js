@@ -262,7 +262,7 @@ function TrainingStackScreen() {
     >
       <TrainingStack.Screen name="Training" component={TrainingScreen} options={{headerShown: false}}/>
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
-      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={{headerShown:false}}/>
+      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={{headerShown:true}}/>
     </TrainingStack.Navigator>
   );
 };
