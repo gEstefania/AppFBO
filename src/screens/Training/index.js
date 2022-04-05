@@ -37,14 +37,6 @@ const Index = (props) => {
     setModalVisible(!isModalVisible);
   }
 
-  const onViewAllButtonPress = () => {
-    if(user.isAnonymous == true){
-      setModalVisible(!isModalVisible);
-    }else{
-      navigation.navigate("AllCourses")
-    }
-  }
-
   const onSignUpButtonPress = () => {
     try {
       auth().signOut()
@@ -117,7 +109,7 @@ const Index = (props) => {
       <View style={styles.titleContainer}>
         <PrimaryText style={styles.title}>#Construcciones</PrimaryText>
         <TouchableOpacity
-          onPress={() => onViewAllButtonPress()}
+          onPress={() => navigation.navigate("AllCourses")}
         >
           <SecondaryText style={styles.td} color={'gray'}>Ver todo</SecondaryText>
         </TouchableOpacity>
