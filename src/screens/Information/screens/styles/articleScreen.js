@@ -1,7 +1,9 @@
 import {StyleSheet,Dimensions} from 'react-native';
+import {Colors} from '@common';
 
 const widthScreen = Dimensions.get("screen").width
 const heightScreen = Dimensions.get("screen").height
+
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -35,9 +37,43 @@ export default StyleSheet.create({
   },
   imagePost:{
     width: widthScreen,
-    height:300,
+    height:200,
     backgroundColor:"#000",
     justifyContent:"center",
     alignItems:"center",
+  },
+  downloadCard:{
+    flexDirection: 'row',
+    justifyContent: 'center',
+    borderRadius: 20,
+    paddingHorizontal: 35,
+    paddingVertical: 25,
+    backgroundColor: Colors.CORPORATE_ORANGE,
+    marginBottom: 20,
+  },
+  textContainer:{
+    flex: 1,
+  },
+  text: {
+    fontSize: 16,
+    textTransform: 'uppercase',
+    color: Colors.CORPORATE_ORANGE,
+  },
+  shareText: {
+    fontSize: 16,
+    textTransform: 'uppercase',
+    color: Colors.CORPORATE_ORANGE,
+    marginLeft: 10,
+  },
+  shareContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#ECF1FE',
+    paddingHorizontal: 35,
+    paddingVertical: 15,
+    borderRadius: 50,
+    marginBottom: 20,
   }
 });

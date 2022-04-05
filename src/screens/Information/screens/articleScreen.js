@@ -1,15 +1,18 @@
-import { TouchableOpacity, View, Image, Pressable, useWindowDimensions } from 'react-native';
-import React, { useEffect, useState, useRef } from 'react';
+import { TouchableOpacity, View, Linking, Pressable, useWindowDimensions, ActivityIndicator } from 'react-native';
+import React, { useCallback, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import RenderHtml from 'react-native-render-html';
 import { ScrollView } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/articleScreen';
-import { IconCompartir } from '@icons';
-import Video from 'react-native-video';
+import {IconDescarga, IconCompartir} from '@icons';
+import YoutubePlayer from "react-native-youtube-iframe";
+import { Vimeo } from 'react-native-vimeo-iframe';
+import { getVideoId } from '@utils/tools';
 import Icon from 'react-native-vector-icons/AntDesign'
 
 const Post = ({ route, article }) => {
+    // console.log('Viene o no video',route.params?.video)
     const title = route.params?.title;
     const body = route.params?.body;
     const color = route.params?.color || '#000';
@@ -19,11 +22,18 @@ const Post = ({ route, article }) => {
     };
     const image = route.params?.images
     const video = route.params?.video
+    const archive = route.params?.archive || false
 
     const videoRef = useRef(null)
     const [preview, setPreview] = useState()
+    const [isLoading, setIsLoading] = useState(false)
     const [isPlay, setPlay] = useState(false)
 
+    const onStateChange = useCallback((state) => {
+        if (state === "ready") {
+          setIsLoading(false);
+        }
+      }, []);
 
     const onPlay = () => {
         if (isPlay) {
@@ -32,6 +42,13 @@ const Post = ({ route, article }) => {
             setPlay(true)
         }
     }
+
+    const download = () => {
+        if (route.params?.archive?.url) {
+            Linking.openURL(route.params?.archive?.url)
+        }
+    }
+
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleContainer}>
@@ -43,72 +60,54 @@ const Post = ({ route, article }) => {
                     source={source}
                 />
             </View>
-            {(image) && (
-                (image.length > 0 || video.url) && (
-                    <View>
-                        {image && (
-                            <View style={{
-                                flexDirection: "column",
-                                flex: 1
-                            }}>
-                                <Image resizeMode='contain' style={styles.imagePost} source={{ uri: image[0]?.url }} />
-                            </View>
-                        )}
-                        {video && (
-                            <View style={{
-                                marginTop: 16,
-                                flexDirection: "column",
-                                flex: 1,
-                                position: "relative",
-                                justifyContent: "center",
-                                alignItems: "center",
-                            }}>
-
-                                <Video source={{ uri: video.url }}
-                                    style={styles.imagePost}
-                                    paused={!isPlay}
-                                    ref={videoRef}
-                                    playInBackground={false}
-                                    repeat
-                                    resizeMode="contain"
-
-                                />
-                                {!isPlay ? (
-                                    <View style={{
-                                        position: "absolute",
-                                        width: "100%",
-                                        height: "100%",
-                                        backgroundColor: "rgba(0,0,0,.5)",
-                                        borderRadius: 7,
-                                        justifyContent: "center",
-                                        alignItems: "center"
-                                    }}>
-                                        <Pressable onPress={onPlay}>
-                                            <Icon size={46} name="caretright" color="#fff" />
-                                        </Pressable>
-
-                                    </View>
-                                ) : <View style={{
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    borderRadius: 7,
-                                    justifyContent: "center",
-                                    alignItems: "center"
-                                }}>
-                                    <Pressable onPress={onPlay}>
-                                        <Icon size={46} name="pause" color="#fff" />
-                                    </Pressable>
-                                </View>}
-
-
-                            </View>
-                        )}
+            { video && typeof video !== 'object' && (
+                (video.includes('youtu.be')) ? (
+                <YoutubePlayer
+                    height={200}
+                    onReady={() => onStateChange("ready")}
+                    videoId={getVideoId(video)} // The YouTube video ID
+                    webViewProps={{
+                        allowsInlineMediaPlayback: false,
+                        allowsFullscreenVideo: true,
+                        androidLayerType: 'hardware',
+                    }}
+                />
+            ) : (
+                <View style={{ height: 200 }}>
+                <Vimeo
+                    videoId={getVideoId(lesson.url)}
+                    onReady={() => console.log('Video is ready')}
+                    onPlay={() => console.log('Video is playing')}
+                    onPlayProgress={(data) => console.log('Video progress data:', data)}
+                    onFinish={() => console.log('Video is finished')}
+                    loop={false}
+                    autoPlay={false}
+                    controls={true}
+                    speed={false}
+                />
+            </View>
+            )) }
+            { archive.url ? (
+                <Pressable
+                    onPress={() => download()}
+                    style={styles.downloadCard}>
+                    <View style={styles.textContainer}>
+                        <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{archive.fileName}</SecondaryText>
                     </View>
-                )
-            )
-
-            }
+                    <View>
+                        <IconDescarga width={45} height={45} />
+                    </View>
+                </Pressable>
+            ) : (
+                null
+            )}
+            {/* Compartir boton */}
+            <TouchableOpacity style={styles.shareButton}>
+                <View style={styles.shareContainer}>
+                    <IconCompartir width={35} height={35} />
+                    <PrimaryText type={'Regular'} style={styles.shareText}>{'Compartir'}</PrimaryText>
+                </View>
+            </TouchableOpacity>
         </ScrollView>
     )
 }

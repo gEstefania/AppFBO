@@ -59,13 +59,15 @@ const CardExplorer = () => {
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
-        onPress={() => 
+        onPress={() => {
+          // console.log('item>>>', item)
           navigation.navigate("Article", {
-            title: item._data.title,
+            title: item.title,
             body: item.body,
             color: colorPalette[index],
-            ...item._data
+            ...item
             }) 
+          }
           } 
         >
           <ImageBackground

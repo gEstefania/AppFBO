@@ -66,7 +66,7 @@ const Index = (props) => {
     console.log('ITEMM', item.coverImage.url);
     return (
       <TouchableOpacity
-        onPress={()=>navigateToCourseDetails(item.item) }
+        onPress={()=>navigateToCourseDetails(item) }
         style={styles.btnCard}
       >
         <View style={styles.container}>
