@@ -8,6 +8,26 @@ const Index = (props) => {
   const [ category, setCategory ] = useState([]);
   const [ colorPalette, setColorPalette ] = useState([]);
 
+
+  const listImages = [
+    {
+      id: 0,
+      image: require('@assets/img/APP-FBO-marcaagua-SOCIAL.png'),
+    },
+    {
+      id: 1,
+      image: require('@assets/img/APP-FBO-marcaagua-LEGAL.png'),
+    },
+    {
+      id: 2,
+      image: require('@assets/img/APP-FBO-marcaagua-PSICO.png'),
+    },
+    {
+      id: 3,
+      image: require('@assets/img/APP-FBO-marcaagua-MEDICINA.png'),
+    },
+  ]
+
   useEffect(() => { 
     setColorPalette(
       [
@@ -41,7 +61,7 @@ const Index = (props) => {
     const renderList = ({item, index}) => {
       console.log(item.id, item.name)
       return(
-        <Card title={item.name} catId={item.id} catDesc={item.description} cardColor={colorPalette[index]} navigation={props.navigation} img={item.image}/> 
+        <Card title={item.name} catId={item.id} catDesc={item.description} catPlaceHolderImg={listImages[index]} cardColor={colorPalette[index]} navigation={props.navigation} img={item.image}/> 
       )
     }
   return(

@@ -90,15 +90,7 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
             </View>
             <View style={styles.descContainer}>
                 <PrimaryText style={styles.sectionTitle}>Descripción</PrimaryText>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <SecondaryText color={'gray'}>{lesson.description}</SecondaryText>
-=======
-                <SecondaryText>{lesson?.description}</SecondaryText>
->>>>>>> 84e88c3187b0b98d31fdc3598cdf07c4385e001d
-=======
-                <SecondaryText>{lesson?.description}</SecondaryText>
->>>>>>> 84e88c3187b0b98d31fdc3598cdf07c4385e001d
+                <SecondaryText color={'gray'}>{lesson?.description}</SecondaryText>
             </View>
             {lesson?.archive?.url && (
                 <View style={styles.resourceContainer}>
