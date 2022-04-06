@@ -12,7 +12,7 @@ import PreferenceTag from '@components/PreferenceTag'
 import { useNavigation } from '@react-navigation/core';
 import {editMyTags} from '@firestore/user'
 import { logout } from '../redux/actions/userActions';
-import {unregisterDevice} from '@firestore/user';
+import {unregisterDevice, showArticlesByGroup} from '@firestore/user';
 import functions from '@react-native-firebase/functions';
 import {IconBaja, IconCerrar, IconDatos, IconEditar, IconMas, IconIntereses, IconPerfil} from '@icons';
 import { unsuscribeMail } from '../utils/emailTemplate';
@@ -33,8 +33,9 @@ const ProfileScreen = (props) => {
         setUserAuth(userAuth);
     }
     useEffect(() => {
+        showArticlesByGroup()
         const user = auth().currentUser
-        console.log('usuario actual',user)
+        console.log('usuario actual',props.user)
         const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
         return ()=>{
             subscriber();
@@ -53,12 +54,12 @@ const ProfileScreen = (props) => {
                     console.log('User: ',user);
                     setUser(user)
                     dUser.myTags?.forEach(async doc=>{
-                        console.log('doc', doc);
+                        //console.log('doc', doc);
                         let dTag = await firestore().doc(doc.path).get()
-                        console.log('dtag', dTag);
+                        //console.log('dtag', dTag);
                         setTags(oldTags=>[...oldTags,{id:dTag.id,...dTag.data()}])
-                        console.log('id', dTag.data().enabled);
-                        if(dTag.data().enabled==false){
+                        console.log('TAGS', dTag.data());
+                        if(dTag.data()?.enabled === false){
                             deleteTagRemoved(dTag.id)
                         }
                     })  
@@ -78,7 +79,9 @@ const ProfileScreen = (props) => {
         try {
             let res = await getUserData()
             console.log('getUser response',res);
-            setUserInfo({name: res.name, email: res.email})
+            if(res){
+                setUserInfo({name: res.name, email: res.email})
+            }
         }catch(e){
             console.log(e)
         }
