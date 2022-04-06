@@ -92,9 +92,10 @@ const Post = ({ route, article }) => {
                     }}
                 />
             ) : (
-                <View style={{ height: 200 }}>
+                <View style={{ height: 300 }}>
                 <Vimeo
-                    videoId={getVideoId(video?.url)}
+                
+                    videoId={getVideoId(video)}
                     onReady={() => console.log('Video is ready')}
                     onPlay={() => console.log('Video is playing')}
                     onPlayProgress={(data) => console.log('Video progress data:', data)}

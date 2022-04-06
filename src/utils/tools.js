@@ -9,10 +9,16 @@ export const getExtensionCapitalFromURI=(uri)=>{
 }
 
 export const getVideoId=(url)=>{
-    let parts = url.split("/")
-    let id = parts[parts.length - 1]
-    console.log(id)
-    return id
+    console.log('URL',url)
+    // verificar si la url esta indefinida
+    if(url === undefined){
+        return ['Xu0XxCwRbHY']
+    } else {
+        let parts = url.split("/")
+        let id = parts[parts.length - 1]
+        console.log(id)
+        return id
+    }
 }
 
 export const countWords = (str) => {
