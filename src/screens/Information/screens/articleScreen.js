@@ -15,10 +15,10 @@ const Post = ({ route, article }) => {
     // console.log('Viene o no video',route.params?.video)
     const title = route.params?.title;
     const body = route.params?.body;
-    const color = route.params?.color || '#000';
+    const color = route.params?.color;
     const { width } = useWindowDimensions();
     const source = {
-        html: `${body || article.body}`
+        html: `<div class="text">${body || article.body}</div>`
     };
     const image = route.params?.images
     const video = route.params?.video
@@ -49,6 +49,10 @@ const Post = ({ route, article }) => {
         }
     }
 
+    const mixedStyles = { 
+        "text": { color: '#000'}, 
+    };
+
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleContainer}>
@@ -56,6 +60,7 @@ const Post = ({ route, article }) => {
             </View>
             <View style={styles.postContainer}>
                 <RenderHtml
+                    classesStyles={mixedStyles}
                     contentWidth={width}
                     source={source}
                 />
