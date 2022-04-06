@@ -35,10 +35,6 @@ const Login = (props) => {
         }
         if (user.email !== '' && user.password !== '') {
             try {
-                let getUserEnable = await firestore().collection("Users").where('email','==',user.email).get()
-                let userEnable = getUserEnable.docs[0].data().enabled
-                console.log('userEnable:', userEnable);
-                if (userEnable == true) {
                     auth()
                     .signInWithEmailAndPassword(user.email, user.password)
                     .then(async() => {
@@ -47,16 +43,6 @@ const Login = (props) => {
                             email:user.email,   
                         }
                         await insertUser(userData)
-                        // if(res.data()){
-                        //     if(res.data().myTags){
-                        //         if(res.data().myTags.length===0){
-                        //             console.log('No tiene tags asignados')
-                        //             navigation.navigate("TagsPreferences");
-                        //         }
-                        //     }
-                        // }else{
-                            navigation.navigate("Home")
-                        // }
                     })
                     .catch(error => {
                         if (error.code === 'auth/user-not-found') {
@@ -70,9 +56,6 @@ const Login = (props) => {
                         }
                         console.error(error);
                     });
-                }else{
-                    ShowAlertMessage('Usuario deshabilitado', 'Consulta con soporte para acceder nuevamente', 'warning');
-                }
             } catch (e) {
                 console.log('Login Error: ', e);
                 ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');

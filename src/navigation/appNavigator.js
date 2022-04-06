@@ -6,6 +6,7 @@ import { createMaterialTopTabNavigator } from '@react-navigation/material-top-ta
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FlashMessage from 'react-native-flash-message';
+import { useSelector } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
@@ -35,6 +36,8 @@ const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
 //Stacks:
 const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
+const LoginStack = createStackNavigator();
 const ExplorerStack = createStackNavigator();
 const InformationStack = createStackNavigator();
 const TrainingStack = createStackNavigator();
@@ -50,7 +53,6 @@ const MyTheme = {
 
 //Main Navigator
 const AppNavigator = () => {
-
   // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
@@ -66,31 +68,13 @@ const AppNavigator = () => {
   }, []);
 
   if (initializing) return null;
-
-  if (!user) {
-    return (
-      <NavigationContainer ref={navigationRef} theme={MyTheme}>
-        <Stack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Intro" component={Intro} />
-          <Stack.Screen name="Index" component={Index} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Navigator>
-        <FlashMessage position="top"/>
-      </NavigationContainer>
-    );
-  }
-
-  return (
+  
+  return(
     <NavigationContainer ref={navigationRef} theme={MyTheme}>
-      <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={BottomTabNavigator} />
-          <Stack.Screen name="TagsPreferences" component={Tags} />
-        </Stack.Navigator>
-        <FlashMessage position="top"/>
+      {user ? <HomeStackScreen /> : <LoginStackScreen />}
+      <FlashMessage position="top"/>
     </NavigationContainer>
-  );
-    
+  )
 }
 
 
@@ -284,4 +268,26 @@ function ProfileStackScreen() {
     </ProfileStack.Navigator>
   );
 };
+
+function HomeStackScreen() {
+  const userAuth = useSelector(state => state.users)
+  return (
+    <HomeStack.Navigator initialRouteName={userAuth.newUser ? "Tags" : "Home"} screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="Home" component={BottomTabNavigator} />
+      <HomeStack.Screen name="Tags" component={Tags} />
+    </HomeStack.Navigator>
+  );
+};
+
+function LoginStackScreen() {
+  return (
+    <LoginStack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
+      <LoginStack.Screen name="Intro" component={Intro} />
+      <LoginStack.Screen name="Index" component={Index} />
+      <LoginStack.Screen name="SignIn" component={SignIn} />
+      <LoginStack.Screen name="SignUp" component={SignUp} />
+  </LoginStack.Navigator>
+  );
+};
+
 export default AppNavigator;

@@ -58,7 +58,7 @@ const SignUp = () => {
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
                         insertUser(user)
-                        navigation.navigate("TagsPreferences")
+                        //navigation.navigate("Home", {screen: "Tags"})
                         functions().httpsCallable('welcomeEmail')({to: user.email, subject: '¡Bienvenido a +Family!'})
                         .then((response) => {console.log('Welcome email send!', response)});
                         dispatch(IsNewUser({newUser: true}))
