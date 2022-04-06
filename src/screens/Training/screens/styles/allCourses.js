@@ -20,9 +20,11 @@ export default StyleSheet.create({
     borderRadius: 20,
   },
   courseInfo:{
+    marginLeft:-8,
     flexDirection: 'row'
   },
   fontTitle:{
+    marginLeft:-8,
     fontSize: 10,
   },
   fontInfo: {

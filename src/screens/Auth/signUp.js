@@ -246,7 +246,7 @@ const SignUp = () => {
                 <TouchableOpacity>
                     <SecondaryText color={'#00aae4'}>Política de Privacidad*</SecondaryText>
                 </TouchableOpacity>
-                <CheckBox
+                <CheckBox checkedColor='#00aae4'
                     containerStyle={{padding: 0}}
                     checked={checkPolicy}
                     onPress={() => setCheckPolicy(!checkPolicy)}

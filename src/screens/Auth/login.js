@@ -276,7 +276,7 @@ const Login = (props) => {
                 <TouchableOpacity
                     onPress={() => mailResetPassword()}
                 >
-                    <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
+                    <SecondaryText style={styles.password} color={'gray'}>¿Olvidaste tu contraseña?</SecondaryText>
                 </TouchableOpacity>
             </View>
             <View style={styles.btnSingInContainer}>

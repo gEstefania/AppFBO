@@ -70,6 +70,7 @@ export default StyleSheet.create({
     height:'100%'
   },
   descriptionContainer: {
+    marginBottom: 20,
     paddingHorizontal: 20,
     paddingVertical: 25,
   },

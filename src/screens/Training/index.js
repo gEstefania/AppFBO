@@ -92,9 +92,9 @@ const Index = (props) => {
         <ImageBackground /> 
         <View style={styles.descriptionContainer}>
           { item.summary.length < 50 ? (
-              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,50)}</SecondaryText>
+              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,25)}</SecondaryText>
             ) : (
-              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,50)}...</SecondaryText>
+              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,25)}...</SecondaryText>
           )}
         </View>
       </TouchableOpacity>

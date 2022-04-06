@@ -13,11 +13,12 @@ export default StyleSheet.create({
     //paddingTop: 40,
   },
   header: {
-    marginTop: height * 0.22,
+    marginTop: height * 0.25,
     flex: 1,
     alignItems: 'center'
   },
   title: {
+    marginTop:0,
     fontSize: 24,
     textAlign: 'center',
   },
