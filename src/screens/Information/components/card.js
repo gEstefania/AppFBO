@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity, View} from 'react-native';
+import { FlatList, Image, TouchableOpacity, View} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {PrimaryText} from '@common';
 import { getDataFromCategory, getDataFromSubCategory, getTopCategoryArticles } from '@firestore/category';
@@ -6,7 +6,7 @@ import styles from './styles/card';
 import { countWords } from '../../../utils/tools';
 import { BackgroundImage } from 'react-native-elements/dist/config';
 
-const Card = ({title, catId, catDesc, cardColor, navigation, img}) => {
+const Card = ({title, catId, catDesc, catPlaceHolderImg, cardColor, navigation, img}) => {
   const [ subCategory, setSubCategory ] = useState([]);
   const [ articles, setArticles ] = useState([]);
 
@@ -98,13 +98,14 @@ const Card = ({title, catId, catDesc, cardColor, navigation, img}) => {
   }
 
   const renderList = ({item}) => {
+    // console.log('placeHolderImage', catPlaceHolderImg)
     return (
       <TouchableOpacity
         onPress={() => onButtonPress(item)}
         style={[styles.cardView, {backgroundColor: cardColor}]}
       >
         <BackgroundImage
-          source={{uri: item.coverImage?.url}}
+          source={ item.coverImage?.url ? { uri: item.coverImage?.url } : catPlaceHolderImg.image }
           style={styles.cardImage}
           imageStyle={{borderRadius: 15}}
         >
