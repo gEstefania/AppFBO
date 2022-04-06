@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, FlatList, TouchableOpacity, Keyboard } from "react-native";
+import { View, TextInput, FlatList, TouchableOpacity, Keyboard, useWindowDimensions } from "react-native";
 import auth from '@react-native-firebase/auth';
 import { PrimaryText, SecondaryText } from '@common';
 import Modal from "react-native-modal";
@@ -19,6 +19,7 @@ const SearchScreen = (props) => {
     const [filterCourses,setFilterCourses]=useState([]);
     const [filterArticle,setFilterArticles]=useState([]);
     const [userAuth, setUserAuth] = useState();
+    const {width} = useWindowDimensions();
     const [isAnonymousModalVisible, setAnonymousModalVisible] = useState(false);
 
     function onAuthStateChanged(userAuth) {
@@ -132,8 +133,7 @@ const SearchScreen = (props) => {
                     style={{
                         marginStart:16,
                         paddingVertical:16,
-                        fontSize:16,
-                        
+                        fontSize: width*0.035,
                     }} 
                     color={"#A9A9A9"}>
                     {item.title}
@@ -168,6 +168,7 @@ const SearchScreen = (props) => {
                     renderItem={renderItem}
                     keyExtractor={item => item.id}
                     data={[...filterArticle,...filterCourses]}
+                    contentContainerStyle={{paddingRight: 20}}
                 />
             </View>
             <Modal
