@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, TouchableOpacity, useWindowDimensions, ImageBackground } from "react-native";
 import { SwiperFlatList } from 'react-native-swiper-flatlist';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Modal from "react-native-modal";
 import {PrimaryText, SecondaryText} from '@common';
 import auth from '@react-native-firebase/auth';
@@ -13,6 +13,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ShowModalForRegister from '@components/showModalForRegister';
 import { useNavigation } from '@react-navigation/native';
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
+import { IsNewUser } from '../../redux/actions/userActions';
 import { connect } from 'react-redux'
 
 const ExploreScreen = (props) => {
@@ -23,9 +24,10 @@ const ExploreScreen = (props) => {
   const userAuth = useSelector(state => state.users)
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('NUEVO USUARIO DESDE REDUX:', userAuth.newUser);
+    console.log('NUEVO USUARIO DESDE REDUX:', userAuth);
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     const subscriberFirebase = getActiveCourses()
     if(userAuth.newUser){
@@ -45,6 +47,11 @@ const ExploreScreen = (props) => {
     setModalVisible(!isModalVisible);
   }
 
+  const closeModal = () => {
+    setSignUpModalVisible(false)
+    dispatch(IsNewUser({newUser: false}))
+  }
+
   const navigateToCourseDetails=(item)=>{
     if(user.isAnonymous == true){
       setModalVisible(!isModalVisible);
@@ -55,7 +62,7 @@ const ExploreScreen = (props) => {
   }
 
   const renderList = ({item}) => {
-    console.log('KITEMMMSMMSM IS',item.coverImage.url);
+    //console.log('KITEMMMSMMSM IS',item.coverImage.url);
     return(
       <TouchableOpacity 
         style={[styles.swiper, {width: width*0.90}]}
@@ -91,7 +98,7 @@ const ExploreScreen = (props) => {
       <CardCompanies/>
       <Modal
         isVisible={isSignUpModalVisible}
-        onBackdropPress={() => setSignUpModalVisible(false)}
+        onBackdropPress={() => closeModal()}
         swipeDirection="left"
       >
         <View style={styles.modal}>
