@@ -249,7 +249,7 @@ const Login = (props) => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.email}
                     onChangeText={text => setUser({ ...user, email: text })}
@@ -259,7 +259,7 @@ const Login = (props) => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.password}
                     secureTextEntry={true}
