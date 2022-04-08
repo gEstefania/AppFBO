@@ -199,7 +199,7 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Nombre*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'sentences'}
                     value={user.name}
                     onChangeText={text => setUser({...user, name: text})}
@@ -209,7 +209,7 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.email.toLowerCase()}
                     onChangeText={text => setUser({...user, email: text})}
@@ -219,7 +219,7 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.password}
                     secureTextEntry={true}
