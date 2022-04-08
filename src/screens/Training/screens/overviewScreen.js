@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Image, ImageBackground } from "react-native";
+import { View, ImageBackground, useWindowDimensions } from "react-native";
 import styles from './styles/overviewScreen';
 import {PrimaryText, SecondaryText} from '@common';
 import { connect } from 'react-redux';
@@ -7,9 +7,15 @@ import {IconRelojNube, IconVideoNube} from '@icons';
 import RenderHtml from 'react-native-render-html';
 
 const OverviewScreen = ({route,navigation,course}) => {
+    const { width } = useWindowDimensions();
     const source = {
-        html: `${course.summary}`
-      };
+        html: `<div class="text">${course.summary}</div>`
+    };
+
+    const mixedStyles = { 
+        "text": { color: '#000'}, 
+    };
+
     return (
         <View style={styles.mainContainer}>
            
@@ -37,6 +43,8 @@ const OverviewScreen = ({route,navigation,course}) => {
             <View style={styles.descContainer}>
                 <PrimaryText>Aprenderemos a</PrimaryText>
                 <RenderHtml
+                    classesStyles={mixedStyles}
+                    contentWidth={width}
                     source={source}
                 />
             </View>

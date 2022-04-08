@@ -7,10 +7,16 @@ import RenderHtml from 'react-native-render-html';
 import { connect } from 'react-redux';
 
 const DetailScreen = ({route, navigation,course}) => {
+    const { width } = useWindowDimensions();
     const source = {
-        html: `${course.description}`
+        html: `<div class="text">${course.description}</div>`
     };
-    console.log(course?.teacherPicture?.url)
+
+    const mixedStyles = { 
+        "text": { color: '#000'}, 
+    };
+
+    //console.log(course?.teacherPicture?.url)
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleCard}>
@@ -31,6 +37,8 @@ const DetailScreen = ({route, navigation,course}) => {
             </View>
             <View style={styles.contentView}>
                 <RenderHtml
+                    classesStyles={mixedStyles}
+                    contentWidth={width}
                     source={source}
                 />
             </View>
