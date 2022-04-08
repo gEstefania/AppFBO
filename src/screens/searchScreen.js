@@ -109,10 +109,10 @@ const SearchScreen = (props) => {
     const navigateToCourseDetails=(item)=>{
         if(userAuth.isAnonymous === true){
             setAnonymousModalVisible(!isAnonymousModalVisible);
-          }else{
+        }else{
             navigation.navigate("TopMenu")
-            dispatch(setCurrentCourse(item))
-          }
+            props.setCurrentCourse(item)
+        }
     }
 
     const renderItem = ({item})=>{
