@@ -4,6 +4,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackActions } from '@react-navigation/native';
 import {getAllTags} from '@firestore/tagsPreferences';
 import {editMyTags} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
@@ -46,7 +47,9 @@ const Tags = ({navigation,login}) => {
             })
             console.log("UPDATED USER", {id:res.id,...res.data()})
             login({id:res.id,...res.data()})
-            navigation.navigate("Home")
+            navigation.dispatch(
+                StackActions.replace('Home')
+              );
         }catch(e){
             console.log(e)
         }
