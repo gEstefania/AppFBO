@@ -56,7 +56,7 @@ const ExploreScreen = (props) => {
     if(user.isAnonymous == true){
       setModalVisible(!isModalVisible);
     }else{
-      navigation.navigate("TopMenu")
+      navigation.navigate("TopMenu", {toHome: true}) // aqui este navigate es desde home
       props.setCurrentCourse(item)
     }
   }

@@ -1,4 +1,4 @@
-import { TouchableOpacity, View, Linking, Pressable, useWindowDimensions, ActivityIndicator } from 'react-native';
+import { TouchableOpacity, View, Linking, Pressable, useWindowDimensions, ActivityIndicator, useColorScheme } from 'react-native';
 import React, { useCallback, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import RenderHtml from 'react-native-render-html';
@@ -28,6 +28,7 @@ const Post = ({ route, article }) => {
     const [preview, setPreview] = useState()
     const [isLoading, setIsLoading] = useState(false)
     const [isPlay, setPlay] = useState(false)
+    const scheme = useColorScheme();
 
     const onStateChange = useCallback((state) => {
         if (state === "ready") {
@@ -50,7 +51,7 @@ const Post = ({ route, article }) => {
     }
 
     const mixedStyles = { 
-        "text": { color: '#000'}, 
+        "text": scheme === 'dark' ? { color: "#000"} : { color: '#000'}, 
     };
 
     return (

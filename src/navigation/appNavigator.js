@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import { Image, View, useWindowDimensions, Platform, Pressable, Text, Linking } from 'react-native';
-import { NavigationContainer, DefaultTheme, useNavigation } from '@react-navigation/native';
+import { Image, View, useWindowDimensions, Platform, Pressable, Text, Linking, I18nManager, TouchableOpacity } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import CustomBackButton from '../components/customBackButton';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -29,7 +30,7 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconFlechaAtras, LogoApp} from '@icons';
+import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconFlechaAtras, LogoApp} from '@icons';
 import { navigationRef } from './RootNavigation';
 
 const TopTab = createMaterialTopTabNavigator();
@@ -227,7 +228,11 @@ function InformationStackScreen() {
       <InformationStack.Screen name="Category" component={CategoryScreen} />
       <InformationStack.Screen name="Subcategory" component={SubCategoryScreen} />    
       <InformationStack.Screen name="Topic" component={TopicScreen} />
-      <InformationStack.Screen name="Article" component={ArticleScreen} />
+      <InformationStack.Screen name="Article" component={ArticleScreen} 
+      options={({ route }) => ({
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+      })}
+      />
     </InformationStack.Navigator>
   );
 };
@@ -246,7 +251,10 @@ function TrainingStackScreen() {
     >
       <TrainingStack.Screen name="Training" component={TrainingScreen} options={{headerShown: false}}/>
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
-      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={{headerShown:true}}/>
+      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={({ route }) => ({
+        headerShown:true,
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+        })}/>
     </TrainingStack.Navigator>
   );
 };

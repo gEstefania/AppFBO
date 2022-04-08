@@ -5,6 +5,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
 import { getTopGeneralArticles } from '../../../firestore/article';
 import styles from './styles/cardExplorer';
+import { showArticlesByGroup } from '../../../firestore/user';
+import { navigate } from '../../../navigation/RootNavigation';
 // import ShowAlertMessage from '@components/showAlertMessage';
 
 const CardExplorer = () => {
@@ -33,7 +35,7 @@ const CardExplorer = () => {
   const getArticles = async() => {
     try {
       let getTopGeneral = await getTopGeneralArticles();
-      // console.log('Los articulos>',articles)
+      // console.log('Los articulos>',getTopGeneral)
       setTopArticles(getTopGeneral);
     } catch (e) {
       console.log('Error al traer los articulos: ',e)
@@ -55,17 +57,17 @@ const CardExplorer = () => {
   // }
 
   const renderList = ({item, index}) => {
-    //console.log('item>>>', item.coverImage.url)
     return (
       <TouchableOpacity 
         style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
         onPress={() => {
           // console.log('item>>>', item)
           navigation.navigate("Article", {
+            toHome: true, // truquito para regresar a casita
             title: item.title,
             body: item.body,
             color: colorPalette[index],
-            ...item
+            ...item,
             }) 
           }
           } 

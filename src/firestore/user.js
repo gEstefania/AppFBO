@@ -164,25 +164,30 @@ export const unregisterDevice=()=>{
 export const showArticlesByGroup=()=>{
     return new Promise(async(resolve,reject)=>{
         let user = store.getState().users
-        console.log('USER GROUP', user.group);
+        console.log('USER ID', user.id);
         try {
-           const groups = firestore()
-            .collection("Groups")
+
+            // obtener el campo grupo de la coleccion users
+            let group = await firestore()
+            .collection('Users')
+            .doc(user.id)
             .get()
-            console.log('COLECCION GRUPOS', groups);
-            
-            //let userId = store.getState().users.id
-            firestore()
-                .collection("Articles")
-                .where('group', 'array-contains', `${user.group}`)
-                .onSnapshot(documentSnapshot => {
-                    if (documentSnapshot) {
-                        console.log('GROUPS', documentSnapshot);
-                        //resolve(documentSnapshot.docs)
-                    }
-                })
+            let groupId = group.data().group
+            console.log('GROUP', groupId);
+
+            // obtener los articulos de la coleccion articles que pertenecen a los grupos del usuario
+            let articles = await firestore()
+            .collection('Articles')
+            .where('group','array-contains-any',groupId)
+            .get()
+            console.log('ARTICLES', articles.docs);
+
+            // retornar los articulos
+            resolve(articles.docs.map(doc=>doc.data())) // aplicar este map para obtener directamente los datos del documento
+
         }catch(e){
             reject({error:e});
+            console.log('error en obtener articulos segun grupo de usuario', e)
         }
     })
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Image } from "react-native";
+import { View, Image, useWindowDimensions } from "react-native";
 import styles from './styles/detailScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
