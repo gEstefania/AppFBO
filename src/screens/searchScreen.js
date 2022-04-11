@@ -123,7 +123,7 @@ const SearchScreen = (props) => {
                     if(item.type===0){
                         navigateToCourseDetails()
                     }else{
-                        navigation.navigate('Article')
+                        navigation.navigate('Article', {backToSearch: true})
                         props.setCurrentArticle(item)
                     }
                 }}

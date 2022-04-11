@@ -9,12 +9,19 @@ const CustomBackButton = (route) => {
       <TouchableOpacity 
         style={{ marginLeft: 10 }}
         onPress={()=>{
+          console.log('AQUI ESTA ENTRANDO A BACK TO HOME SCREEN');
           if (route.params.toHome) { // si dentro de los parametros nos viene toHome true, regresamos a casita
             navigationRef.dispatch(
               StackActions.replace('Home') // reemplazamos el stack por el de Home
             )
           } else {
             navigationRef.goBack(); // sino pues seguimos el flujo normal
+          }
+          if (route.params.backToSearch) { // si dentro de los parametros nos viene toHome true, regresamos a casita
+            console.log('AQUI ESTA ENTRANDO A BACK TO SEARCH SCREEN');
+            navigationRef.dispatch(
+              StackActions.replace('Home', {screen: 'Buscar'}) // reemplazamos el stack por el de Home
+            )
           }
           }}>
           <Image 
