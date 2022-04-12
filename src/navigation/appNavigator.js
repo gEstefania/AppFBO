@@ -288,8 +288,10 @@ function HomeStackScreen() {
 };
 
 function LoginStackScreen() {
+  const initialRoute = useSelector(state => state.config)
+console.log('ESTOY EN LOGINSTACK', initialRoute);
   return (
-    <LoginStack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
+    <LoginStack.Navigator initialRouteName={initialRoute.showSignUp ? "SignUp" : "Intro"} screenOptions={{ headerShown: false }}>
       <LoginStack.Screen name="Intro" component={Intro} />
       <LoginStack.Screen name="Index" component={Index} />
       <LoginStack.Screen name="SignIn" component={SignIn} />

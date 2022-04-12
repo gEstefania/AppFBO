@@ -9,6 +9,7 @@ import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import {createUserSocialRegiter} from '@firestore/user' 
 import { login, IsNewUser } from '../../redux/actions/userActions';
+import { showSignUpScreen } from '../../redux/actions/configActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
 import {IconFacebook, IconGoogle} from '@icons';
@@ -21,6 +22,10 @@ const SignUp = () => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
+    useEffect(() => {
+        dispatch(showSignUpScreen({showSignUp: false}))
+    }, [])
+    
     const insertUser = async (userProfile)=>{
         
         const userData = {

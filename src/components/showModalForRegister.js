@@ -3,16 +3,19 @@ import {PrimaryText, SecondaryText} from '@common';
 import { View, TouchableOpacity } from 'react-native'
 import Modal from "react-native-modal";
 import auth from '@react-native-firebase/auth';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { showSignUpScreen } from '../redux/actions/configActions';
 import styles from './styles/modal';
 
 export const ShowModalForRegister = ({isVisible, setModalVisible, style} ) => {
-
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
     const onSignUpButtonPress = () => {
         try {
-            auth().signOut()
+          dispatch(showSignUpScreen({showSignUp: true}))
+          auth().signOut()
         } catch (error) {
             console.log(error);
         }
