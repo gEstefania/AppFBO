@@ -253,7 +253,7 @@ function TrainingStackScreen() {
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
       <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={({ route }) => ({
         headerShown:true,
-        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+        //headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
         })}/>
     </TrainingStack.Navigator>
   );
