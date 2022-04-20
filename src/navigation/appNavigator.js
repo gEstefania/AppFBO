@@ -30,7 +30,7 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconFlechaAtras, LogoApp} from '@icons';
+import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconHome, IconHomeHover, LogoApp} from '@icons';
 import { navigationRef } from './RootNavigation';
 
 const TopTab = createMaterialTopTabNavigator();
@@ -113,7 +113,7 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ focused }) => (
-          focused ? <Image source={require('../assets/img/icons/home.jpg')} /> : <Image source={require('../assets/img/icons/home.jpg')} /> )
+          focused ? <IconHomeHover width={30} height={30} /> : <IconHome width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -123,7 +123,7 @@ function BottomTabNavigator() {
           lazy:true,
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconPerfil width={30} height={30} /> : <IconPerfilHover width={30} height={30} />)
+            focused ? <IconPerfilHover width={30} height={30} /> : <IconPerfil width={30} height={30} />)
           }}
       />
       <BottomTab.Screen
@@ -135,7 +135,7 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Hablemos',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconHablemos width={30} height={30} /> : <IconHablemosHover width={30} height={30} />)
+            focused ? <IconHablemosHover width={30} height={30} /> : <IconHablemos width={30} height={30} />)
         }}
 
         
@@ -149,7 +149,7 @@ function BottomTabNavigator() {
           ),
           tabBarLabel: 'Sugerencias',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconSugerencias width={30} height={30} /> : <IconSugerenciasHover width={30} height={30} />)
+            focused ? <IconSugerenciasHover width={30} height={30} /> : <IconSugerencias width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -158,7 +158,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Buscar',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
+          focused ? <IconBuscarHover width={30} height={30} /> : <IconBuscar width={30} height={30} />)
         }}
       />
     </BottomTab.Navigator>
@@ -180,6 +180,7 @@ function TopTapNavigator() {
         <LogoApp width={230} height={100} />
       </View>
       <TopTab.Navigator
+      initialRouteName={'Explorar'}
         screenOptions={{
           tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: width*0.035},
           tabBarStyle: { backgroundColor: 'transparent', },
@@ -253,7 +254,7 @@ function TrainingStackScreen() {
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
       <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={({ route }) => ({
         headerShown:true,
-        //headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
         })}/>
     </TrainingStack.Navigator>
   );
