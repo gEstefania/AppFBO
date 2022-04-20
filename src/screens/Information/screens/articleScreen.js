@@ -21,8 +21,8 @@ const Post = ({ route, article }) => {
         html: `<div class="text">${body || article.body}</div>`
     };
     const image = route.params?.images
-    const video = route.params?.video
-    const archive = route.params?.archive || false
+    const video = route.params?.video || article?.video
+    const archive = route.params?.archive || article?.archive || false
 
     const videoRef = useRef(null)
     const [preview, setPreview] = useState()

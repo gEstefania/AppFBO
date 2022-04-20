@@ -71,8 +71,13 @@ const SearchScreen = (props) => {
 
                 let nSearch = searchText.toLowerCase()
                 nSearch=nSearch.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                
-                return nTitle.includes(nSearch) || nBody.includes(nSearch)
+
+                let video = article.video
+
+                let archive = article?.archive
+
+                //console.log('ARCHIVE', article);
+                return nTitle.includes(nSearch) || nBody.includes(nSearch) && video && archive
                 
             }))
             setFilterCourses(courses.filter(course=>{
@@ -110,7 +115,7 @@ const SearchScreen = (props) => {
         if(userAuth.isAnonymous === true){
             setAnonymousModalVisible(!isAnonymousModalVisible);
         }else{
-            navigation.navigate("TopMenu")
+            navigation.navigate("TopMenu", {backToSearch: true})
             props.setCurrentCourse(item)
         }
     }
@@ -123,6 +128,7 @@ const SearchScreen = (props) => {
                     if(item.type===0){
                         navigateToCourseDetails()
                     }else{
+                        console.log(navigation.getState())
                         navigation.navigate('Article', {backToSearch: true})
                         props.setCurrentArticle(item)
                     }
