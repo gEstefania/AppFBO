@@ -6,6 +6,7 @@ import detailScreen from '../screens/Training/screens/detailScreen';
 import overviewScreen from '../screens/Training/screens/overviewScreen';
 import lessonScreen from '../screens/Training/screens/lessonScreen';
 import videoScreen from '../screens/Training/screens/videoScreen';
+import CustomBackButton from '../components/customBackButton';
 
 const CourseTopTab = createMaterialTopTabNavigator();
 const LessonStack = createStackNavigator();
@@ -23,7 +24,10 @@ const CourseTopMenu = ({route}) => {
       >
         <CourseTopTab.Screen name="Resumen" component={overviewScreen}  />
         <CourseTopTab.Screen name="Presentacion" component={detailScreen} />
-        <CourseTopTab.Screen name="Lecciones" component={LessonStackScreen} />
+        <CourseTopTab.Screen name="Lecciones" component={LessonStackScreen} options={({ route }) => ({
+        headerShown:true,
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+        })}/>
       </CourseTopTab.Navigator>
     )
   };

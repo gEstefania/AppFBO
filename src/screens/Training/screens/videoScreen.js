@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { View, FlatList, Pressable, Image, ScrollView, Linking, ActivityIndicator } from "react-native";
 import { CheckBox } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/videoScreen';
 import Video from 'react-native-video';
@@ -11,6 +12,7 @@ import { connect } from 'react-redux';
 import { setTaskLesson } from '@firestore/courses'
 import {toggleTasks} from '../../../redux/actions/tasksActions'
 import {IconDescarga} from '@icons';
+import { insideLesson } from '../../../redux/actions/navLessonActions'
 
 export const TaskItem = ({item,toggleTask,lesson}) => {
     
@@ -32,6 +34,7 @@ export const TaskItem = ({item,toggleTask,lesson}) => {
 const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
     const { lesson } = route.params
     const [ isLoadingVideo, setIsLoadingVideo ] = useState(true)
+    const dispatch = useDispatch();
 
     const onStateChange = useCallback((state) => {
         if (state === "ready") {
@@ -45,6 +48,7 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
         }
     }
     useEffect(() => {
+        dispatch(insideLesson({insideLesson: true}))
         let subscriber = setTaskLesson(currentCourse.id, lesson?.id)
         return subscriber
     }, [])

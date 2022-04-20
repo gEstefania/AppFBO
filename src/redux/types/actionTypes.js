@@ -1,4 +1,6 @@
-export const SET_LESSONS = "SET_LESSONS"; 
+export const SET_LESSONS = "SET_LESSONS";
+
+export const INSIDE_LESSON = "INSIDE_LESSON";
 
 export const SET_COURSES = "SET_COURSES"
 
