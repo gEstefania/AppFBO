@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import auth from '@react-native-firebase/auth';
-import { Image, View, useWindowDimensions, Platform } from 'react-native';
+import { Image, View, useWindowDimensions, Platform, Pressable, Text, Linking, I18nManager, TouchableOpacity } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import CustomBackButton from '../components/customBackButton';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FlashMessage from 'react-native-flash-message';
+import { useSelector } from 'react-redux';
 import LinearGradient from 'react-native-linear-gradient';
 import ExplorerScreen from '../screens/Explore/exploreScreen';
 import InfoScreen from '../screens/Information/index';
@@ -28,15 +30,19 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import {IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias} from '@icons';
+import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconHome, IconHomeHover, LogoApp} from '@icons';
+import { navigationRef } from './RootNavigation';
 
 const TopTab = createMaterialTopTabNavigator();
 const BottomTab = createBottomTabNavigator();
 //Stacks:
 const Stack = createStackNavigator();
+const HomeStack = createStackNavigator();
+const LoginStack = createStackNavigator();
 const ExplorerStack = createStackNavigator();
 const InformationStack = createStackNavigator();
 const TrainingStack = createStackNavigator();
+const ProfileStack = createStackNavigator();
 
 const MyTheme = {
   ...DefaultTheme,
@@ -48,11 +54,9 @@ const MyTheme = {
 
 //Main Navigator
 const AppNavigator = () => {
-
   // Set an initializing state whilst Firebase connects
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
-
   // Handle user state changes
   function onAuthStateChanged(user) {
     setUser(user);
@@ -65,45 +69,27 @@ const AppNavigator = () => {
   }, []);
 
   if (initializing) return null;
-
-  if (!user) {
-    return (
-      <NavigationContainer theme={MyTheme}>
-        <Stack.Navigator initialRouteName={"Intro"} screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Intro" component={Intro} />
-          <Stack.Screen name="Index" component={Index} />
-          <Stack.Screen name="SignIn" component={SignIn} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Navigator>
-        <FlashMessage position="top"/>
-      </NavigationContainer>
-    );
-  }
-
-  return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator initialRouteName={"Home"} screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Home" component={BottomTabNavigator} />
-          <Stack.Screen name="TagsPreferences" component={Tags} />
-          <Stack.Screen name="Preferences" component={Preferences} />
-        </Stack.Navigator>
-        <FlashMessage position="top"/>
+  
+  return(
+    <NavigationContainer ref={navigationRef} theme={MyTheme}>
+      {user ? <HomeStackScreen /> : <LoginStackScreen />}
+      <FlashMessage position="top"/>
     </NavigationContainer>
-  );
-    
+  )
 }
 
 
 
 // Bottom Navigator
 function BottomTabNavigator() {
-  const { height } = useWindowDimensions();
+  const { height, width } = useWindowDimensions();
   return(
     <BottomTab.Navigator
       initialRouteName={TopTapNavigator}
       screenOptions={{
+        tabBarHideOnKeyboard: true,
         headerShown: false,
-        tabBarLabelStyle: {color: '#ff5f00', marginBottom: 20},
+        tabBarLabelStyle: {color: '#ff5f00', marginBottom: 15},
         tabBarStyle: {
           height: Platform.OS === 'ios' ? 115 : height*0.10,
           paddingHorizontal: 20,
@@ -122,37 +108,48 @@ function BottomTabNavigator() {
         name="TopTapNavigator"
         component={TopTapNavigator}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>navigationRef.navigate("Explorar")} />
+          ),
           tabBarLabel: 'Inicio',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
+          focused ? <IconHomeHover width={30} height={30} /> : <IconHome width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
         name="Perfil"
-        component={ProfileScreen}
+        component={ProfileStackScreen}
         options={{
           lazy:true,
           tabBarLabel: 'Perfil',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconPerfil width={30} height={30} /> : <IconPerfilHover width={30} height={30} />)
+            focused ? <IconPerfilHover width={30} height={30} /> : <IconPerfil width={30} height={30} />)
           }}
       />
       <BottomTab.Screen
         name="Hablemos"
         component={ContactScreen}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>Linking.openURL('https://fundacionbertinosborne.org/hablamos-app/') }  />
+          ),
           tabBarLabel: 'Hablemos',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconHablemos width={30} height={30} /> : <IconHablemosHover width={30} height={30} />)
+            focused ? <IconHablemosHover width={30} height={30} /> : <IconHablemos width={30} height={30} />)
         }}
+
+        
       />
       <BottomTab.Screen
         name="Sugerencias"
         component={SuggestionScreen}
         options={{
+          tabBarButton:(props)=>(
+            <Pressable {...props} onPress={()=>Linking.openURL('https://fundacionbertinosborne.org/buzon-sugerencias-app/') }  />
+          ),
           tabBarLabel: 'Sugerencias',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconSugerencias width={30} height={30} /> : <IconSugerenciasHover width={30} height={30} />)
+            focused ? <IconSugerenciasHover width={30} height={30} /> : <IconSugerencias width={30} height={30} />)
         }}
       />
       <BottomTab.Screen
@@ -161,7 +158,7 @@ function BottomTabNavigator() {
         options={{
           tabBarLabel: 'Buscar',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscar width={30} height={30} /> : <IconBuscarHover width={30} height={30} />)
+          focused ? <IconBuscarHover width={30} height={30} /> : <IconBuscar width={30} height={30} />)
         }}
       />
     </BottomTab.Navigator>
@@ -170,20 +167,22 @@ function BottomTabNavigator() {
 
 //Home Top Navigator
 function TopTapNavigator() {
+  const { height, width } = useWindowDimensions();
   return(
     <LinearGradient
       colors={['#ff9b04', '#ff000a' ]}
       style={{flex: 1}}
       start={{ x: 0, y: 0 }}
       end={{ x: 1.4, y: 1.7 }}
-      locations={[0.2, 0.4]}
+      locations={[0.10, 0.4]}
     >
-      <View style={{backgroundColor: 'transparent', height: 125, alignItems: 'center', paddingTop: 40}}>
-        <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+      <View style={{backgroundColor: 'transparent', alignItems: 'center', paddingTop: 20,}}>
+        <LogoApp width={230} height={100} />
       </View>
       <TopTab.Navigator
+      initialRouteName={'Explorar'}
         screenOptions={{
-          tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: 16},
+          tabBarLabelStyle: { fontWeight: '600', fontFamily: 'Poppins-Bold', textTransform: 'capitalize', color: '#fff', fontSize: width*0.035},
           tabBarStyle: { backgroundColor: 'transparent', },
           tabBarIndicatorStyle: {backgroundColor: '#ECF1FE', height: 7, borderRadius: 50, bottom: -4, width: 55, left: 40,},
         }}
@@ -207,9 +206,9 @@ function ExplorerStackScreen() {
       headerStyle: {shadowColor: '#fff'},
     }}
     >
-      <ExplorerStack.Screen name="Explorar" component={ExplorerScreen} options={{headerShown: false}}/>
+      <ExplorerStack.Screen name="Explorer" component={ExplorerScreen} options={{headerShown: false}}/>
       <ExplorerStack.Screen name="Recomendado" component={CompanyScreen} />
-      <ExplorerStack.Screen name="Empresas" component={CompanyScreen} />
+      <ExplorerStack.Screen name="Empresas" component={CompanyScreen} options={{headerTransparent: true}}/>
     </ExplorerStack.Navigator>
   );
 };
@@ -219,8 +218,9 @@ function InformationStackScreen() {
   return (
     <InformationStack.Navigator
     screenOptions={{
+      headerTransparent: true,
       headerTitle: "",
-      headerStatusBarHeight: 0,
+      headerStatusBarHeight: -2,
       headerBackTitleVisible: false,
       headerStyle: {shadowColor: '#fff'},
     }}
@@ -229,7 +229,11 @@ function InformationStackScreen() {
       <InformationStack.Screen name="Category" component={CategoryScreen} />
       <InformationStack.Screen name="Subcategory" component={SubCategoryScreen} />    
       <InformationStack.Screen name="Topic" component={TopicScreen} />
-      <InformationStack.Screen name="Article" component={ArticleScreen} />
+      <InformationStack.Screen name="Article" component={ArticleScreen} 
+      options={({ route }) => ({
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+      })}
+      />
     </InformationStack.Navigator>
   );
 };
@@ -239,13 +243,61 @@ function TrainingStackScreen() {
   return (
     <TrainingStack.Navigator
     screenOptions={{
-      headerShown: false
+      headerTransparent: true,
+      headerTitle: "",
+      headerStatusBarHeight: -2,
+      headerBackTitleVisible: false,
+      headerStyle: {shadowColor: '#fff'},
     }}
     >
       <TrainingStack.Screen name="Training" component={TrainingScreen} options={{headerShown: false}}/>
       <TrainingStack.Screen name="AllCourses" component={AllCourses} />
-      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} />
+      <TrainingStack.Screen name="TopMenu" component={CourseTopMenu} options={({ route }) => ({
+        headerShown:true,
+        headerLeft: () => CustomBackButton(route), // enturador de boton de regreso
+        })}/>
     </TrainingStack.Navigator>
+  );
+};
+
+// Profile Stack Navigator
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator
+    screenOptions={{
+      headerTitle: "",
+      headerBackTitleVisible: false,
+      headerStatusBarHeight: 0,
+      headerStyle: {shadowColor: '#fff'},
+      headerShown: false
+    }}
+    >
+      <ProfileStack.Screen name="UserPerfil" component={ProfileScreen} options={{headerShown: false}}/>
+      <ProfileStack.Screen name="UserPreferences" component={Preferences} />
+    </ProfileStack.Navigator>
+  );
+};
+
+function HomeStackScreen() {
+  const userAuth = useSelector(state => state.users)
+  return (
+    <HomeStack.Navigator initialRouteName={userAuth.newUser ? "Tags" : "Home"} screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="Home" component={BottomTabNavigator} />
+      <HomeStack.Screen name="Tags" component={Tags} />
+    </HomeStack.Navigator>
+  );
+};
+
+function LoginStackScreen() {
+  const initialRoute = useSelector(state => state.config)
+console.log('ESTOY EN LOGINSTACK', initialRoute);
+  return (
+    <LoginStack.Navigator initialRouteName={initialRoute.showSignUp ? "SignUp" : "Intro"} screenOptions={{ headerShown: false }}>
+      <LoginStack.Screen name="Intro" component={Intro} />
+      <LoginStack.Screen name="Index" component={Index} />
+      <LoginStack.Screen name="SignIn" component={SignIn} />
+      <LoginStack.Screen name="SignUp" component={SignUp} />
+  </LoginStack.Navigator>
   );
 };
 

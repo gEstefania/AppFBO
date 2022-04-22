@@ -1,39 +1,88 @@
 import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity } from "react-native"
+import { View, TouchableOpacity, ImageBackground } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native-gesture-handler';
 import { PrimaryText, SecondaryText } from '@common'
-import {getAllCategories} from '@firestore/category';
+import { getTopGeneralArticles } from '../../../firestore/article';
 import styles from './styles/cardExplorer';
+import { showArticlesByGroup } from '../../../firestore/user';
+import { navigate } from '../../../navigation/RootNavigation';
+// import ShowAlertMessage from '@components/showAlertMessage';
 
 const CardExplorer = () => {
-  const [ category, setCategory ] = useState([]);
+  // const [ category, setCategory ] = useState([]);
+  const [ colorPalette, setColorPalette ] = useState([]);
+  const [ topArticles, setTopArticles ] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => { 
-    getData() 
+    setColorPalette(
+      [
+        '#e55773',
+        '#5f40d5',
+        '#ff5f00',
+        '#11b2d8',
+        '#e55773',
+        '#5f40d5',
+        '#ff5f00',
+        '#11b2d8',
+      ]
+    )
+    // getData() 
+    getArticles()
   }, []);
 
-  const getData=async()=>{
+  const getArticles = async() => {
     try {
-      let res = await getAllCategories()
-      console.log('respuesta card', res);
-      let categoryList = []
-      res.forEach(doc=>{
-        categoryList.push({id:doc.id,...doc.data()})
-      })
-      setCategory(categoryList)
-    }catch(e){
-        console.log(e)
+      let getTopGeneral = await getTopGeneralArticles();
+      // console.log('Los articulos>',getTopGeneral)
+      setTopArticles(getTopGeneral);
+    } catch (e) {
+      console.log('Error al traer los articulos: ',e)
     }
   }
 
-  const renderList = ({item}) => {
+  // const getData=async()=>{
+  //   try {
+  //     let res = await getAllCategories()
+  //     console.log('respuesta card', res);
+  //     let categoryList = []
+  //     res.forEach(doc=>{
+  //       categoryList.push({id:doc.id,...doc.data()})
+  //     })
+  //     setCategory(categoryList)
+  //   }catch(e){
+  //       console.log(e)
+  //   }
+  // }
+
+  const renderList = ({item, index}) => {
     return (
-      <TouchableOpacity style={styles.btnCard}>
-        <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.name}</PrimaryText>
+      <TouchableOpacity 
+        style={{...styles.btnCard, backgroundColor: colorPalette[index]}}
+        onPress={() => {
+          // console.log('item>>>', item)
+          navigation.navigate("Article", {
+            toHome: true, // truquito para regresar a casita
+            title: item.title,
+            body: item.body,
+            color: colorPalette[index],
+            ...item,
+            }) 
+          }
+          } 
+        >
+          <ImageBackground
+            resizeMode="cover"
+            source={{uri:item.coverImage?.url}}
+            imageStyle={{ borderRadius: 14}}
+            style={styles.backgroundImage}>
+            <PrimaryText color={'#fff'} style={styles.cardTitle}>{item.title}</PrimaryText>
+          </ImageBackground>
+        
       </TouchableOpacity>
     );
+    
   };
   return(
     <View style={styles.mainContainer}>
@@ -47,7 +96,7 @@ const CardExplorer = () => {
       </View>
       <FlatList
         horizontal
-        data={category}
+        data={topArticles}
         renderItem={renderList}
         //keyExtractor={item => item.id}
         style={styles.cardsList}

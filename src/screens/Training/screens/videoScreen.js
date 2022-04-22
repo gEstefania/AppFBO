@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { View, FlatList, Pressable, Image, ScrollView, Linking } from "react-native";
+import React, { useEffect, useState, useCallback } from 'react';
+import { View, FlatList, Pressable, Image, ScrollView, Linking, ActivityIndicator } from "react-native";
 import { CheckBox } from 'react-native-elements';
+import { useDispatch } from 'react-redux';
 import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/videoScreen';
 import Video from 'react-native-video';
 import { getExtensionCapitalFromURI, getVideoId } from '@utils/tools'
-import YouTube from 'react-native-youtube';
+import YoutubePlayer from "react-native-youtube-iframe";
 import { Vimeo } from 'react-native-vimeo-iframe'
 import { connect } from 'react-redux';
 import { setTaskLesson } from '@firestore/courses'
 import {toggleTasks} from '../../../redux/actions/tasksActions'
 import {IconDescarga} from '@icons';
+import { insideLesson } from '../../../redux/actions/navLessonActions'
 
 export const TaskItem = ({item,toggleTask,lesson}) => {
     
@@ -20,34 +22,58 @@ export const TaskItem = ({item,toggleTask,lesson}) => {
                 center
                 checked={item.complete}
                 onPress={() =>toggleTask({
-                    lessonId:lesson.id,
+                    lessonId:lesson?.id,
                     taskId:item.taskId,
                 })}
             />
-            <SecondaryText>{item.task}</SecondaryText>
+            <SecondaryText color={'gray'}>{item.task}</SecondaryText>
         </View>
     )
 }
 
 const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
     const { lesson } = route.params
+    const [ isLoadingVideo, setIsLoadingVideo ] = useState(true)
+    const dispatch = useDispatch();
 
+    const onStateChange = useCallback((state) => {
+        if (state === "ready") {
+          setIsLoadingVideo(false);
+        }
+      }, []);
+
+    const download = () => {
+        if (lesson?.archive?.url) {
+            Linking.openURL(lesson?.archive?.url)
+        }
+    }
     useEffect(() => {
-        let subscriber = setTaskLesson(currentCourse.id, lesson.id)
+        dispatch(insideLesson({insideLesson: true}))
+        let subscriber = setTaskLesson(currentCourse.id, lesson?.id)
         return subscriber
     }, [])
 
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.videoContainer}>
-                {lesson.url.includes("youtu.be") ? (
-                    <YouTube
-                        videoId={getVideoId(lesson.url)} // The YouTube video ID
-
-                        style={{ alignSelf: 'stretch', height: 300 }}
-                    />
+                {lesson?.url.includes("youtu.be") ? (
+                    <View style={{ height: 200, backgroundColor: '#ECF1FE', elevation: 4, justifyContent: 'center' }}>
+                        { isLoadingVideo && (
+                            <ActivityIndicator size="large" style={{ position: "absolute", alignSelf: 'center' }} color="#FF9B05" />
+                        )}
+                        <YoutubePlayer
+                            height={200}
+                            onReady={() => onStateChange("ready")}
+                            videoId={getVideoId(lesson.url)} // The YouTube video ID
+                            webViewProps={{
+                                allowsInlineMediaPlayback: false,
+                                allowsFullscreenVideo: true,
+                                androidLayerType: 'hardware',
+                            }}
+                        />
+                    </View>
                 ) : (
-                    <View style={{ height: 300 }}>
+                    <View style={{ height: 200 }}>
                         <Vimeo
                             videoId={getVideoId(lesson.url)}
                             onReady={() => console.log('Video is ready')}
@@ -63,24 +89,21 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
                 )}
             </View>
             <View style={styles.videoTitle}>
-                <PrimaryText color={'gray'}>{lesson.title}</PrimaryText>
+                <PrimaryText color={'gray'}>{lesson?.title}</PrimaryText>
                 <SecondaryText color={'gray'}>¿Cómo empezar?</SecondaryText>
             </View>
             <View style={styles.descContainer}>
                 <PrimaryText style={styles.sectionTitle}>Descripción</PrimaryText>
-                <SecondaryText>{lesson.description}</SecondaryText>
+                <SecondaryText color={'gray'}>{lesson?.description}</SecondaryText>
             </View>
-            {lesson?.archive?.url !== "" && lesson?.archive?.url !== null && (
+            {lesson?.archive?.url && (
                 <View style={styles.resourceContainer}>
                     <PrimaryText style={styles.sectionTitle}>Recursos</PrimaryText>
                     <Pressable
-                        onPress={() => {
-                            Linking.openURL(lesson.archive.url)
-                        }}
+                        onPress={() => download()}
                         style={styles.downloadCard}>
                         <View style={styles.textContainer}>
-                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson.archive.fileName}</SecondaryText>
-                            <SecondaryText color={'#fff'} type={'Bold'}>{getExtensionCapitalFromURI(lesson.archive.url)}</SecondaryText>
+                            <SecondaryText color={'#fff'} type={'Bold'} style={styles.text}>{lesson?.archive?.fileName}</SecondaryText>
                         </View>
                         <View>
                             <IconDescarga width={45} height={45} />
@@ -92,10 +115,18 @@ const VideoScreen = ({ route, navigation,tasks,currentCourse,toggleTasks }) => {
             <View style={styles.taskContainer}>
                 <PrimaryText style={styles.sectionTitle}>Tareas</PrimaryText>
                 <View style={styles.itemContainer}>
-
-                    {tasks.map((item) => (
-                        <TaskItem item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
-                    ))}
+                    { tasks.length === 0 && (
+                        <SecondaryText color={'gray'}>No hay tareas disponibles</SecondaryText>
+                    )}
+                    {tasks.map((item, i) => {
+                        // console.log(item, 'item', lesson.id)
+                        if (item.lessonId === lesson?.id) {
+                        return (
+                            <View key={i}>
+                                <TaskItem  item={item} lesson={lesson} toggleTask={toggleTasks} key={item.taskId} />
+                            </View>
+                        )}
+                    })}
                 </View>
 
             </View>

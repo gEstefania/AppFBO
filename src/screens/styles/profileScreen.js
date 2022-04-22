@@ -11,7 +11,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    //marginTop: 20,
+    marginTop: -20,
+    marginBottom: -20,
     padding: 30,
   },
   shadow: {
@@ -55,7 +56,7 @@ export default StyleSheet.create({
   },
   titleSize:{
     fontSize: 30,
-    marginLeft: 10,
+    marginLeft: 0,
   },
   icon:{
     width: 15,
@@ -91,6 +92,10 @@ export default StyleSheet.create({
     marginTop: 30,
     borderRadius: 100,
     backgroundColor: Colors.CORPORATE_ORANGE,
+  },
+  modalTitle:{
+    fontSize: 28,
+    textAlign: 'center',
   },
   nameInput:{
     width: '100%',

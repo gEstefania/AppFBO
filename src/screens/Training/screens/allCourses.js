@@ -1,42 +1,74 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, TouchableOpacity } from 'react-native';
+import { View, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/allCourses';
 import { setCurrentCourse } from '../../../redux/actions/selectedCourseActions';
 import {IconRelojOrange, IconVideo} from '@icons';
+import ShowModalForRegister from '../../../components/showModalForRegister';
 
 const AllCourses = () =>{
+    const [user, setUser] = useState();
+    const [isModalVisible, setModalVisible] = useState(false);
     const courses = useSelector(state => state.courses)
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
-    const navigateToCourseDetails=(item)=>{
-        navigation.navigate("TopMenu")
-        dispatch(setCurrentCourse(item))
-        //props.setCurrentCourse(item)
+    function onAuthStateChanged(user) {
+        setUser(user);
     }
+    
+    useEffect(() => {
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return ()=>{
+            subscriber();
+        } ; // unsubscribe on unmount
+    }, []);    
 
+    const navigateToCourseDetails=(item)=>{
+        if(user.isAnonymous === true){
+            setModalVisible(!isModalVisible);
+          }else{
+            navigation.navigate("TopMenu")
+            dispatch(setCurrentCourse(item))
+          }
+    }
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    }
+    
     const renderList = (item) => {
         return(
             <TouchableOpacity
                 onPress={()=>navigateToCourseDetails(item.item)}
-                style={styles.btnCourse}>
-                <PrimaryText color={'gray'} style={styles.fontTitle}>{item.item.title}</PrimaryText>
-                <View style={styles.courseInfo}>
-                    <IconVideo width={15} height={15} />
-                    <PrimaryText style={styles.fontInfo}>{item.item.totalVideos}</PrimaryText>
-                    <IconRelojOrange width={15} height={15} />
-                    <PrimaryText style={styles.fontInfo}>{item.item.totalHours} h y {item.item.totalMins} min</PrimaryText>
-                </View>
+                style={styles.btn}>
+                    <ImageBackground
+                        resizeMode="cover"
+                        source={{uri: item.item.coverImage?.url}}
+                        style={styles.btnCourse}
+                        imageStyle={{ borderRadius: 14}}
+                    >
+                    <PrimaryText color={'gray'} style={styles.fontTitle}>{item.item.title}</PrimaryText>
+                    <View style={styles.courseInfo}>
+                        <IconVideo marginTop={4} width={15} height={15} />
+                        <PrimaryText style={styles.fontInfo}>{item.item.totalVideos}</PrimaryText>
+                        <IconRelojOrange marginTop={3} width={15} height={15} />
+                        { item.item.totalHours > 0 ? ( // verificamos si hay horas o no
+                            <PrimaryText type={'Regular'} style={styles.infoText}>{item.item.totalHours} h y {item.item.totalMins} min</PrimaryText>
+                            ) : (
+                            <PrimaryText type={'Regular'} style={styles.infoText}>{item.item.totalMins} min</PrimaryText>
+                        )}
+                    </View>
+                </ImageBackground>
             </TouchableOpacity>
         )
     }
 
     return(
         <View style={styles.mainContainer}>
-            <PrimaryText>TODOS LOS CURSOS</PrimaryText>
+            <PrimaryText style={styles.tittleText}>TODOS LOS CURSOS</PrimaryText>
             <FlatList
                 data={courses}
                 renderItem={renderList}
@@ -44,6 +76,7 @@ const AllCourses = () =>{
                 style={{marginTop: 20,}}
                 columnWrapperStyle={{justifyContent: 'space-between'}}
             />
+            <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
         </View>
     )
 }

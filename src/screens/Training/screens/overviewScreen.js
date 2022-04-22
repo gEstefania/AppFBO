@@ -1,15 +1,26 @@
 import * as React from 'react';
-import { View, Text, Image } from "react-native";
+import { View, ImageBackground, useWindowDimensions } from "react-native";
 import styles from './styles/overviewScreen';
 import {PrimaryText, SecondaryText} from '@common';
 import { connect } from 'react-redux';
 import {IconRelojNube, IconVideoNube} from '@icons';
+import RenderHtml from 'react-native-render-html';
 
 const OverviewScreen = ({route,navigation,course}) => {
-    
+    const { width } = useWindowDimensions();
+    const source = {
+        html: `<div class="text">${course.summary}</div>`
+    };
+
+    const mixedStyles = { 
+        "text": { color: '#000'}, 
+    };
+
     return (
         <View style={styles.mainContainer}>
-            <View style={styles.summaryContainer}>
+           
+            <ImageBackground style={styles.summaryContainer} source={require('../../../assets/img/FBO-banner-nube.png')}>
+                <View style={{padding: 20, width: '100%', height: '100%', justifyContent: 'space-around'}}>
                 <View style={styles.row}>
                 <IconVideoNube width={25} height={25} />
                     <View style={styles.columnText}>
@@ -19,13 +30,23 @@ const OverviewScreen = ({route,navigation,course}) => {
                 <View style={styles.row}>
                     <IconRelojNube width={25} height={25} />
                     <View style={styles.columnText}>
-                        <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins} min</PrimaryText>
+                        { course.totalHours > 0 ? ( // verificamos si hay horas o no
+                            <PrimaryText color={'#fff'}>{course.totalHours} h y {course.totalMins} min</PrimaryText>
+                        ) : (
+                            <PrimaryText color={'#fff'}>{course.totalMins} min</PrimaryText>
+                        )}
                     </View>
                 </View>
-            </View>
+                </View>
+                </ImageBackground>
+            
             <View style={styles.descContainer}>
                 <PrimaryText>Aprenderemos a</PrimaryText>
-                <SecondaryText>{course.summary}</SecondaryText>
+                <RenderHtml
+                    classesStyles={mixedStyles}
+                    contentWidth={width}
+                    source={source}
+                />
             </View>
         </View>
     )

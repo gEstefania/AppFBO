@@ -6,6 +6,7 @@ import { persistStore, persistReducer, createTransform } from 'redux-persist'
 import JSOG from './JSOG'
 import UserReducer from "../reducers/userReducer"
 import LessonsReducer from "../reducers/lessonsReducer"
+import navLessonReducer from "../reducers/navLessonReducer"
 import CoursesReducer from "../reducers/coursesReducer"
 import SelectedCourseReducer from "../reducers/selectedCourseReducer"
 import SelectedArticleReducer from "../reducers/selectedArticleReducer"
@@ -26,6 +27,7 @@ const persistConfig = {
 const reducers = combineReducers({
     users: UserReducer,
     lessons: LessonsReducer,
+    navLesson: navLessonReducer,
     courses:CoursesReducer,
     currentCourse:SelectedCourseReducer,
     currentArticle: SelectedArticleReducer,

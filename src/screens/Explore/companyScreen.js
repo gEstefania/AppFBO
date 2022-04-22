@@ -4,37 +4,31 @@ import { PrimaryText, SecondaryText } from '@common';
 import styles from './styles/companyScreen';
 
 const CompanyScreen = () => {
-    const dataList = [
-        {
-          name: 'Destacados',
-        },
-        {
-          name: 'Etiquetas',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-        {
-          name: 'Lorem ipsum',
-        },
-      ];
+  const dataList = [
+    {
+      image: require('../../assets/img/company_logos/logo_fundacion_once.jpeg'),
+    },
+    {
+      image: require('../../assets/img/company_logos/logo_fundacion_mapfre.jpeg'),
+    },
+    {
+      image: require('../../assets/img/company_logos/fcaser-logo-new.png'),
+    },
+    {
+      image: require('../../assets/img/company_logos/logo_AC_Hotels.png'),
+    },
+    {
+      image: require('../../assets/img/company_logos/logo_OZEIN.jpeg'),
+    },
+    {
+      image: require('../../assets/img/company_logos/logo_academia_talent_heart.png'),
+    },
+  ];
 
       const renderList = ({item}) => {
         return (
             <TouchableOpacity style={styles.btnCard}>
-                <Image source={require('../../assets/img/icons/icono-app.jpg')} style={styles.image}/>
+              <Image source={item.image} style={styles.image}/>
             </TouchableOpacity>
         );
       };

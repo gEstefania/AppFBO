@@ -4,12 +4,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {PrimaryText, SecondaryText} from '@common';
 import styles from './styles/tags';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackActions } from '@react-navigation/native';
 import {getAllTags} from '@firestore/tagsPreferences';
 import {editMyTags} from '@firestore/user'
 import { showMessage } from 'react-native-flash-message';
 import {login} from '../redux/actions/userActions'
 import { connect } from 'react-redux';
 import {IconFlechaDark} from '@icons';
+import { LogoApp } from '@icons';
 
 const Tags = ({navigation,login}) => {
     const [selectedTags, setSelectedTags] = useState([]);
@@ -45,7 +47,9 @@ const Tags = ({navigation,login}) => {
             })
             console.log("UPDATED USER", {id:res.id,...res.data()})
             login({id:res.id,...res.data()})
-            navigation.navigate("Home")
+            navigation.dispatch(
+                StackActions.replace('Home')
+              );
         }catch(e){
             console.log(e)
         }
@@ -61,7 +65,7 @@ const Tags = ({navigation,login}) => {
                     style={{
                     marginBottom: 10,
                     marginRight: index % 2 !== 0 ? 0 : 10,
-                    flexGrow: 1,
+                    flexGrow: 0.5,
                     backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
                     paddingHorizontal: 20,
                     paddingVertical: 10,
@@ -94,17 +98,17 @@ const Tags = ({navigation,login}) => {
                 end={{ x: 3.5, y: 5 }}
                 locations={[0.2, 0.3]}
             >
-                <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+                <LogoApp width={300} height={150} />
             </LinearGradient>
             
             </View>
             <View style={styles.body}>
                 <View style={styles.row}>
-                    <SecondaryText>¿Qué te interesa?</SecondaryText>
+                    <SecondaryText color={'gray'}>¿Qué te interesa?</SecondaryText>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("Home")}
                     >
-                        <SecondaryText>Saltar</SecondaryText>
+                        <SecondaryText color={'gray'}>Saltar</SecondaryText>
                     </TouchableOpacity>
                 </View>
                 <FlatList

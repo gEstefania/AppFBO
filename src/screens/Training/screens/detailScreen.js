@@ -1,12 +1,22 @@
 import * as React from 'react';
-import { View, Image } from "react-native";
+import { View, Image, useWindowDimensions } from "react-native";
 import styles from './styles/detailScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import {PrimaryText, SecondaryText} from '@common';
+import RenderHtml from 'react-native-render-html';
 import { connect } from 'react-redux';
 
 const DetailScreen = ({route, navigation,course}) => {
-    console.log(course?.teacherPicture?.url)
+    const { width } = useWindowDimensions();
+    const source = {
+        html: `<div class="text">${course.description}</div>`
+    };
+
+    const mixedStyles = { 
+        "text": { color: '#000'}, 
+    };
+
+    //console.log(course?.teacherPicture?.url)
     return (
         <ScrollView style={styles.mainContainer}>
             <View style={styles.titleCard}>
@@ -20,13 +30,17 @@ const DetailScreen = ({route, navigation,course}) => {
                     
                 </View>
                 <View style={styles.nameCard}>
-                    <SecondaryText style={styles.speakerText}>Ponente</SecondaryText>
-                    <SecondaryText style={styles.nameSpeakerText}>{course.teacherName} {course.teacherLastname} {course.teacherSecondLastname}</SecondaryText>
-                    <SecondaryText>{course.teacherRol}</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.speakerText}>Ponente</SecondaryText>
+                    <SecondaryText color={'gray'} style={styles.nameSpeakerText}>{course.teacherName} {course.teacherLastname} {course.teacherSecondLastname}</SecondaryText>
+                    <SecondaryText color={'gray'}>{course.teacherRol}</SecondaryText>
                 </View>
             </View>
             <View style={styles.contentView}>
-                <SecondaryText>{course.description}</SecondaryText>
+                <RenderHtml
+                    classesStyles={mixedStyles}
+                    contentWidth={width}
+                    source={source}
+                />
             </View>
         </ScrollView>
     )

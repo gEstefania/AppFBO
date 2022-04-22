@@ -7,10 +7,12 @@ export default StyleSheet.create({
   },
   topicTitle: {
     fontSize: 30,
+    marginLeft: 10,
+    marginTop: 5,
   },
   imageBackground: {
     width: '100%',
-    height: 150,
+    //height: 150,
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
     marginVertical: 20,
@@ -28,7 +30,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
     padding: 20,
-    borderRadius: 25,
+    borderRadius: 75,
   },
   btnText: {
     fontSize: 16,

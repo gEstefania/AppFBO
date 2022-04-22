@@ -9,6 +9,7 @@ import { showMessage } from 'react-native-flash-message';
 import {login} from '../redux/actions/userActions'
 import { connect } from 'react-redux';
 import {IconFlechaDark} from '@icons';
+import { LogoApp } from '@icons';
 
 const Tags = ({navigation,login, route}) => {
     const [selectedUserTags, setSelectedUserTags] = useState([]);
@@ -54,7 +55,7 @@ const Tags = ({navigation,login, route}) => {
             })
             console.log("UPDATED USER", {id:res.id,...res.data()})
             login({id:res.id,...res.data()})
-            navigation.navigate("Home")
+            navigation.navigate("UserPerfil")
         }catch(e){
             console.log(e)
         }
@@ -70,13 +71,13 @@ const Tags = ({navigation,login, route}) => {
                 style={{
                 marginBottom: 10,
                 marginRight: index % 2 !== 0 ? 0 : 10,
-                flexGrow: 1,
+                flexGrow: 0.5,
                 backgroundColor:  itemFound?.selected ? '#ff5f00' : '#ff9b04',
-                paddingHorizontal: 20,
+                paddingHorizontal: 10,
                 paddingVertical: 10,
                 borderRadius: 25,
                 //maxWidth: width / 2 - 20,
-                width: item.name?.length <= 5 ? width / 2 - 100 : width / 2 - 30,
+                width: item.name?.length <= 10 ? width / 2 - 100 : width / 2 - 30,
                 }}>
                 <PrimaryText color={'#fff'} style={{textAlign: 'center'}}>{item.name}</PrimaryText>
             </TouchableOpacity>
@@ -103,13 +104,13 @@ const Tags = ({navigation,login, route}) => {
                 end={{ x: 3.5, y: 5 }}
                 locations={[0.2, 0.3]}
             >
-                <Image style={{width: 250, height: 70}} source={require('../assets/img/logo.png')}/>
+                <LogoApp width={300} height={150} />
             </LinearGradient>
             
             </View>
             <View style={styles.body}>
                 <View style={styles.row}>
-                    <SecondaryText>¿Qué te interesa?</SecondaryText>
+                    <SecondaryText color={'gray'}>¿Qué te interesa?</SecondaryText>
                 </View>
                 <FlatList
                     data={tags}

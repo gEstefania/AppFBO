@@ -4,7 +4,12 @@ import {Colors} from '@common';
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
-    padding: 20,
+  },
+  imageBackground: {
+    flex: 1,
+    alignItems: 'center',
+    paddingTop: 40,
+    padding: 0,
   },
   imgContainer: {
     flex: 1,
@@ -18,15 +23,16 @@ export default StyleSheet.create({
   title: {
     fontSize: 26,
     textAlign: 'center',
+    marginBottom: -13,
   },
   textIntro:{
     textAlign: 'center',
     maxWidth: '70%',
-    marginTop: 30,
+    marginTop: 10,
     marginBottom: 20,
   },
   btnSignUp: {
-    width: '100%',
+    width: 300,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,

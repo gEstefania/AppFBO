@@ -8,17 +8,24 @@ import { useNavigation } from '@react-navigation/native';
 import { CheckBox } from 'react-native-elements';
 import { PrimaryText, SecondaryText } from '@common';
 import {createUserSocialRegiter} from '@firestore/user' 
-import { login } from '../../redux/actions/userActions';
+import { login, IsNewUser } from '../../redux/actions/userActions';
+import { showSignUpScreen } from '../../redux/actions/configActions';
 import { ShowAlertMessage } from '@components';
 import styles from './styles/signUp';
 import {IconFacebook, IconGoogle} from '@icons';
+import functions from '@react-native-firebase/functions';
 
 const SignUp = () => {
     const [user, setUser] = useState({email: '', password: '', name: ''});
     const [checkPolicy, setCheckPolicy] = useState(false);
+    const [isTypingPass, setIsTypingPass] = useState(false);
     const dispatch = useDispatch();
     const navigation = useNavigation();
 
+    useEffect(() => {
+        dispatch(showSignUpScreen({showSignUp: false}))
+    }, [])
+    
     const insertUser = async (userProfile)=>{
         
         const userData = {
@@ -39,6 +46,16 @@ const SignUp = () => {
     }
 
     async function onSignUpButtonPress() {
+        // si la contraseña es menor a 6 caracteres
+        if (user.password.length < 6) {
+            ShowAlertMessage('Error', 'La contraseña debe tener al menos 6 caracteres');
+            return;
+        }
+        // validar si es un correo valido
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
+            ShowAlertMessage('Error', 'El correo no es valido');
+            return;
+        }
         if (user.email !== '' && user.password !== '') {
             if(checkPolicy){
                 try {
@@ -46,7 +63,10 @@ const SignUp = () => {
                     .createUserWithEmailAndPassword(user.email, user.password)
                     .then(() => {
                         insertUser(user)
-                        navigation.navigate("TagsPreferences")
+                        //navigation.navigate("Home", {screen: "Tags"})
+                        functions().httpsCallable('welcomeEmail')({to: user.email, subject: '¡Bienvenido a +Family!'})
+                        .then((response) => {console.log('Welcome email send!', response)});
+                        dispatch(IsNewUser({newUser: true}))
                         console.log('User account created & signed in!');
                     })
                     .catch(error => {
@@ -86,9 +106,13 @@ const SignUp = () => {
             // Sign-in the user with the credential
             userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
+            if (userCredentials.additionalUserInfo?.isNewUser) { // si es usuario nuevo adelante, manda el correo
+                functions().httpsCallable('welcomeEmail')({to: userProfile.email, subject: '¡Bienvenido a +Family!'})
+                .then((response) => {console.log('Welcome email send!', response)});
+            }
             if(userProfile){
                 let res = await insertUser(userProfile)
-
+                dispatch(IsNewUser({newUser: true}))
                 if(res.data()){
                     if(res.data().myTags){
                         if(res.data().myTags.length===0){
@@ -127,7 +151,12 @@ const SignUp = () => {
             const authFacebook = await auth().signInWithCredential(facebookCredential);
             if(authFacebook){
                 let userProfile = authFacebook.additionalUserInfo?.profile
+                if (authFacebook.additionalUserInfo?.isNewUser) { // si es usuario nuevo adelante, manda el correo
+                    functions().httpsCallable('welcomeEmail')({to: userProfile.email, subject: '¡Bienvenido a +Family!'})
+                    .then((response) => {console.log('Welcome email send!', response)});
+                }
                 let res = await insertUser(userProfile)
+                dispatch(IsNewUser({newUser: true}))
                 if(res.data()){
                     if(res.data().myTags){
                         if(res.data().myTags.length===0){
@@ -175,7 +204,7 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Nombre*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'sentences'}
                     value={user.name}
                     onChangeText={text => setUser({...user, name: text})}
@@ -185,7 +214,7 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.email.toLowerCase()}
                     onChangeText={text => setUser({...user, email: text})}
@@ -195,19 +224,34 @@ const SignUp = () => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña*'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.password}
                     secureTextEntry={true}
-                    onChangeText={text => setUser({...user, password: text})}
+                    onChangeText={text => {
+                        setUser({...user, password: text})
+                        if (text.length > 0) {
+                            setIsTypingPass(true)
+                        } else {
+                            setIsTypingPass(false)
+                        }
+                    }}
                 />
+                { isTypingPass && (
+                    user.password.length < 6 ? (
+                        <SecondaryText color={'red'} style={{fontSize: 12, textAlign: 'center'}}>Tu contraseña debe de tener al menos 6 caracteres</SecondaryText>
+                    ) : (
+                        <SecondaryText color={'green'} style={{fontSize: 12, textAlign: 'center', color: 'green'}}>Tu contraseña debe de tener al menos 6 caracteres</SecondaryText>
+                    )
+                )
+                }
             </View>
             <View style={styles.btnPolicyContainer}>
                 <SecondaryText>Acepto la </SecondaryText>
                 <TouchableOpacity>
-                    <SecondaryText color={'blue'}>Política de Privacidad*</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>Política de Privacidad*</SecondaryText>
                 </TouchableOpacity>
-                <CheckBox
+                <CheckBox checkedColor='#00aae4'
                     containerStyle={{padding: 0}}
                     checked={checkPolicy}
                     onPress={() => setCheckPolicy(!checkPolicy)}
@@ -220,11 +264,11 @@ const SignUp = () => {
                 <SecondaryText color={'#fff'}>REGISTRARME</SecondaryText>
             </TouchableOpacity>
             <View style={styles.btnSingInContainer}>
-                <SecondaryText>¿YA TIENES CUENTA? </SecondaryText>
+                <SecondaryText color={'gray'}>¿YA TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignIn")}
                 >
-                    <SecondaryText color={'blue'}>ENTRA</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>ENTRA</SecondaryText>
                 </TouchableOpacity>
             </View>
         </ScrollView>

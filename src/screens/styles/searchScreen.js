@@ -6,12 +6,11 @@ export default StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flex: 1,
+    //flex: 1,
     height: 150,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    //marginTop: 20,
   },
   shadow: {
     height: 1,
@@ -37,6 +36,7 @@ export default StyleSheet.create({
   },
   input:{
     width: '100%',
+    color: '#000',
     padding: 20,
     borderRadius: 30,
     backgroundColor: '#ECF1FE',
@@ -46,10 +46,36 @@ export default StyleSheet.create({
     borderTopColor: Colors.CORPORATE_ORANGE,
     borderTopWidth: 1,
     paddingLeft: 40,
+    //paddingRight: 20,
     paddingTop: 30,
   },
   titleSize:{
     fontSize: 30,
-    marginLeft: 10,
-  }
+    marginLeft: 0,
+  },
+  modal: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 30,
+    paddingHorizontal: 10,
+    marginHorizontal: 30,
+    backgroundColor: '#fff',
+    borderRadius: 20,
+  },
+  modalDetail: {
+    marginTop: 20,
+  },
+  modalTitle:{
+    fontSize: 28,
+    textAlign: 'center',
+  },
+  btnModal:{
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+    marginTop: 30,
+    borderRadius: 100,
+    backgroundColor: Colors.CORPORATE_ORANGE,
+  },
 });

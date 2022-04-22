@@ -6,21 +6,23 @@ export default StyleSheet.create({
     marginHorizontal: 20,
   },
   summaryContainer:{
-    backgroundColor: 'rgba(255, 155, 4, 0.5)', //se va a sustituir por una imagen.
-    marginBottom: 30,
-    paddingHorizontal: 30,
-    paddingTop: 30,
-    borderRadius: 30,
+    width: '100%',
+    height: 150,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    //paddingHorizontal: 30,
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 30,
   },
   columnText:{
+    //marginTop: 0,
     marginLeft: 20,
     justifyContent: 'center',
   },
   descContainer: {
+    marginLeft: 10,
+    marginTop: 15,
     flex: 2,
-  },
+  }
 });

@@ -23,12 +23,18 @@ const Login = (props) => {
     const navigation = useNavigation();
 
     async function onSignInButtonPress() {
+        // si la contraseña es menor a 6 caracteres
+        // if (user.password.length < 6) {
+        //     ShowAlertMessage('Error', 'La contraseña debe tener al menos 6 caracteres');
+        //     return;
+        // }
+        // validar si es un correo valido
+        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user.email)) {
+            ShowAlertMessage('Error', 'El correo no es valido');
+            return;
+        }
         if (user.email !== '' && user.password !== '') {
             try {
-                let getUserEnable = await firestore().collection("Users").where('email','==',user.email).get()
-                let userEnable = getUserEnable.docs[0].data().enabled
-                console.log('userEnable:', userEnable);
-                if (userEnable == true) {
                     auth()
                     .signInWithEmailAndPassword(user.email, user.password)
                     .then(async() => {
@@ -36,16 +42,7 @@ const Login = (props) => {
                         const userData={
                             email:user.email,   
                         }
-                        let res = await insertUser(userData)
-                        if(res.data()){
-                            if(res.data().myTags){
-                                if(res.data().myTags.length===0){
-                                    navigation.navigate("TagsPreferences")
-                                }
-                            }
-                        }else{
-                            navigation.navigate("Home")
-                        }
+                        await insertUser(userData)
                     })
                     .catch(error => {
                         if (error.code === 'auth/user-not-found') {
@@ -59,9 +56,6 @@ const Login = (props) => {
                         }
                         console.error(error);
                     });
-                }else{
-                    ShowAlertMessage('Usuario inexistente', '', 'warning');
-                }
             } catch (e) {
                 console.log('Login Error: ', e);
                 ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');
@@ -116,18 +110,20 @@ const Login = (props) => {
             // Sign-in the user with the credential
             let userCredentials = await auth().signInWithCredential(googleCredential);
             let userProfile = userCredentials.additionalUserInfo?.profile
+            // TODO: console.log('Google User Credentials: ', userCredentials.additionalUserInfo?.isNewUser); 
             if(userProfile){
-                let res = await insertUser(userProfile)
+                await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', idToken);
-                if(res.data()){
-                    if(res.data().myTags){
-                        if(res.data().myTags.length===0){
-                            navigation.navigate("TagsPreferences")
-                        }
-                    }
-                }else{
+                // if(res.data()){
+                //     if(res.data().myTags){
+                //         if(res.data().myTags.length===0){
+                //             console.log('No tiene tags asignados')
+                //             navigation.navigate("TagsPreferences")
+                //         }
+                //     }
+                // }else{
                     navigation.navigate("Home")
-                }
+                // }
                 
                 
                 
@@ -135,6 +131,34 @@ const Login = (props) => {
             
         } catch (error) {
             console.log('Error login with Google: ', error)
+        }
+    }
+
+    async function mailResetPassword() {
+        if (user.email !== '') { // Checa si hay un correo ingresado
+            try {
+                await auth()
+                    .sendPasswordResetEmail(user.email)
+                    .then(() => {
+                        console.log('Correo enviado');
+                        ShowAlertMessage('Email enviado', 'Revisa tu bandeja de entrada', 'success');
+                    })
+                    .catch(error => {
+                        if (error.code === 'auth/user-not-found') {
+                            ShowAlertMessage('Usuario inexistente', '', 'warning');
+                        }
+                        if (error.code === 'auth/invalid-email') {
+                            ShowAlertMessage('Email inválido', 'Por favor intentar de nuevo', 'warning');
+                        }
+                        console.error(error);
+                    });
+            } catch (e) {
+                console.log('Reset Password Error: ', e);
+                ShowAlertMessage('Algo salió mal', 'Por favor intentar de nuevo', 'warning');
+            }
+        } else {
+            console.log('Campos vacios')
+            ShowAlertMessage('Campos vacíos', 'Por favor ingresa un correo e intenta de nuevo', 'warning');
         }
     }
 
@@ -164,18 +188,19 @@ const Login = (props) => {
                 console.log("FACEBOOK ", authFacebook)
                 let userProfile = authFacebook.additionalUserInfo?.profile
 
-                let res = await insertUser(userProfile)
+                await insertUser(userProfile)
                 await AsyncStorage.setItem('@token', data.accessToken);
                 
-                if(res.data()){
-                    if(res.data().myTags){
-                        if(res.data().myTags.length===0){
-                            navigation.navigate("TagsPreferences")
-                        }
-                    }
-                }else{
+                // if(res.data()){
+                //     if(res.data().myTags){
+                //         if(res.data().myTags.length===0){
+                //             console.log('No tiene tags asignados')
+                //             navigation.navigate("TagsPreferences")
+                //         }
+                //     }
+                // }else{
                     navigation.navigate("Home")
-                }
+                // }
                 
             }
         } catch (error) {
@@ -224,7 +249,7 @@ const Login = (props) => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Email'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.email}
                     onChangeText={text => setUser({ ...user, email: text })}
@@ -234,7 +259,7 @@ const Login = (props) => {
                 <TextInput
                     style={styles.loginInput}
                     placeholder={'Contraseña'}
-                    placeholderTextColor="#000"
+                    placeholderTextColor='gray'
                     autoCapitalize={'none'}
                     value={user.password}
                     secureTextEntry={true}
@@ -248,16 +273,18 @@ const Login = (props) => {
                 <SecondaryText color={'#fff'}>ENTRAR</SecondaryText>
             </TouchableOpacity>
             <View style={styles.btnPassword}>
-                <TouchableOpacity>
-                    <SecondaryText>¿Olvidaste tu contraseña?</SecondaryText>
+                <TouchableOpacity
+                    onPress={() => mailResetPassword()}
+                >
+                    <SecondaryText style={styles.password} color={'gray'}>¿Olvidaste tu contraseña?</SecondaryText>
                 </TouchableOpacity>
             </View>
             <View style={styles.btnSingInContainer}>
-                <SecondaryText>¿NO TIENES CUENTA? </SecondaryText>
+                <SecondaryText color={'gray'}>¿NO TIENES CUENTA? </SecondaryText>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("SignUp")}
                 >
-                    <SecondaryText color={'blue'}>REGÍSTRATE</SecondaryText>
+                    <SecondaryText color={'#00aae4'}>REGÍSTRATE</SecondaryText>
                 </TouchableOpacity>
             </View>
         </ScrollView>

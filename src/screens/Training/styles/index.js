@@ -5,7 +5,6 @@ export default StyleSheet.create({
   mainContainer: {
     marginLeft: 10,
     paddingLeft: 20,
-    paddingTop: 20,
   },
   titleContainer: {
     flexDirection: 'row',
@@ -42,43 +41,51 @@ export default StyleSheet.create({
     width: 300,
     height: 400,
     padding: 20,
+    marginTop:3,
     marginHorizontal: 10,
     marginBottom: 40,
     borderRadius: 20,
     backgroundColor: '#fff',
     shadowColor: "#000",
     shadowOffset: {
-      width: 30,
-      height: 3,
+      height: 0,
+      width: 0
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.16,
+    shadowRadius: 8.50,
     elevation: 6,
   },
   cardTitle: {
+    marginTop:30,
+    marginLeft:10,
     fontSize: 18,
   },
   container: {
     flex: 1,
-    padding: 20,
+    //padding: 20,
     borderRadius: 20,
     backgroundColor: '#ECF1FE',
-    position:"relative"
+    position:"relative",
+    width: '100%',
+    height:'100%'
   },
   descriptionContainer: {
+    marginBottom: 20,
     paddingHorizontal: 20,
     paddingVertical: 25,
   },
   infoContainer:{
+    marginLeft:10,
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   icon: {
     width: 25,
     height: 25,
   },
   infoText:{
+    fontWeight: 'bold',
     fontSize: 12,
   },
   row: {
@@ -104,4 +111,17 @@ export default StyleSheet.create({
    marginLeft: 20,
    resizeMode: 'contain'
   },
+  description:{
+    fontWeight: 'bold',
+  },
+  td:{
+    fontWeight:'bold'
+  },
+  btnCourse:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 30,
+    borderRadius: 20,
+    height: 290,
+  }
 });

@@ -95,4 +95,7 @@ export default StyleSheet.create({
   btnSingInContainer: {
     flexDirection: 'row',
   },
+  password:{
+    fontWeight:'bold',
+  }
 });

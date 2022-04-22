@@ -9,7 +9,8 @@ import {PrimaryText, SecondaryText} from '@common';
 import {getActiveCourses} from '@firestore/courses'
 import {connect} from 'react-redux'
 import { setCurrentCourse } from '../../redux/actions/selectedCourseActions';
-import {IconRelojOrange, IconVideo} from '@icons';
+import {IconRelojOrange, IconVideo, LogoEscuelaFamily} from '@icons';
+import ShowModalForRegister from '../../components/showModalForRegister';
 
 const Index = (props) => {
   const [user, setUser] = useState();
@@ -32,13 +33,8 @@ const Index = (props) => {
   }, []);
 
 
-
-  const onViewAllButtonPress = () => {
-    if(user.isAnonymous == true){
-      setModalVisible(!isModalVisible);
-    }else{
-      navigation.navigate("AllCourses")
-    }
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
   }
 
   const onSignUpButtonPress = () => {
@@ -50,25 +46,27 @@ const Index = (props) => {
   }
 
   const navigateToCourseDetails=(item)=>{
-    navigation.navigate("TopMenu")
-    props.setCurrentCourse(item)
+    if(user.isAnonymous == true){
+      setModalVisible(!isModalVisible);
+    }else{
+      navigation.navigate("TopMenu")
+      props.setCurrentCourse(item)
+    }
   }
 
   const renderList = ({item}) => {
+    console.log('ITEMM', item.coverImage.url);
     return (
       <TouchableOpacity
         onPress={()=>navigateToCourseDetails(item) }
         style={styles.btnCard}
       >
         <View style={styles.container}>
-          {item?.images?.url&&(
-            <ImageBackground
-              resizeMode="cover"
-              source={{uri:item.images.url}}
-              style={styles.backgorundImage}
+            <ImageBackground imageStyle={{ borderRadius: 6}}
+            resizeMode="cover"
+            source={{uri: item?.coverImage?.url}}
+            style={styles.btnCourse}
              />
-          )}
-          <ImageBackground /> 
           <View style={{flex: 1}}>
             <PrimaryText style={styles.cardTitle}>{item.title}</PrimaryText>
           </View>
@@ -82,13 +80,22 @@ const Index = (props) => {
             <View style={styles.row}>
               <IconRelojOrange width={20} height={20} />
               <View style={styles.columnText}>
-                <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins} min</PrimaryText>
+                { item.totalHours > 0 ? ( // verificamos si hay horas o no
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalHours} h y {item.totalMins}min </PrimaryText>
+                ) : (
+                  <PrimaryText type={'Regular'} style={styles.infoText}>{item.totalMins} min</PrimaryText>
+                )}
               </View>
             </View>
           </View>
         </View>
+        <ImageBackground /> 
         <View style={styles.descriptionContainer}>
-          <SecondaryText>{item.summary.slice(0,parseInt(item.summary.length/4))} ...</SecondaryText>
+          { item.summary.length < 50 ? (
+              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,25)}</SecondaryText>
+            ) : (
+              <SecondaryText style={styles.description} color={'#828282'}>{item.summary.slice(0,25)}...</SecondaryText>
+          )}
         </View>
       </TouchableOpacity>
     );
@@ -96,30 +103,17 @@ const Index = (props) => {
 
   return(
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
-      <Image source={require('../../assets/img/formacion_index.png')} style={styles.imgIndex}/>
+      <View style={{justifyContent: 'center', alignItems: 'center', marginRight: 30,}}>
+        <LogoEscuelaFamily width={230} height={150}/>
+      </View>
       <View style={styles.titleContainer}>
         <PrimaryText style={styles.title}>#Construcciones</PrimaryText>
         <TouchableOpacity
-          onPress={() => onViewAllButtonPress()}
+          onPress={() => navigation.navigate("AllCourses")}
         >
-          <SecondaryText>Ver todo</SecondaryText>
+          <SecondaryText style={styles.td} color={'gray'}>Ver todo</SecondaryText>
         </TouchableOpacity>
-        <Modal
-          isVisible={isModalVisible}
-          onBackdropPress={() => setModalVisible(false)}
-          swipeDirection="left"
-        >
-          <View style={styles.modal}>
-            <PrimaryText>¿No tienes cuenta?</PrimaryText>
-            <SecondaryText style={styles.modalDetail}>Regístrate para poder vizualizar todo nuestro contenido</SecondaryText>
-            <TouchableOpacity
-              onPress={() => onSignUpButtonPress()}
-              style={styles.btnModal}
-            >
-              <PrimaryText color={'#fff'}>REGÍSTRATE</PrimaryText>
-            </TouchableOpacity>
-          </View>
-      </Modal>
+        <ShowModalForRegister isVisible={isModalVisible} setModalVisible={toggleModal} style={styles}/>
       </View>
       <FlatList
         horizontal

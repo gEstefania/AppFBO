@@ -14,7 +14,6 @@ export default StyleSheet.create({
     height: 140,
     justifyContent: 'flex-end',
     marginRight: 15,
-    padding: 10,
     borderRadius: 15,
     backgroundColor: Colors.PINK,
   },
@@ -26,4 +25,10 @@ export default StyleSheet.create({
   cardTitle:{
     fontSize: 12,
   },
+  backgroundImage:{
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 20,
+    borderRadius: 20,
+  }
 });

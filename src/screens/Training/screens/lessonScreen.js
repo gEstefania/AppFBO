@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { View, FlatList, TouchableOpacity } from "react-native";
-import VideoThumbnail from '../components/videoThumbnail';
 import {PrimaryText, SecondaryText} from '@common';
+import { Thumbnail } from 'react-native-thumbnail-video';
 import styles from './styles/lessonScreen';
 import { connect } from 'react-redux';
 import { getCoursesLessons } from '../../../firestore/courses';
-//import { useDispatch, useSelector } from 'react-redux';
-//import { fetchLessonDescription, fetchLessons } from '../../../redux/actions/lessonsActions';
+import {IconPlay} from '@icons';
 
 const LessonScreen = ({navigation,lessons,currentCourse}) => {
 
@@ -16,21 +15,26 @@ const LessonScreen = ({navigation,lessons,currentCourse}) => {
     },[])
 
     const renderList = ({item}) => {
-        return (
-            <TouchableOpacity
-                onPress={() => navigation.navigate("LessonVideo",{lesson:item})}
-                style={styles.btnSteps}
-            >
-                {/* <Text>{description}</Text> */}
-                <View style={styles.thumbnailContainer}>
-                    <VideoThumbnail/>
-                </View>
-                <View style={styles.descContainer}>
-                    <PrimaryText style={styles.btnText}>{item.title}</PrimaryText>
-                    <SecondaryText style={styles.btnText}>{item.subtitle}</SecondaryText>
-                </View>
-            </TouchableOpacity>
-        );
+        if(item.enabled === true){
+            return (
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("LessonVideo",{lesson:item})}
+                    style={styles.btnSteps}
+                >
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        <Thumbnail showPlayIcon={false} imageWidth={80} imageHeight={45} containerStyle={styles.thumbnail} url={item.url}>
+                            <IconPlay width={30} height={30}/>
+                        </Thumbnail>
+                        
+                    </View>
+                    <View style={styles.descContainer}>
+                        <PrimaryText style={styles.btnText}>{item.title}</PrimaryText>
+                        <SecondaryText color={'gray'} style={styles.btnText}>{item.subtitle}</SecondaryText>
+                    </View>
+                </TouchableOpacity>
+            );
+        }
+        
     };
     return (
         <View style={styles.mainContainer}>

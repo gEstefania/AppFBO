@@ -11,7 +11,7 @@ export default StyleSheet.create({
   LinearGradientView: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 50,
+    justifyContent: 'center'
   },
   row:{
     flexDirection: 'row',

@@ -8,15 +8,14 @@ export default StyleSheet.create({
   titleContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginRight: 50,
+    alignItems: 'center',
+    marginRight: 40,
   },
   cardView: {
     width: 140,
     height: 140,
     marginRight: 15,
     marginTop: 10,
-    paddingLeft: 10,
-    paddingBottom: 10,
     justifyContent: 'flex-end',
     borderRadius: 15,
   },
@@ -27,6 +26,14 @@ export default StyleSheet.create({
     fontSize: 14,
   },
   cardTitle: {
-    maxWidth: 80,
+    maxWidth: 100,
   },
+  cardImage: {
+    width: 140,
+    height: 140,
+    paddingLeft: 10,
+    paddingBottom: 10,
+    justifyContent: 'flex-end',
+    borderRadius: 15,
+  }
 });

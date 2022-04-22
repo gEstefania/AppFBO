@@ -1,33 +1,31 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {Colors} from '@common';
+
+const {width, height} = Dimensions.get('window');
 
 export default StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
-  logo: {
-    width: 250,
-    height: 70,
-    marginBottom: 40,
-  },
   imageBackground: {
     flex: 1,
     alignItems: 'center',
-    paddingTop: 50,
-    padding: 20,
+    //paddingTop: 40,
   },
   header: {
+    marginTop: height * 0.25,
     flex: 1,
     alignItems: 'center'
   },
   title: {
-    fontSize: 26,
+    marginTop:0,
+    fontSize: 24,
     textAlign: 'center',
   },
   textIntro:{
     textAlign: 'center',
     maxWidth: '75%',
-    marginTop: 30,
+    marginTop: 10,
   },
   btnContainer: {
     flex: 2,
