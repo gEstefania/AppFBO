@@ -100,10 +100,16 @@ const Category = ({route, navigation}) => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.mainContainer}>
       <PrimaryText style={styles.topicTitle}><Text style={{color: color}}>{route.params.title}</Text></PrimaryText>
       <ImageBackground
-        resizeMode="cover"
+        resizeMode="contain"
         source={{uri: img.url}}
-        style={styles.imageBackground}>
-        <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
+        style={styles.imageBackground}
+        >
+          {countWords(route.params.title) > 1 ? (
+          <SecondaryText color={'#fff'} style={styles.imageText}>{description.substring(0,70)}...</SecondaryText>
+        ) : (
+          <SecondaryText color={'#fff'} style={styles.imageText}>{description}</SecondaryText>
+        )}
+        
       </ImageBackground> 
       <FlatList
         data={dataSubCategories}

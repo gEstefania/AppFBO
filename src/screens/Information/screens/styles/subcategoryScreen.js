@@ -12,7 +12,7 @@ export default StyleSheet.create({
   },
   imageBackground: {
     width: '100%',
-    height: 150,
+    //height: 150,
     justifyContent: 'flex-end',
     alignItems: 'flex-start',
     marginVertical: 20,
