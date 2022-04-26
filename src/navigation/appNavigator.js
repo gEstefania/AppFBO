@@ -117,14 +117,13 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Perfil"
-        component={ProfileStackScreen}
+        name="Buscar"
+        component={SearchScreen}
         options={{
-          lazy:true,
-          tabBarLabel: 'Perfil',
+          tabBarLabel: 'Buscar',
           tabBarIcon: ({ focused }) => (
-            focused ? <IconPerfilHover width={30} height={30} /> : <IconPerfil width={30} height={30} />)
-          }}
+          focused ? <IconBuscarHover width={30} height={30} /> : <IconBuscar width={30} height={30} />)
+        }}
       />
       <BottomTab.Screen
         name="Hablemos"
@@ -137,8 +136,6 @@ function BottomTabNavigator() {
           tabBarIcon: ({ focused }) => (
             focused ? <IconHablemosHover width={30} height={30} /> : <IconHablemos width={30} height={30} />)
         }}
-
-        
       />
       <BottomTab.Screen
         name="Sugerencias"
@@ -153,13 +150,14 @@ function BottomTabNavigator() {
         }}
       />
       <BottomTab.Screen
-        name="Buscar"
-        component={SearchScreen}
+        name="Perfil"
+        component={ProfileStackScreen}
         options={{
-          tabBarLabel: 'Buscar',
+          lazy:true,
+          tabBarLabel: 'Perfil',
           tabBarIcon: ({ focused }) => (
-          focused ? <IconBuscarHover width={30} height={30} /> : <IconBuscar width={30} height={30} />)
-        }}
+            focused ? <IconPerfilHover width={30} height={30} /> : <IconPerfil width={30} height={30} />)
+          }}
       />
     </BottomTab.Navigator>
   )

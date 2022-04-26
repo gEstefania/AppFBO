@@ -8,22 +8,25 @@ const CardCompanies = () => {
   const navigation = useNavigation();
   const dataList = [
     {
-      image: require('../../../assets/img/company_logos/logo_fundacion_once.jpeg'),
+      image: require('../../../assets/img/company_logos/fcaser-logo-new.png'),
+    },
+    {
+      image: require('../../../assets/img/company_logos/logo_konecta.png'),
+    },
+    {
+      image: require('../../../assets/img/company_logos/logo_academia_talent_heart.png'),
     },
     {
       image: require('../../../assets/img/company_logos/logo_fundacion_mapfre.jpeg'),
     },
     {
-      image: require('../../../assets/img/company_logos/fcaser-logo-new.png'),
+      image: require('../../../assets/img/company_logos/logo_telefonica.jpg'),
     },
     {
       image: require('../../../assets/img/company_logos/logo_AC_Hotels.png'),
     },
     {
-      image: require('../../../assets/img/company_logos/logo_OZEIN.jpeg'),
-    },
-    {
-      image: require('../../../assets/img/company_logos/logo_academia_talent_heart.png'),
+      image: require('../../../assets/img/company_logos/logo_dial_cieca.png'),
     },
   ];
 
