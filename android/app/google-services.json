@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "87191973761",
-    "project_id": "apparticulos",
-    "storage_bucket": "apparticulos.appspot.com"
+    "project_number": "942954313320",
+    "project_id": "appfbotest",
+    "storage_bucket": "appfbotest.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:87191973761:android:19cdff909dcd14107ec280",
+        "mobilesdk_app_id": "1:942954313320:android:46c780a8cf3e8652172ddd",
         "android_client_info": {
           "package_name": "com.appfbo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com",
+          "client_id": "942954313320-padgevoiverk8196cqqfevh56bkdklcj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmxxbrPwA4v0SlEicXUMec9o0J_m14dAc"
+          "current_key": "AIzaSyCw5Swyrk0Aebh3nya_MWfws_dPC-oa4G8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "87191973761-ar8m75fg58jijj3evhsvr2vsbmnj34d9.apps.googleusercontent.com",
+              "client_id": "942954313320-padgevoiverk8196cqqfevh56bkdklcj.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "87191973761-dpdrefl738kbprhaf2sq01jqvgalfgiv.apps.googleusercontent.com",
+              "client_id": "942954313320-8jpdlj591s8a5k6le5i35d5o7n8ogmkb.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "org.reactjs.native.example.AppArticulos"
+                "bundle_id": "org.reactjs.native.example.AppFBO"
               }
             }
           ]

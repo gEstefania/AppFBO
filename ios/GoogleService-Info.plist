@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>87191973761-nndahklk469gd0dsjd63av2g53e0b6hs.apps.googleusercontent.com</string>
+	<string>942954313320-8jpdlj591s8a5k6le5i35d5o7n8ogmkb.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.87191973761-nndahklk469gd0dsjd63av2g53e0b6hs</string>
+	<string>com.googleusercontent.apps.942954313320-8jpdlj591s8a5k6le5i35d5o7n8ogmkb</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAkurJXIxXfeh7IduKJ0uKiUhzAKT5LeC4</string>
+	<string>AIzaSyBJ8CZqDBOR_6BFdOKKMqXMn__Mn74RWnM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>87191973761</string>
+	<string>942954313320</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>org.reactjs.native.example.AppFBO</string>
 	<key>PROJECT_ID</key>
-	<string>apparticulos</string>
+	<string>appfbotest</string>
 	<key>STORAGE_BUCKET</key>
-	<string>apparticulos.appspot.com</string>
+	<string>appfbotest.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:87191973761:ios:df227115190066717ec280</string>
+	<string>1:942954313320:ios:0b184996be3d9296172ddd</string>
 </dict>
 </plist>
