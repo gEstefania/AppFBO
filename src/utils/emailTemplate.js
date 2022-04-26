@@ -75,9 +75,8 @@ export const unsuscribeMail = (name) => {
         </header>
         <div class=3D"email-body">
             <div class=3D"content-body">
-                <h1 class=3D"title">¡Hasta la proxima!</h1>
-                <p>Hola ${name}, hemos detectado que te has dado de baja, esperamos
-                verte pronto nuevamente!</p>
+                <h1 class=3D"title">¡Gracias por habernos acompañado!</h1>
+                <p>Ojalá hayamos podido ayudaros como necesitabais. Por favor, no dudéis en poneros en contacto con nosotros si creéis que podemos mejorar nuestra App.</p>
             </div>
             <footer>
                 <div class=3D"social-media">
