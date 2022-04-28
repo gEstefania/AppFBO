@@ -8,24 +8,23 @@ export default StyleSheet.create({
     flex: 1,
   },
   imageBackground: {
-    flex: 1,
-    alignItems: 'center',
+    height: height,
+    width: width,
     //paddingTop: 40,
   },
   header: {
     marginTop: height * 0.25,
-    flex: 1,
-    alignItems: 'center'
+    height: height * 0.20,
+    alignItems: 'center',
   },
   title: {
     marginTop:0,
-    fontSize: 24,
+    fontSize: height * 0.03,
     textAlign: 'center',
   },
   textIntro:{
     textAlign: 'center',
     maxWidth: '75%',
-    marginTop: 10,
   },
   btnContainer: {
     flex: 2,

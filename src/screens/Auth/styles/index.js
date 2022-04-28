@@ -1,5 +1,14 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 import {Colors} from '@common';
+
+const { width, height } = Dimensions.get('window');
+let heightFix = 0;
+
+if (height > 700) {
+  heightFix = height;
+} else {
+  heightFix = height * 0.8;
+}
 
 export default StyleSheet.create({
   mainContainer: {
@@ -7,6 +16,7 @@ export default StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
+    height: heightFix,
     alignItems: 'center',
     paddingTop: 40,
     padding: 0,
@@ -21,7 +31,7 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   title: {
-    fontSize: 26,
+    fontSize: height * 0.04,
     textAlign: 'center',
     marginBottom: -13,
   },
