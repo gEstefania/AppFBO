@@ -12,7 +12,7 @@ export const getArticles=(catId, subCatId, topicId)=>{
                 .collection('Users')
                 .doc(user.id)
                 .get()
-                let groupId = group.data().group
+                let groupId = group?.data()?.group
                 console.log('GROUP', groupId);
 
                 let querySubCategory = 

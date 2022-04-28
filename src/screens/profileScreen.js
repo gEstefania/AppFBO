@@ -157,9 +157,19 @@ const ProfileScreen = (props) => {
             //await GoogleSignin.signOut();
             //Redux:
             dispatch(logout())
+            //State:
             setUserInfo({ name: '', email: '' })
             setUser(null)
+            //If Anonymous user:
+            if (userAuth.isAnonymous == true) {
+                console.log('entro a if');
+                // Eliminar anonymous user de Auth:
+                auth().currentUser.delete().then(() => {
+                console.log('Anonymous User deleted from authentication');
+            })
+            //Logout de Auth:
             auth().signOut().then(() => console.log('User signed out!'));
+            }
             await unregisterDevice()
         } catch (error) {
             console.error(error);

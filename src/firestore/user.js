@@ -172,7 +172,7 @@ export const showArticlesByGroup=()=>{
             .collection('Users')
             .doc(user.id)
             .get()
-            let groupId = group.data().group
+            let groupId = group?.data()?.group
             console.log('GROUP', groupId);
 
             // obtener los articulos de la coleccion articles que pertenecen a los grupos del usuario
