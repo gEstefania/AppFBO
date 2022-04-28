@@ -10,7 +10,8 @@ const Index = () => {
      <View style={styles.mainContainer}>
          <ImageBackground
                 resizeMode="cover"
-                style={styles.imageBackground}
+                imageStyle={ styles.imageBackground }
+                style={{ flex: 1 }}
                 source={require('../../assets/img/APP-FBO-pantallaRegistrate.png')}>
 
          <View style={styles.textContainer}>
