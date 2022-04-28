@@ -32,6 +32,7 @@ import _FBO_icon_phone_hover from './FBO-icono-phone-hover.svg';
 import _logo_app from './logo_+family_blanco.svg';
 import _logo_app_color from './logo_+family_color.svg';
 import _logo_escuela_family from './APP-FBO-escuela+family.svg';
+import _logotipo_app from './logotipo_app_blanco.svg';
 
 export const IconBuscar = _buscar;
 export const IconBuscarHover = _buscar_hover;
@@ -65,3 +66,4 @@ export const IconVideo = _FBO_icon_video;
 export const LogoApp = _logo_app;
 export const LogoAppColor = _logo_app_color;
 export const LogoEscuelaFamily = _logo_escuela_family;
+export const LogotipoApp = _logotipo_app;

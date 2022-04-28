@@ -30,7 +30,7 @@ import Preferences from '../screens/preferences'
 import Intro from '../screens/intro';
 import Index from '../screens/Auth/index';
 //icons
-import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconHome, IconHomeHover, LogoApp} from '@icons';
+import { IconBuscar, IconBuscarHover, IconHablemosHover, IconHablemos, IconPerfilHover, IconPerfil, IconSugerenciasHover, IconSugerencias, IconHome, IconHomeHover, LogotipoApp} from '@icons';
 import { navigationRef } from './RootNavigation';
 
 const TopTab = createMaterialTopTabNavigator();
@@ -175,7 +175,7 @@ function TopTapNavigator() {
       locations={[0.10, 0.4]}
     >
       <View style={{backgroundColor: 'transparent', alignItems: 'center', paddingTop: 20,}}>
-        <LogoApp width={230} height={100} />
+        <LogotipoApp width={230} height={100} />
       </View>
       <TopTab.Navigator
       initialRouteName={'Explorar'}
